@@ -1,22 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Code2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { urlFor } from "@/lib/sanity";
 
-import { useMemo } from "react";
-import { projects, projectCategories } from "@/lib/data";
+interface Project {
+    _id: string;
+    title: string;
+    description: string;
+    image: any;
+    category: string;
+    tech: string[];
+    demo?: string;
+    repo?: string;
+}
 
-export default function Projects() {
+interface ProjectsProps {
+    initialProjects: Project[];
+}
+
+export default function Projects({ initialProjects = [] }: ProjectsProps) {
     const [activeCategory, setActiveCategory] = useState("All");
+
+    // Derive categories from projects
+    const projectCategories = useMemo(() => {
+        const categories = new Set(initialProjects.map(p => p.category));
+        return ["All", ...Array.from(categories)];
+    }, [initialProjects]);
 
     const filteredProjects = useMemo(() => {
         return activeCategory === "All"
-            ? projects
-            : projects.filter(project => project.category === activeCategory);
-    }, [activeCategory]);
+            ? initialProjects
+            : initialProjects.filter(project => project.category === activeCategory);
+    }, [activeCategory, initialProjects]);
+
+    if (!initialProjects.length) {
+        return null; // Or a loading state/empty state
+    }
 
     return (
         <section id="projects" className="py-20 bg-muted/30">
@@ -58,23 +81,29 @@ export default function Projects() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
-                                key={project.id}
+                                key={project._id}
                                 className="group bg-background rounded-2xl overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300"
                             >
                                 <div className="relative h-64 overflow-hidden">
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
+                                    {project.image && (
+                                        <Image
+                                            src={urlFor(project.image).url()}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    )}
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                                        <Button size="sm" variant="secondary" onClick={() => window.open(project.demo, "_blank")}>
-                                            <ExternalLink className="w-4 h-4 mr-2" /> Live Demo
-                                        </Button>
-                                        <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.repo, "_blank")}>
-                                            <Github className="w-4 h-4 mr-2" /> Code
-                                        </Button>
+                                        {project.demo && (
+                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.demo, "_blank")}>
+                                                <ExternalLink className="w-4 h-4 mr-2" /> Live Demo
+                                            </Button>
+                                        )}
+                                        {project.repo && (
+                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.repo, "_blank")}>
+                                                <Github className="w-4 h-4 mr-2" /> Code
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
 
@@ -95,7 +124,7 @@ export default function Projects() {
                                     </p>
 
                                     <div className="flex flex-wrap gap-2">
-                                        {project.tech.map((tech) => (
+                                        {project.tech && project.tech.map((tech) => (
                                             <span
                                                 key={tech}
                                                 className="text-xs font-medium text-foreground/60 bg-muted px-2 py-1 rounded-md flex items-center"

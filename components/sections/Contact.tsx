@@ -1,10 +1,57 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { submitContactForm } from "@/lib/supabase";
 
 export default function Contact() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+    });
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({ ...prev, [id]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setStatus("idle");
+        setErrorMessage("");
+
+        try {
+            // Save to Supabase
+            await submitContactForm(formData);
+
+            // Send email notification
+            await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            setStatus("success");
+            setFormData({ name: "", email: "", subject: "", message: "" });
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setStatus("error");
+            setErrorMessage("Something went wrong. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <section id="contact" className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,51 +116,89 @@ export default function Contact() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        <form className="space-y-6 bg-background p-8 rounded-3xl shadow-lg border border-muted">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="text-sm font-medium">Name</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                        placeholder="John Doe"
-                                    />
+                        <form onSubmit={handleSubmit} className="space-y-6 bg-background p-8 rounded-3xl shadow-lg border border-muted">
+                            {status === "success" ? (
+                                <div className="flex flex-col items-center justify-center py-12 text-center space-y-4">
+                                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                        <CheckCircle className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-green-700">Message Sent!</h3>
+                                    <p className="text-foreground/70">Thanks for reaching out. I&apos;ll get back to you soon.</p>
+                                    <Button variant="outline" onClick={() => setStatus("idle")}>
+                                        Send another message
+                                    </Button>
                                 </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                        placeholder="john@example.com"
-                                    />
-                                </div>
-                            </div>
+                            ) : (
+                                <>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label htmlFor="name" className="text-sm font-medium">Name</label>
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                required
+                                                className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                placeholder="John Doe"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="email" className="text-sm font-medium">Email</label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                                className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                placeholder="john@example.com"
+                                            />
+                                        </div>
+                                    </div>
 
-                            <div className="space-y-2">
-                                <label htmlFor="subject" className="text-sm font-medium">Subject</label>
-                                <input
-                                    type="text"
-                                    id="subject"
-                                    className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                    placeholder="Project Inquiry"
-                                />
-                            </div>
+                                    <div className="space-y-2">
+                                        <label htmlFor="subject" className="text-sm font-medium">Subject</label>
+                                        <input
+                                            type="text"
+                                            id="subject"
+                                            value={formData.subject}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            placeholder="Project Inquiry"
+                                        />
+                                    </div>
 
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium">Message</label>
-                                <textarea
-                                    id="message"
-                                    rows={4}
-                                    className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
-                                    placeholder="Tell me about your project..."
-                                />
-                            </div>
+                                    <div className="space-y-2">
+                                        <label htmlFor="message" className="text-sm font-medium">Message</label>
+                                        <textarea
+                                            id="message"
+                                            rows={4}
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                                            placeholder="Tell me about your project..."
+                                        />
+                                    </div>
 
-                            <Button className="w-full" size="lg">
-                                Send Message <Send className="ml-2 w-4 h-4" />
-                            </Button>
+                                    {status === "error" && (
+                                        <div className="flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-lg text-sm">
+                                            <AlertCircle className="w-4 h-4" />
+                                            {errorMessage}
+                                        </div>
+                                    )}
+
+                                    <Button className="w-full" size="lg" disabled={loading}>
+                                        {loading ? (
+                                            <>Sending... <Loader2 className="ml-2 w-4 h-4 animate-spin" /></>
+                                        ) : (
+                                            <>Send Message <Send className="ml-2 w-4 h-4" /></>
+                                        )}
+                                    </Button>
+                                </>
+                            )}
                         </form>
                     </motion.div>
                 </div>

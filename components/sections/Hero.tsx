@@ -22,9 +22,9 @@ export default function Hero() {
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
                 >
-                    Building digital
+                    Hola, soy Wilfredo Melgar
                     <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
-                        experiences that matter.
+                        Ingeniero en Sistemas
                     </span>
                 </motion.h1>
 
@@ -34,7 +34,7 @@ export default function Hero() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-xl text-foreground/60 max-w-2xl mb-10 leading-relaxed"
                 >
-                    I&apos;m a Full Stack Developer passionate about crafting accessible, pixel-perfect, and performant web applications.
+                    Con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en crear aplicaciones web robustas, escalables y de alto rendimiento.
                 </motion.p>
 
                 <motion.div

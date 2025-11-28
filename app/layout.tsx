@@ -15,28 +15,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio | Full Stack Developer",
-  description: "Professional portfolio showcasing my projects and skills.",
+  title: "Wilfredo Melgar | Ingeniero en Sistemas",
+  description: "Ingeniero en Sistemas con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en aplicaciones web escalables y de alto rendimiento.",
   openGraph: {
-    title: "My Portfolio | Full Stack Developer",
-    description: "Professional portfolio showcasing my projects and skills.",
-    url: "https://example.com",
-    siteName: "My Portfolio",
+    title: "Wilfredo Melgar | Ingeniero en Sistemas",
+    description: "Ingeniero en Sistemas con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras.",
+    url: "https://wilfredo-melgar.vercel.app",
+    siteName: "Wilfredo Melgar Portfolio",
     images: [
       {
-        url: "https://example.com/og.png",
+        url: "https://wilfredo-melgar.vercel.app/og.png",
         width: 1200,
         height: 630,
       },
     ],
-    locale: "en_US",
+    locale: "es_ES",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Portfolio | Full Stack Developer",
-    description: "Professional portfolio showcasing my projects and skills.",
-    images: ["https://example.com/og.png"],
+    title: "Wilfredo Melgar | Ingeniero en Sistemas",
+    description: "Ingeniero en Sistemas con 10 años de experiencia en desarrollo de software.",
+    images: ["https://wilfredo-melgar.vercel.app/og.png"],
   },
 };
 
@@ -46,9 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        suppressHydrationWarning
       >
         <Navigation />
         <main className="min-h-screen">

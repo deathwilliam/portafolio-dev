@@ -26,13 +26,13 @@ export default function About() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         <h3 className="text-2xl font-bold mb-4">
-                            I&apos;m a passionate developer creating modern web solutions.
+                            Ingeniero en Sistemas apasionado por la tecnología.
                         </h3>
                         <p className="text-foreground/70 mb-6 leading-relaxed">
-                            With over 5 years of experience in full-stack development, I specialize in building scalable, secure, and user-friendly applications. My journey started with a curiosity for how things work on the web, which evolved into a career of solving complex problems with elegant code.
+                            Con más de 10 años de experiencia en desarrollo de software, me especializo en crear aplicaciones escalables, seguras y centradas en el usuario. Mi trayectoria comenzó con la curiosidad por entender cómo funcionan las tecnologías web, lo que evolucionó en una carrera dedicada a resolver problemas complejos con código elegante.
                         </p>
                         <p className="text-foreground/70 mb-8 leading-relaxed">
-                            I thrive in collaborative environments and enjoy mentoring junior developers. When I&apos;m not coding, you can find me exploring new technologies, contributing to open source, or hiking in nature.
+                            Me apasiona trabajar en entornos colaborativos y compartir conocimientos con otros desarrolladores. Cuando no estoy programando, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y manteniéndome actualizado con las últimas tendencias del desarrollo web.
                         </p>
 
                         <div className="grid grid-cols-2 gap-4">
