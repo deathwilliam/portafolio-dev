@@ -6,6 +6,7 @@ import { ExternalLink, Github, Code2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { urlFor } from "@/lib/sanity";
+import { useTranslations } from 'next-intl';
 
 interface Project {
     _id: string;
@@ -24,6 +25,7 @@ interface ProjectsProps {
 
 export default function Projects({ initialProjects = [] }: ProjectsProps) {
     const [activeCategory, setActiveCategory] = useState("All");
+    const t = useTranslations('Projects');
 
     // Derive categories from projects
     const projectCategories = useMemo(() => {
@@ -51,7 +53,7 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                 </motion.div>
 
@@ -66,7 +68,7 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 : "bg-background text-foreground/70 hover:bg-muted border border-muted"
                                 }`}
                         >
-                            {category}
+                            {category === "All" ? t('all') : category}
                         </button>
                     ))}
                 </div>
@@ -96,12 +98,12 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                                         {project.demo && (
                                             <Button size="sm" variant="secondary" onClick={() => window.open(project.demo, "_blank")}>
-                                                <ExternalLink className="w-4 h-4 mr-2" /> Live Demo
+                                                <ExternalLink className="w-4 h-4 mr-2" /> {t('viewDemo')}
                                             </Button>
                                         )}
                                         {project.repo && (
                                             <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.repo, "_blank")}>
-                                                <Github className="w-4 h-4 mr-2" /> Code
+                                                <Github className="w-4 h-4 mr-2" /> {t('viewCode')}
                                             </Button>
                                         )}
                                     </div>

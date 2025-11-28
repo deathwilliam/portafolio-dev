@@ -1,0 +1,79 @@
+{
+    "Navigation": {
+        "about": "Sobre mí",
+        "skills": "Habilidades",
+        "projects": "Proyectos",
+        "testimonials": "Testimonios",
+        "blog": "Blog",
+        "contact": "Contacto"
+    },
+    "Hero": {
+        "greeting": "Hola, soy Wilfredo Melgar",
+        "role": "Ingeniero en Sistemas",
+        "description": "Con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en crear aplicaciones web robustas, escalables y de alto rendimiento.",
+        "viewProjects": "Ver Proyectos",
+        "downloadCV": "Descargar CV"
+    },
+    "About": {
+        "title": "Sobre Mí",
+        "intro": "Ingeniero en Sistemas apasionado por la tecnología.",
+        "bio1": "Con más de 10 años de experiencia en desarrollo de software, me especializo en crear aplicaciones escalables, seguras y centradas en el usuario. Mi trayectoria comenzó con la curiosidad por entender cómo funcionan las tecnologías web, lo que evolucionó en una carrera dedicada a resolver problemas complejos con código elegante.",
+        "bio2": "Me apasiona trabajar en entornos colaborativos y compartir conocimientos con otros desarrolladores. Cuando no estoy programando, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y manteniéndome actualizado con las últimas tendencias del desarrollo web.",
+        "location": "San Francisco, CA",
+        "availability": "Disponible ahora",
+        "experience": "Años de Experiencia",
+        "projects": "Proyectos Completados",
+        "clients": "Clientes Felices"
+    },
+    "Skills": {
+        "title": "Habilidades Técnicas",
+        "subtitle": "Mi stack tecnológico y herramientas",
+        "description": "Un conjunto de herramientas completo que me permite construir aplicaciones escalables y de alta calidad."
+    },
+    "Projects": {
+        "title": "Proyectos Destacados",
+        "subtitle": "Una selección de mis trabajos recientes",
+        "viewDemo": "Ver Demo",
+        "viewCode": "Ver Código",
+        "all": "Todos"
+    },
+    "Testimonials": {
+        "title": "Lo que dicen mis clientes",
+        "subtitle": "Testimonios de personas con las que he trabajado"
+    },
+    "Blog": {
+        "title": "Últimos Artículos",
+        "subtitle": "Pensamientos sobre desarrollo y tecnología",
+        "readMore": "Leer más",
+        "readTime": "5 min lectura",
+        "viewAll": "Ver todas las publicaciones"
+    },
+    "Contact": {
+        "title": "Contáctame",
+        "subtitle": "¿Tienes un proyecto en mente? Hablemos.",
+        "description": "¿Tienes un proyecto en mente o simplemente quieres saludar? Me encantaría saber de ti.",
+        "collabTitle": "Construyamos algo increíble juntos",
+        "collabDesc": "Actualmente estoy disponible para proyectos freelance y abierto a oportunidades de tiempo completo. Si tienes una pregunta o simplemente quieres conectar, ¡no dudes en escribirme!",
+        "emailLabel": "Envíame un correo a",
+        "socialsLabel": "Redes Sociales",
+        "name": "Nombre",
+        "namePlaceholder": "Juan Pérez",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "juan@ejemplo.com",
+        "subject": "Asunto",
+        "subjectPlaceholder": "Consulta de Proyecto",
+        "message": "Mensaje",
+        "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+        "send": "Enviar Mensaje",
+        "sending": "Enviando...",
+        "successTitle": "¡Mensaje Enviado!",
+        "successMessage": "Gracias por contactarme. Te responderé pronto.",
+        "sendAnother": "Enviar otro mensaje",
+        "error": "Algo salió mal. Por favor intenta de nuevo más tarde."
+    },
+    "Footer": {
+        "rights": "Todos los derechos reservados.",
+        "quickLinks": "Enlaces Rápidos",
+        "socials": "Redes Sociales"
+    }
+}

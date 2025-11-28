@@ -5,6 +5,7 @@ import {
     Database, Layout, Smartphone,
     Terminal
 } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 const skills = [
     {
@@ -30,6 +31,8 @@ const skills = [
 ];
 
 export default function Skills() {
+    const t = useTranslations('Skills');
+
     return (
         <section id="skills" className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,10 +43,10 @@ export default function Skills() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills & Expertise</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                     <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                        A comprehensive toolkit that enables me to build high-quality, scalable applications.
+                        {t('description')}
                     </p>
                 </motion.div>
 

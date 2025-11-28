@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Download } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export default function Hero() {
+    const t = useTranslations('Hero');
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
             {/* Background Elements */}
@@ -22,9 +25,9 @@ export default function Hero() {
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
                 >
-                    Hola, soy Wilfredo Melgar
+                    {t('greeting')}
                     <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
-                        Ingeniero en Sistemas
+                        {t('role')}
                     </span>
                 </motion.h1>
 
@@ -34,7 +37,7 @@ export default function Hero() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-xl text-foreground/60 max-w-2xl mb-10 leading-relaxed"
                 >
-                    Con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en crear aplicaciones web robustas, escalables y de alto rendimiento.
+                    {t('description')}
                 </motion.p>
 
                 <motion.div
@@ -44,10 +47,10 @@ export default function Hero() {
                     className="flex flex-col sm:flex-row gap-4"
                 >
                     <Button size="lg" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
-                        View Projects <ArrowRight className="ml-2 h-5 w-5" />
+                        {t('viewProjects')} <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                     <Button variant="outline" size="lg">
-                        Download CV <Download className="ml-2 h-5 w-5" />
+                        {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
                     </Button>
                 </motion.div>
             </div>

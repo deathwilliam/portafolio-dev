@@ -5,6 +5,7 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import { Button } from "@/components/ui/Button";
+import { useTranslations, useLocale } from 'next-intl';
 
 interface BlogPost {
     _id: string;
@@ -21,6 +22,9 @@ interface BlogProps {
 }
 
 export default function Blog({ initialPosts = [] }: BlogProps) {
+    const t = useTranslations('Blog');
+    const locale = useLocale();
+
     if (!initialPosts.length) {
         return null;
     }
@@ -29,7 +33,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
     const latestPosts = initialPosts.slice(0, 3);
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('es-ES', {
+        return new Date(dateString).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -46,10 +50,10 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Últimas Publicaciones</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                     <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                        Pensamientos, tutoriales y reflexiones sobre desarrollo web
+                        {t('subtitle')}
                     </p>
                 </motion.div>
 
@@ -85,7 +89,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Clock className="w-4 h-4" />
-                                        5 min lectura
+                                        {t('readTime')}
                                     </span>
                                 </div>
 
@@ -121,7 +125,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                                     size="sm"
                                     className="w-full justify-between mt-auto group/btn"
                                 >
-                                    Leer más
+                                    {t('readMore')}
                                     <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                                 </Button>
                             </div>
@@ -139,7 +143,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                         className="text-center mt-12"
                     >
                         <Button size="lg" variant="outline">
-                            Ver todas las publicaciones
+                            {t('viewAll')}
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Button>
                     </motion.div>

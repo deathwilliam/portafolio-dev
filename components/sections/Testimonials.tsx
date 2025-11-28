@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
+import { useTranslations } from 'next-intl';
 
 interface Testimonial {
     _id: string;
@@ -20,6 +21,8 @@ interface TestimonialsProps {
 }
 
 export default function Testimonials({ initialTestimonials = [] }: TestimonialsProps) {
+    const t = useTranslations('Testimonials');
+
     if (!initialTestimonials.length) {
         return null;
     }
@@ -34,10 +37,10 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Testimonios</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                     <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                        Lo que dicen las personas con las que he trabajado
+                        {t('subtitle')}
                     </p>
                 </motion.div>
 
@@ -57,8 +60,8 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                     <Star
                                         key={i}
                                         className={`w-5 h-5 ${i < testimonial.rating
-                                                ? "text-yellow-500 fill-yellow-500"
-                                                : "text-muted"
+                                            ? "text-yellow-500 fill-yellow-500"
+                                            : "text-muted"
                                             }`}
                                     />
                                 ))}

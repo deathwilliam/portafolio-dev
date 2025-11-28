@@ -2,43 +2,47 @@
 
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
-
-const socialLinks = [
-    {
-        name: "GitHub",
-        icon: <Github className="w-5 h-5" />,
-        href: "https://github.com/deathwilliam",
-        color: "hover:text-gray-400"
-    },
-    {
-        name: "LinkedIn",
-        icon: <Linkedin className="w-5 h-5" />,
-        href: "https://linkedin.com/in/wilfredo-melgar",
-        color: "hover:text-blue-400"
-    },
-    {
-        name: "Twitter",
-        icon: <Twitter className="w-5 h-5" />,
-        href: "https://twitter.com/wilfredomelgar",
-        color: "hover:text-sky-400"
-    },
-    {
-        name: "Email",
-        icon: <Mail className="w-5 h-5" />,
-        href: "mailto:wilfredo.melgar@example.com",
-        color: "hover:text-red-400"
-    },
-];
-
-const quickLinks = [
-    { name: "Inicio", href: "#hero" },
-    { name: "Sobre Mí", href: "#about" },
-    { name: "Proyectos", href: "#projects" },
-    { name: "Contacto", href: "#contact" },
-];
+import Link from "next/link";
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+    const t = useTranslations('Footer');
+    const tNav = useTranslations('Navigation');
     const currentYear = new Date().getFullYear();
+
+    const socialLinks = [
+        {
+            name: "GitHub",
+            icon: <Github className="w-5 h-5" />,
+            href: "https://github.com/deathwilliam",
+            color: "hover:text-gray-400"
+        },
+        {
+            name: "LinkedIn",
+            icon: <Linkedin className="w-5 h-5" />,
+            href: "https://linkedin.com/in/wilfredo-melgar",
+            color: "hover:text-blue-400"
+        },
+        {
+            name: "Twitter",
+            icon: <Twitter className="w-5 h-5" />,
+            href: "https://twitter.com/wilfredomelgar",
+            color: "hover:text-sky-400"
+        },
+        {
+            name: "Email",
+            icon: <Mail className="w-5 h-5" />,
+            href: "mailto:wilfredo.melgar@example.com",
+            color: "hover:text-red-400"
+        },
+    ];
+
+    const quickLinks = [
+        { name: tNav('about'), href: "#about" },
+        { name: tNav('projects'), href: "#projects" },
+        { name: tNav('blog'), href: "#blog" },
+        { name: tNav('contact'), href: "#contact" },
+    ];
 
     const scrollToSection = (href: string) => {
         const element = document.querySelector(href);
@@ -72,10 +76,10 @@ export default function Footer() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        <h4 className="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+                        <h4 className="text-lg font-semibold mb-4">{t('quickLinks')}</h4>
                         <ul className="space-y-2">
                             {quickLinks.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <button
                                         onClick={() => scrollToSection(link.href)}
                                         className="text-foreground/60 hover:text-primary transition-colors text-sm"
@@ -94,7 +98,7 @@ export default function Footer() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <h4 className="text-lg font-semibold mb-4">Conecta Conmigo</h4>
+                        <h4 className="text-lg font-semibold mb-4">{t('socials')}</h4>
                         <div className="flex space-x-4">
                             {socialLinks.map((social) => (
                                 <motion.a
@@ -123,7 +127,7 @@ export default function Footer() {
                     className="pt-8 border-t border-muted text-center"
                 >
                     <p className="text-foreground/60 text-sm flex items-center justify-center gap-2">
-                        © {currentYear} Wilfredo Melgar. Hecho con
+                        © {currentYear} Wilfredo Melgar. {t('rights')}
                         <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
                         y Next.js
                     </p>

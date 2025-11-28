@@ -5,12 +5,13 @@ import Link from "next/link";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-import { navLinks } from "@/lib/data";
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const t = useTranslations('Navigation');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,6 +24,15 @@ export default function Navigation() {
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const navLinks = [
+        { name: t('about'), href: "#about" },
+        { name: t('skills'), href: "#skills" },
+        { name: t('projects'), href: "#projects" },
+        { name: t('testimonials'), href: "#testimonials" },
+        { name: t('blog'), href: "#blog" },
+        { name: t('contact'), href: "#contact" },
+    ];
 
     return (
         <nav
@@ -51,7 +61,9 @@ export default function Navigation() {
                                 {link.name}
                             </Link>
                         ))}
+
                         <div className="flex items-center space-x-4 ml-4 border-l pl-4 border-muted">
+                            <LanguageSwitcher />
                             <a
                                 href="https://github.com"
                                 target="_blank"
@@ -74,7 +86,8 @@ export default function Navigation() {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden">
+                    <div className="md:hidden flex items-center gap-4">
+                        <LanguageSwitcher />
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             aria-label="Toggle menu"

@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import { Mail, MessageSquare, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { submitContactForm } from "@/lib/supabase";
+import { useTranslations } from 'next-intl';
 
 export default function Contact() {
+    const t = useTranslations('Contact');
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -46,7 +48,7 @@ export default function Contact() {
         } catch (error) {
             console.error("Error submitting form:", error);
             setStatus("error");
-            setErrorMessage("Something went wrong. Please try again later.");
+            setErrorMessage(t('error'));
         } finally {
             setLoading(false);
         }
@@ -62,10 +64,10 @@ export default function Contact() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                     <p className="mt-4 text-foreground/60 max-w-2xl mx-auto">
-                        Have a project in mind or just want to say hi? I&apos;d love to hear from you.
+                        {t('description')}
                     </p>
                 </motion.div>
 
@@ -79,10 +81,9 @@ export default function Contact() {
                         className="space-y-8"
                     >
                         <div className="bg-muted/30 p-8 rounded-3xl border border-muted">
-                            <h3 className="text-2xl font-bold mb-6">Let&apos;s build something amazing together</h3>
+                            <h3 className="text-2xl font-bold mb-6">{t('collabTitle')}</h3>
                             <p className="text-foreground/70 mb-8">
-                                I&apos;m currently available for freelance projects and open to full-time opportunities.
-                                If you have a question or just want to connect, feel free to reach out!
+                                {t('collabDesc')}
                             </p>
 
                             <div className="space-y-6">
@@ -91,7 +92,7 @@ export default function Contact() {
                                         <Mail className="w-6 h-6 text-primary group-hover:text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-foreground/50">Email me at</p>
+                                        <p className="text-sm text-foreground/50">{t('emailLabel')}</p>
                                         <p className="font-medium text-lg">hello@example.com</p>
                                     </div>
                                 </a>
@@ -101,7 +102,7 @@ export default function Contact() {
                                         <MessageSquare className="w-6 h-6 text-secondary group-hover:text-white" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-foreground/50">Socials</p>
+                                        <p className="text-sm text-foreground/50">{t('socialsLabel')}</p>
                                         <p className="font-medium text-lg">@username</p>
                                     </div>
                                 </div>
@@ -122,17 +123,17 @@ export default function Contact() {
                                     <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
                                         <CheckCircle className="w-8 h-8" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-green-700">Message Sent!</h3>
-                                    <p className="text-foreground/70">Thanks for reaching out. I&apos;ll get back to you soon.</p>
+                                    <h3 className="text-xl font-bold text-green-700">{t('successTitle')}</h3>
+                                    <p className="text-foreground/70">{t('successMessage')}</p>
                                     <Button variant="outline" onClick={() => setStatus("idle")}>
-                                        Send another message
+                                        {t('sendAnother')}
                                     </Button>
                                 </div>
                             ) : (
                                 <>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <label htmlFor="name" className="text-sm font-medium">Name</label>
+                                            <label htmlFor="name" className="text-sm font-medium">{t('name')}</label>
                                             <input
                                                 type="text"
                                                 id="name"
@@ -140,11 +141,11 @@ export default function Contact() {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                                placeholder="John Doe"
+                                                placeholder={t('namePlaceholder')}
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label htmlFor="email" className="text-sm font-medium">Email</label>
+                                            <label htmlFor="email" className="text-sm font-medium">{t('email')}</label>
                                             <input
                                                 type="email"
                                                 id="email"
@@ -152,13 +153,13 @@ export default function Contact() {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                                placeholder="john@example.com"
+                                                placeholder={t('emailPlaceholder')}
                                             />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="subject" className="text-sm font-medium">Subject</label>
+                                        <label htmlFor="subject" className="text-sm font-medium">{t('subject')}</label>
                                         <input
                                             type="text"
                                             id="subject"
@@ -166,12 +167,12 @@ export default function Contact() {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                            placeholder="Project Inquiry"
+                                            placeholder={t('subjectPlaceholder')}
                                         />
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="message" className="text-sm font-medium">Message</label>
+                                        <label htmlFor="message" className="text-sm font-medium">{t('message')}</label>
                                         <textarea
                                             id="message"
                                             rows={4}
@@ -179,7 +180,7 @@ export default function Contact() {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
-                                            placeholder="Tell me about your project..."
+                                            placeholder={t('messagePlaceholder')}
                                         />
                                     </div>
 
@@ -192,9 +193,9 @@ export default function Contact() {
 
                                     <Button className="w-full" size="lg" disabled={loading}>
                                         {loading ? (
-                                            <>Sending... <Loader2 className="ml-2 w-4 h-4 animate-spin" /></>
+                                            <>{t('sending')} <Loader2 className="ml-2 w-4 h-4 animate-spin" /></>
                                         ) : (
-                                            <>Send Message <Send className="ml-2 w-4 h-4" /></>
+                                            <>{t('send')} <Send className="ml-2 w-4 h-4" /></>
                                         )}
                                     </Button>
                                 </>

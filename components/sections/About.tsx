@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Briefcase, GraduationCap } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export default function About() {
+    const t = useTranslations('About');
+
     return (
         <section id="about" className="py-20 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +17,7 @@ export default function About() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('title')}</h2>
                     <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                 </motion.div>
 
@@ -26,23 +29,23 @@ export default function About() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         <h3 className="text-2xl font-bold mb-4">
-                            Ingeniero en Sistemas apasionado por la tecnología.
+                            {t('intro')}
                         </h3>
                         <p className="text-foreground/70 mb-6 leading-relaxed">
-                            Con más de 10 años de experiencia en desarrollo de software, me especializo en crear aplicaciones escalables, seguras y centradas en el usuario. Mi trayectoria comenzó con la curiosidad por entender cómo funcionan las tecnologías web, lo que evolucionó en una carrera dedicada a resolver problemas complejos con código elegante.
+                            {t('bio1')}
                         </p>
                         <p className="text-foreground/70 mb-8 leading-relaxed">
-                            Me apasiona trabajar en entornos colaborativos y compartir conocimientos con otros desarrolladores. Cuando no estoy programando, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y manteniéndome actualizado con las últimas tendencias del desarrollo web.
+                            {t('bio2')}
                         </p>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex items-center text-foreground/80">
                                 <MapPin className="w-5 h-5 mr-2 text-primary" />
-                                <span>San Francisco, CA</span>
+                                <span>{t('location')}</span>
                             </div>
                             <div className="flex items-center text-foreground/80">
                                 <Calendar className="w-5 h-5 mr-2 text-primary" />
-                                <span>Available now</span>
+                                <span>{t('availability')}</span>
                             </div>
                         </div>
                     </motion.div>
