@@ -82,9 +82,9 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
                                 key={project._id}
-                                className="group bg-background rounded-2xl overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300"
+                                className="group bg-background rounded-2xl overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
-                                <div className="relative h-64 overflow-hidden">
+                                <div className="relative h-64 overflow-hidden shrink-0">
                                     {project.image && (
                                         <Image
                                             src={urlFor(project.image).url()}
@@ -107,23 +107,21 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                     </div>
                                 </div>
 
-                                <div className="p-6">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div>
-                                            <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                                                {project.category}
-                                            </span>
-                                            <h3 className="text-xl font-bold mt-2 group-hover:text-primary transition-colors">
-                                                {project.title}
-                                            </h3>
-                                        </div>
+                                <div className="p-6 flex flex-col flex-1">
+                                    <div className="mb-4">
+                                        <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full inline-block mb-2">
+                                            {project.category}
+                                        </span>
+                                        <h3 className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
+                                            {project.title}
+                                        </h3>
                                     </div>
 
-                                    <p className="text-foreground/70 mb-6 line-clamp-2">
+                                    <p className="text-foreground/70 mb-6 line-clamp-3 flex-1">
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mt-auto">
                                         {project.tech && project.tech.map((tech) => (
                                             <span
                                                 key={tech}
