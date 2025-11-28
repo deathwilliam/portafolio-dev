@@ -17,27 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Wilfredo Melgar | Ingeniero en Sistemas",
   description: "Ingeniero en Sistemas con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en aplicaciones web escalables y de alto rendimiento.",
-  openGraph: {
-    title: "Wilfredo Melgar | Ingeniero en Sistemas",
-    description: "Ingeniero en Sistemas con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras.",
-    url: "https://wilfredo-melgar.vercel.app",
-    siteName: "Wilfredo Melgar Portfolio",
-    images: [
-      {
-        url: "https://wilfredo-melgar.vercel.app/og.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: "es_ES",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Wilfredo Melgar | Ingeniero en Sistemas",
-    description: "Ingeniero en Sistemas con 10 años de experiencia en desarrollo de software.",
-    images: ["https://wilfredo-melgar.vercel.app/og.png"],
-  },
 };
 
 export default function RootLayout({
@@ -46,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
         suppressHydrationWarning
