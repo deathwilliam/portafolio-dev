@@ -48,7 +48,7 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-                    <Button onClick={() => window.open("http://localhost:3333", "_blank")} variant="outline">
+                    <Button onClick={() => window.open("/studio", "_blank")} variant="outline">
                         Open Sanity Studio <ExternalLink className="ml-2 w-4 h-4" />
                     </Button>
                 </div>
