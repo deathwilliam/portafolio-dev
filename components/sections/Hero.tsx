@@ -5,9 +5,19 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
+import { getSiteSettings } from "@/lib/sanity";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
     const t = useTranslations('Hero');
+    const [cvUrl, setCvUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        getSiteSettings().then((settings: any) => {
+            if (settings?.cvUrl) setCvUrl(settings.cvUrl);
+        });
+    }, []);
 
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -80,13 +90,16 @@ export default function Hero() {
                             >
                                 {t('viewProjects')} <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/30"
-                            >
-                                {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
-                            </Button>
+                            {cvUrl && (
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                                    onClick={() => window.open(cvUrl, '_blank')}
+                                >
+                                    {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
+                                </Button>
+                            )}
                         </motion.div>
 
                         {/* Social links */}

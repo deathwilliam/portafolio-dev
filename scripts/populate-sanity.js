@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { createClient } = require('@sanity/client');
 
 const client = createClient({

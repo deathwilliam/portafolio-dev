@@ -12,7 +12,7 @@ interface BlogPost {
     title: string;
     slug: { current: string };
     excerpt?: string;
-    coverImage?: any;
+    coverImage: object;
     publishedAt: string;
     tags?: string[];
 }

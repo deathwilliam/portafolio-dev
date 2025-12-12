@@ -35,7 +35,7 @@ export default function Contact() {
             await submitContactForm(formData);
 
             // Send email notification
-            await fetch('/api/send-email', {
+            const emailRes = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,12 +43,18 @@ export default function Contact() {
                 body: JSON.stringify(formData),
             });
 
+            if (!emailRes.ok) {
+                const errorData = await emailRes.json();
+                throw new Error(errorData.error || "Failed to send email");
+            }
+
             setStatus("success");
             setFormData({ name: "", email: "", subject: "", message: "" });
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error submitting form:", error);
             setStatus("error");
-            setErrorMessage(t('error'));
+            // Show the actual error message if available, otherwise fallback
+            setErrorMessage(error.message || t('error'));
         } finally {
             setLoading(false);
         }

@@ -12,7 +12,7 @@ interface Testimonial {
     role: string;
     company?: string;
     content: string;
-    image?: any;
+    image: object;
     rating: number;
 }
 
@@ -69,7 +69,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
 
                             {/* Content */}
                             <p className="text-foreground/70 mb-6 leading-relaxed flex-1 italic">
-                                "{testimonial.content}"
+                                &quot;{testimonial.content}&quot;
                             </p>
 
                             {/* Author */}

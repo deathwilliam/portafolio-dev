@@ -5,18 +5,25 @@ export async function POST(request: Request) {
   try {
     const { name, email, subject, message } = await request.json();
 
+    const user = process.env.GMAIL_USER;
+    const pass = process.env.GMAIL_APP_PASSWORD;
+
+    if (!user || !pass) {
+      return NextResponse.json({ error: 'Missing Gmail credentials in environment variables.' }, { status: 500 });
+    }
+
     // Configurar transporter de Gmail
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'melgar.wilfredo@gmail.com',
-        pass: 'nlntpbcaepykypwo',
+        user,
+        pass,
       },
     });
 
     // Configurar el email
     const mailOptions = {
-      from: 'melgar.wilfredo@gmail.com',
+      from: user,
       to: 'melgar.wilfredo@gmail.com',
       replyTo: email,
       subject: `Nuevo mensaje de contacto: ${subject}`,
@@ -38,8 +45,8 @@ export async function POST(request: Request) {
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending email:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Failed to send email' }, { status: 500 });
   }
 }
