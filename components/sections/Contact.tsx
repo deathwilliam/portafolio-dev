@@ -12,6 +12,7 @@ export default function Contact() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: ""
     });
@@ -49,7 +50,7 @@ export default function Contact() {
             }
 
             setStatus("success");
-            setFormData({ name: "", email: "", subject: "", message: "" });
+            setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
         } catch (error: any) {
             console.error("Error submitting form:", error);
             setStatus("error");
@@ -162,6 +163,18 @@ export default function Contact() {
                                                 placeholder={t('emailPlaceholder')}
                                             />
                                         </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label htmlFor="phone" className="text-sm font-medium">{t('phone')}</label>
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 rounded-xl bg-muted/30 border border-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            placeholder={t('phonePlaceholder')}
+                                        />
                                     </div>
 
                                     <div className="space-y-2">

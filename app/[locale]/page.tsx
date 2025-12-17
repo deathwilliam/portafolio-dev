@@ -5,16 +5,18 @@ import Projects from "@/components/sections/Projects";
 import Testimonials from "@/components/sections/Testimonials";
 import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
-import { getProjects, getTestimonials, getBlogPosts } from "@/lib/sanity";
+import { getProjects, getTestimonials, getPosts } from "@/lib/supabase";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
 export default async function Home() {
   const [projects, testimonials, blogPosts] = await Promise.all([
     getProjects(),
-    getTestimonials(),
-    getBlogPosts(),
+    getTestimonials(true),
+    getPosts(),
   ]);
+
+  console.log("HomePage Testimonials:", JSON.stringify(testimonials, null, 2));
 
   return (
     <div className="flex flex-col gap-0">

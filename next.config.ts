@@ -6,10 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: 'https' as const,
-        hostname: 'cdn.sanity.io',
-      },
+
       {
         protocol: 'https' as const,
         hostname: 'images.unsplash.com',
@@ -18,7 +15,16 @@ const nextConfig: NextConfig = {
         protocol: 'https' as const,
         hostname: 'placehold.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'ohddwghzljvelfktkgdn.supabase.co',
+      },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '20mb',
+    },
   },
 };
 

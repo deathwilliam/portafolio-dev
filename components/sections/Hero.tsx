@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
-import { getSiteSettings } from "@/lib/sanity";
+import { getSiteSettings } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
@@ -15,7 +15,7 @@ export default function Hero() {
     useEffect(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         getSiteSettings().then((settings: any) => {
-            if (settings?.cvUrl) setCvUrl(settings.cvUrl);
+            if (settings?.cv_url) setCvUrl(settings.cv_url);
         });
     }, []);
 
@@ -91,14 +91,15 @@ export default function Hero() {
                                 {t('viewProjects')} <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                             {cvUrl && (
-                                <Button
-                                    variant="outline"
-                                    size="lg"
-                                    className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/30"
-                                    onClick={() => window.open(cvUrl, '_blank')}
-                                >
-                                    {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
-                                </Button>
+                                <a href={cvUrl} download="Wilfredo_Melgar_CV.pdf" target="_blank" rel="noopener noreferrer">
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        className="border-2 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                                    >
+                                        {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </a>
                             )}
                         </motion.div>
 

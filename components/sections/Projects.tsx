@@ -5,18 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Code2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { urlFor } from "@/lib/sanity";
 import { useTranslations } from 'next-intl';
 
 interface Project {
-    _id: string;
+    id: string;
     title: string;
     description: string;
-    image: object;
+    image_url?: string;
     category: string;
     tech: string[];
-    demo?: string;
-    repo?: string;
+    link?: string;
+    github_link?: string;
 }
 
 interface ProjectsProps {
@@ -83,26 +82,26 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
-                                key={project._id}
+                                key={project.id}
                                 className="group bg-background rounded-2xl overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
                                 <div className="relative h-64 overflow-hidden shrink-0">
-                                    {project.image && (
+                                    {project.image_url && (
                                         <Image
-                                            src={urlFor(project.image).url()}
+                                            src={project.image_url}
                                             alt={project.title}
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                                         />
                                     )}
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                                        {project.demo && (
-                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.demo, "_blank")}>
+                                        {project.link && (
+                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.link, "_blank")}>
                                                 <ExternalLink className="w-4 h-4 mr-2" /> {t('viewDemo')}
                                             </Button>
                                         )}
-                                        {project.repo && (
-                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.repo, "_blank")}>
+                                        {project.github_link && (
+                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.github_link, "_blank")}>
                                                 <Github className="w-4 h-4 mr-2" /> {t('viewCode')}
                                             </Button>
                                         )}

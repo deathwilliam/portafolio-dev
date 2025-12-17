@@ -3,17 +3,18 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { urlFor } from "@/lib/sanity";
-import { Button } from "@/components/ui/Button";
+import { Button, buttonVariants } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 
 interface BlogPost {
-    _id: string;
+    id: string;
     title: string;
-    slug: { current: string };
+    slug: string; // Supabase stores slug as string, not object
     excerpt?: string;
-    coverImage: object;
-    publishedAt: string;
+    image_url?: string; // Supabase stores image URL in image_url column
+    published_at: string; // Snake case in Supabase
     tags?: string[];
 }
 
@@ -60,7 +61,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {latestPosts.map((post, index) => (
                         <motion.article
-                            key={post._id}
+                            key={post.id}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -68,10 +69,10 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                             className="bg-background rounded-2xl overflow-hidden shadow-sm border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
                         >
                             {/* Cover Image */}
-                            {post.coverImage && (
+                            {post.image_url && (
                                 <div className="relative h-48 overflow-hidden shrink-0">
                                     <Image
-                                        src={urlFor(post.coverImage).url()}
+                                        src={post.image_url}
                                         alt={post.title}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -85,7 +86,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                                 <div className="flex items-center gap-4 text-xs text-foreground/60 mb-4">
                                     <span className="flex items-center gap-1">
                                         <Calendar className="w-4 h-4" />
-                                        {formatDate(post.publishedAt)}
+                                        {formatDate(post.published_at)}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Clock className="w-4 h-4" />
@@ -120,21 +121,25 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                                 )}
 
                                 {/* Read More Button */}
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="w-full justify-between mt-auto group/btn"
+                                <Link
+                                    href={`/${locale}/blog/${post.slug}`}
+                                    className={cn(
+                                        buttonVariants({ variant: "ghost", size: "sm" }),
+                                        "w-full justify-between group/btn mt-auto"
+                                    )}
                                 >
-                                    {t('readMore')}
-                                    <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                                </Button>
+                                    <span className="flex items-center w-full justify-between">
+                                        {t('readMore')}
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                                    </span>
+                                </Link>
                             </div>
                         </motion.article>
                     ))}
                 </div>
 
                 {/* View All Posts Button */}
-                {initialPosts.length > 3 && (
+                {initialPosts.length > 0 && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -142,10 +147,13 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="text-center mt-12"
                     >
-                        <Button size="lg" variant="outline">
+                        <Link
+                            href={`/${locale}/blog`}
+                            className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+                        >
                             {t('viewAll')}
                             <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
+                        </Link>
                     </motion.div>
                 )}
             </div>

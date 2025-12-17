@@ -39,7 +39,18 @@
     },
     "Testimonials": {
         "title": "Lo que dicen mis clientes",
-        "subtitle": "Testimonios de personas con las que he trabajado"
+        "subtitle": "Testimonios de personas con las que he trabajado",
+        "leaveReview": "Dejar un Testimonio",
+        "submit": "Enviar",
+        "cancel": "Cancelar",
+        "error": "Ocurrió un error al enviar el testimonio. Por favor intenta de nuevo.",
+        "form": {
+            "name": "Nombre",
+            "role": "Cargo / Puesto",
+            "company": "Empresa",
+            "rating": "Calificación",
+            "review": "Testimonio"
+        }
     },
     "Blog": {
         "title": "Últimos Artículos",
@@ -60,6 +71,8 @@
         "namePlaceholder": "Juan Pérez",
         "email": "Correo Electrónico",
         "emailPlaceholder": "juan@ejemplo.com",
+        "phone": "Teléfono",
+        "phonePlaceholder": "+1 234 567 890",
         "subject": "Asunto",
         "subjectPlaceholder": "Consulta de Proyecto",
         "message": "Mensaje",
@@ -75,5 +88,17 @@
         "rights": "Todos los derechos reservados.",
         "quickLinks": "Enlaces Rápidos",
         "socials": "Redes Sociales"
+    },
+    "Comments": {
+        "title": "Comentarios",
+        "name": "Nombre",
+        "email": "Correo electrónico (no será publicado)",
+        "message": "Mensaje",
+        "submit": "Publicar comentario",
+        "submitting": "Publicando...",
+        "success": "¡Comentario publicado exitosamente!",
+        "error": "Error al publicar el comentario. Por favor intenta de nuevo.",
+        "loading": "Cargando comentarios...",
+        "noComments": "Aún no hay comentarios. ¡Sé el primero en compartir tu opinión!"
     }
 }
