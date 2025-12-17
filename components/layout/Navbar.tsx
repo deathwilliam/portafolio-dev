@@ -12,7 +12,7 @@ const allNavItems = [
     { name: "Habilidades", href: "#skills" },
     { name: "Proyectos", href: "#projects" },
     { name: "Testimonios", href: "#testimonials" },
-    { name: "Blog", href: "#blog" },
+    { name: "Blog", href: "/blog" },
     { name: "Contacto", href: "#contact" },
 ];
 
@@ -55,21 +55,28 @@ export default function Navbar() {
         };
 
         window.addEventListener("scroll", handleScroll);
+        // Clean up and re-run on path change to ensure correct active section logic
+        handleScroll();
+
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [isHomePage, navItems]);
+    }, [isHomePage, navItems, pathname]);
 
     const scrollToSection = (href: string) => {
         setIsMobileMenuOpen(false);
 
-        if (isHomePage) {
-            const element = document.querySelector(href);
-            element?.scrollIntoView({ behavior: "smooth" });
-        } else {
-            // Safer locale extraction: default to 'es' if not found
-            const segments = pathname.split('/').filter(Boolean);
-            const locale = (segments.length > 0 && ['es', 'en'].includes(segments[0])) ? segments[0] : 'es';
+        // Get current locale
+        const segments = pathname.split('/').filter(Boolean);
+        const locale = (segments.length > 0 && ['es', 'en'].includes(segments[0])) ? segments[0] : 'es';
 
-            // Navigate to home section
+        if (href.startsWith('#')) {
+            if (isHomePage) {
+                const element = document.querySelector(href);
+                element?.scrollIntoView({ behavior: "smooth" });
+            } else {
+                router.push(`/${locale}${href}`);
+            }
+        } else {
+            // It's a page navigation (like /blog)
             router.push(`/${locale}${href}`);
         }
     };

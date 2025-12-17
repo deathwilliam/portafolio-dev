@@ -4,11 +4,14 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
 
 import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Footer() {
     const t = useTranslations('Footer');
     const tNav = useTranslations('Navigation');
     const currentYear = new Date().getFullYear();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const socialLinks = [
         {
@@ -40,13 +43,29 @@ export default function Footer() {
     const quickLinks = [
         { name: tNav('about'), href: "#about" },
         { name: tNav('projects'), href: "#projects" },
-        { name: tNav('blog'), href: "#blog" },
+        { name: tNav('blog'), href: "/blog" },
         { name: tNav('contact'), href: "#contact" },
     ];
 
     const scrollToSection = (href: string) => {
-        const element = document.querySelector(href);
-        element?.scrollIntoView({ behavior: "smooth" });
+        if (href.startsWith('#')) {
+            // If on home page, scroll. If not, navigate to home + hash
+            // Simple check for home page logic here or just rely on router push for consistency if strict
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            } else {
+                // If element not found (e.g. we are on /blog), go to home
+                const segments = pathname.split('/').filter(Boolean);
+                const locale = (segments.length > 0 && ['es', 'en'].includes(segments[0])) ? segments[0] : 'es';
+                router.push(`/${locale}${href}`);
+            }
+        } else {
+            // Internal page navigation
+            const segments = pathname.split('/').filter(Boolean);
+            const locale = (segments.length > 0 && ['es', 'en'].includes(segments[0])) ? segments[0] : 'es';
+            router.push(`/${locale}${href}`);
+        }
     };
 
     return (

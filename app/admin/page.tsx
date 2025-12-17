@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, LayoutDashboard, FileText, Trash2, Pencil, Plus, Star } from "lucide-react";
+import { MessageSquare, LayoutDashboard, FileText, Trash2, Pencil, Plus, Star, Eye } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import {
@@ -115,17 +115,28 @@ export default function AdminDashboard() {
         setPostSaving(true);
         const formData = new FormData(e.currentTarget);
 
-        const newPost = {
-            title: formData.get('title') as string,
-            slug: formData.get('slug') as string,
-            excerpt: formData.get('excerpt') as string,
-            content: formData.get('content') as string,
-            image_url: formData.get('image_url') as string,
-            published_at: editingPost ? editingPost.published_at : new Date().toISOString(),
-            tags: (formData.get('tags') as string)?.split(',').map(tag => tag.trim()).filter(Boolean) || [],
-        };
+        const imageFile = formData.get('image') as File;
+        let imageUrl = formData.get('image_url') as string;
 
         try {
+            if (imageFile && imageFile.size > 0) {
+                const uploadFormData = new FormData();
+                uploadFormData.append('image', imageFile);
+                const res = await uploadImage(uploadFormData);
+                if (!res.success) throw new Error(res.error);
+                imageUrl = res.url || '';
+            }
+
+            const newPost = {
+                title: formData.get('title') as string,
+                slug: formData.get('slug') as string,
+                excerpt: formData.get('excerpt') as string,
+                content: formData.get('content') as string,
+                image_url: imageUrl,
+                published_at: editingPost ? editingPost.published_at : new Date().toISOString(),
+                tags: (formData.get('tags') as string)?.split(',').map(tag => tag.trim()).filter(Boolean) || [],
+            };
+
             if (editingPost) {
                 const { error } = await supabase
                     .from('posts')
@@ -599,6 +610,13 @@ export default function AdminDashboard() {
                                                 <Button
                                                     variant="ghost"
                                                     size="sm"
+                                                    onClick={() => window.open(`/es/blog/${post.slug}`, '_blank')}
+                                                >
+                                                    <Eye className="w-4 h-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
                                                     onClick={() => handleEditBlogPost(post)}
                                                 >
                                                     <Pencil className="w-4 h-4" />
@@ -793,14 +811,21 @@ export default function AdminDashboard() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">URL de Imagen</label>
-                                    <input
-                                        name="image_url"
-                                        required
-                                        defaultValue={editingPost?.image_url}
-                                        placeholder="https://..."
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
-                                    />
+                                    <label className="block text-sm font-medium mb-1">Imagen (Subir archivo o URL)</label>
+                                    <div className="space-y-2">
+                                        <input
+                                            type="file"
+                                            name="image"
+                                            accept="image/*"
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        />
+                                        <input
+                                            name="image_url"
+                                            defaultValue={editingPost?.image_url}
+                                            placeholder="o pegar URL https://..."
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
+                                        />
+                                    </div>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Contenido (Markdown)</label>
