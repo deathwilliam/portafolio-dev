@@ -100,7 +100,7 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-foreground/50">{t('emailLabel')}</p>
-                                        <p className="font-medium text-lg">hello@example.com</p>
+                                        <p className="font-medium text-lg">melgar.wilfredo@gmail.com</p>
                                     </div>
                                 </a>
 
