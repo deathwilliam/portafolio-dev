@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -23,21 +23,21 @@ export default function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
 
-    // Determine if we are on the home page (e.g. /es, /en, or /)
-    // We assume locale is always the first segment if present
-    const isHomePage = pathname === '/' || pathname.match(/^\/[a-z]{2}$/);
+    // Determine if we are on the home page
+    const isHomePage = pathname === '/' || /^\/[a-z]{2}$/.test(pathname);
 
-    // Filter items for non-home pages
-    const navItems = isHomePage
-        ? allNavItems
-        : allNavItems.filter(item => ["Inicio", "Blog", "Contacto"].includes(item.name));
+    // Stable nav items
+    const navItems = useMemo(() => {
+        return isHomePage
+            ? allNavItems
+            : allNavItems.filter(item => ["Inicio", "Blog", "Contacto"].includes(item.name));
+    }, [isHomePage]);
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
             if (isHomePage) {
-                // Detect active section only on home page
                 const sections = navItems.map(item => item.href.substring(1));
                 const currentSection = sections.find(section => {
                     const element = document.getElementById(section);
@@ -65,9 +65,11 @@ export default function Navbar() {
             const element = document.querySelector(href);
             element?.scrollIntoView({ behavior: "smooth" });
         } else {
-            // Navigate to home with the hash
-            // Extract locale if present
-            const locale = pathname.split('/')[1];
+            // Safer locale extraction: default to 'es' if not found
+            const segments = pathname.split('/').filter(Boolean);
+            const locale = (segments.length > 0 && ['es', 'en'].includes(segments[0])) ? segments[0] : 'es';
+
+            // Navigate to home section
             router.push(`/${locale}${href}`);
         }
     };
