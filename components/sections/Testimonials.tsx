@@ -82,7 +82,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                     {initialTestimonials.map((testimonial) => (
                         <div
                             key={testimonial.id}
-                            className="bg-background p-6 rounded-2xl shadow-sm border border-muted hover:border-primary/50 hover:shadow-md transition-all group flex flex-col"
+                            className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-md transition-all group flex flex-col"
                         >
                             <div className="flex gap-1 mb-4">
                                 {[...Array(5)].map((_, i) => (
@@ -100,7 +100,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                 &quot;{testimonial.content}&quot;
                             </p>
 
-                            <div className="flex items-center gap-4 pt-4 border-t border-muted">
+                            <div className="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                                 {testimonial.image_url ? (
                                     <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
                                         <Image

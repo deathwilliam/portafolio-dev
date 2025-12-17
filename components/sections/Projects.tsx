@@ -83,7 +83,7 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
                                 key={project.id}
-                                className="group bg-background rounded-2xl overflow-hidden border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
                                 <div className="relative h-64 overflow-hidden shrink-0">
                                     {project.image_url && (
@@ -126,7 +126,7 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                         {project.tech && project.tech.map((tech) => (
                                             <span
                                                 key={tech}
-                                                className="text-xs font-medium text-foreground/60 bg-muted px-2 py-1 rounded-md flex items-center"
+                                                className="text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md flex items-center"
                                             >
                                                 <Code2 className="w-3 h-3 mr-1" /> {tech}
                                             </span>
