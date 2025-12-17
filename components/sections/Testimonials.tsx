@@ -163,7 +163,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                             <label className="text-sm font-medium">{t('form.name')}</label>
                                             <input
                                                 required
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             />
@@ -172,7 +172,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                             <label className="text-sm font-medium">{t('form.role')}</label>
                                             <input
                                                 required
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 value={formData.role}
                                                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                                             />
