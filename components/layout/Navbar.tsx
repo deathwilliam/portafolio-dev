@@ -28,10 +28,13 @@ export default function Navbar() {
 
     // Stable nav items
     const navItems = useMemo(() => {
-        return isHomePage
-            ? allNavItems
-            : allNavItems.filter(item => ["Inicio", "Blog", "Contacto"].includes(item.name));
-    }, [isHomePage]);
+        console.log("Navbar Pathname:", pathname);
+        const isBlogPage = pathname?.includes('/blog');
+        console.log("isBlogPage:", isBlogPage);
+        return isBlogPage
+            ? allNavItems.filter(item => ["Inicio", "Proyectos", "Contacto"].includes(item.name))
+            : allNavItems;
+    }, [pathname]);
 
     useEffect(() => {
         const handleScroll = () => {

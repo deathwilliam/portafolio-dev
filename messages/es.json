@@ -1,5 +1,6 @@
 {
     "Navigation": {
+        "home": "Inicio",
         "about": "Sobre mí",
         "skills": "Habilidades",
         "projects": "Proyectos",
@@ -9,7 +10,7 @@
     },
     "Hero": {
         "greeting": "Hola, soy Wilfredo Melgar",
-        "role": "Ingeniero en Sistemas",
+        "role": "Desarrollador Web",
         "description": "Con 10 años de experiencia desarrollando soluciones tecnológicas innovadoras. Especializado en crear aplicaciones web robustas, escalables y de alto rendimiento.",
         "viewProjects": "Ver Proyectos",
         "downloadCV": "Descargar CV"
@@ -19,7 +20,7 @@
         "intro": "Ingeniero en Sistemas apasionado por la tecnología.",
         "bio1": "Con más de 10 años de experiencia en desarrollo de software, me especializo en crear aplicaciones escalables, seguras y centradas en el usuario. Mi trayectoria comenzó con la curiosidad por entender cómo funcionan las tecnologías web, lo que evolucionó en una carrera dedicada a resolver problemas complejos con código elegante.",
         "bio2": "Me apasiona trabajar en entornos colaborativos y compartir conocimientos con otros desarrolladores. Cuando no estoy programando, disfruto explorando nuevas tecnologías, contribuyendo a proyectos de código abierto y manteniéndome actualizado con las últimas tendencias del desarrollo web.",
-        "location": "San Francisco, CA",
+        "location": "San Salvador,El Salvador",
         "availability": "Disponible ahora",
         "experience": "Años de Experiencia",
         "projects": "Proyectos Completados",

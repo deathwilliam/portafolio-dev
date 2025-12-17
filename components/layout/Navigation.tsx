@@ -8,10 +8,13 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
+import { usePathname } from "next/navigation";
+
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const t = useTranslations('Navigation');
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,7 +28,7 @@ export default function Navigation() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const navLinks = [
+    const allNavLinks = [
         { name: t('about'), href: "#about" },
         { name: t('skills'), href: "#skills" },
         { name: t('projects'), href: "#projects" },
@@ -33,6 +36,17 @@ export default function Navigation() {
         { name: t('blog'), href: "#blog" },
         { name: t('contact'), href: "#contact" },
     ];
+
+    const isBlogPage = pathname?.includes('/blog');
+    const locale = pathname?.split('/')[1] || 'es';
+
+    const navLinks = isBlogPage
+        ? [
+            { name: t('home'), href: `/${locale}` },
+            { name: t('projects'), href: `/${locale}#projects` },
+            { name: t('contact'), href: `/${locale}#contact` }
+        ]
+        : allNavLinks;
 
     return (
         <nav
@@ -47,7 +61,7 @@ export default function Navigation() {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="text-2xl font-bold text-primary">
-                        Portfolio<span className="text-accent">.</span>
+                        Portafolio<span className="text-accent">.</span>
                     </Link>
 
                     {/* Desktop Navigation */}

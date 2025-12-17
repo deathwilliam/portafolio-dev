@@ -1,5 +1,6 @@
 {
     "Navigation": {
+        "home": "Home",
         "about": "About",
         "skills": "Skills",
         "projects": "Projects",
@@ -19,7 +20,7 @@
         "intro": "Systems Engineer passionate about technology.",
         "bio1": "With over 10 years of experience in software development, I specialize in creating scalable, secure, and user-centric applications. My journey began with a curiosity to understand how web technologies work, which evolved into a career dedicated to solving complex problems with elegant code.",
         "bio2": "I am passionate about working in collaborative environments and sharing knowledge with other developers. When I'm not coding, I enjoy exploring new technologies, contributing to open source projects, and staying up to date with the latest web development trends.",
-        "location": "San Francisco, CA",
+        "location": "San Salvador, El Salvador",
         "availability": "Available now",
         "experience": "Years Experience",
         "projects": "Projects Completed",
