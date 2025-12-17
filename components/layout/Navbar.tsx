@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { usePathname, useRouter } from "next/navigation";
 
-const navItems = [
+const allNavItems = [
     { name: "Inicio", href: "#hero" },
     { name: "Sobre Mí", href: "#about" },
     { name: "Habilidades", href: "#skills" },
@@ -19,35 +20,56 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("hero");
+    const pathname = usePathname();
+    const router = useRouter();
+
+    // Determine if we are on the home page (e.g. /es, /en, or /)
+    // We assume locale is always the first segment if present
+    const isHomePage = pathname === '/' || pathname.match(/^\/[a-z]{2}$/);
+
+    // Filter items for non-home pages
+    const navItems = isHomePage
+        ? allNavItems
+        : allNavItems.filter(item => ["Inicio", "Blog", "Contacto"].includes(item.name));
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
-            // Detect active section
-            const sections = navItems.map(item => item.href.substring(1));
-            const currentSection = sections.find(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    return rect.top <= 100 && rect.bottom >= 100;
-                }
-                return false;
-            });
+            if (isHomePage) {
+                // Detect active section only on home page
+                const sections = navItems.map(item => item.href.substring(1));
+                const currentSection = sections.find(section => {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        return rect.top <= 100 && rect.bottom >= 100;
+                    }
+                    return false;
+                });
 
-            if (currentSection) {
-                setActiveSection(currentSection);
+                if (currentSection) {
+                    setActiveSection(currentSection);
+                }
             }
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [isHomePage, navItems]);
 
     const scrollToSection = (href: string) => {
-        const element = document.querySelector(href);
-        element?.scrollIntoView({ behavior: "smooth" });
         setIsMobileMenuOpen(false);
+
+        if (isHomePage) {
+            const element = document.querySelector(href);
+            element?.scrollIntoView({ behavior: "smooth" });
+        } else {
+            // Navigate to home with the hash
+            // Extract locale if present
+            const locale = pathname.split('/')[1];
+            router.push(`/${locale}${href}`);
+        }
     };
 
     return (
@@ -56,8 +78,8 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                        ? "bg-background/95 backdrop-blur-md shadow-md"
-                        : "bg-transparent"
+                    ? "bg-background/95 backdrop-blur-md shadow-md"
+                    : "bg-transparent"
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,8 +101,8 @@ export default function Navbar() {
                                     key={item.name}
                                     onClick={() => scrollToSection(item.href)}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeSection === item.href.substring(1)
-                                            ? "text-primary bg-primary/10"
-                                            : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+                                        ? "text-primary bg-primary/10"
+                                        : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
                                         }`}
                                 >
                                     {item.name}
@@ -124,8 +146,8 @@ export default function Navbar() {
                                     transition={{ delay: index * 0.05 }}
                                     onClick={() => scrollToSection(item.href)}
                                     className={`px-4 py-3 rounded-lg text-left font-medium transition-all duration-200 ${activeSection === item.href.substring(1)
-                                            ? "text-primary bg-primary/10 shadow-sm"
-                                            : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+                                        ? "text-primary bg-primary/10 shadow-sm"
+                                        : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
                                         }`}
                                 >
                                     {item.name}
