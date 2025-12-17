@@ -136,9 +136,9 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-background rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-muted"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-gray-200 dark:border-gray-700"
                         >
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h3 className="text-xl font-bold">{t('leaveReview')}</h3>
                                 <button
                                     onClick={() => setIsModalOpen(false)}
@@ -163,7 +163,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                             <label className="text-sm font-medium">{t('form.name')}</label>
                                             <input
                                                 required
-                                                className="w-full p-2 rounded-md border border-muted bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+                                                className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             />
@@ -172,7 +172,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                             <label className="text-sm font-medium">{t('form.role')}</label>
                                             <input
                                                 required
-                                                className="w-full p-2 rounded-md border border-muted bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+                                                className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 value={formData.role}
                                                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                                             />
@@ -182,7 +182,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">{t('form.company')}</label>
                                         <input
-                                            className="w-full p-2 rounded-md border border-muted bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+                                            className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             value={formData.company}
                                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                                         />
@@ -200,8 +200,8 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                                 >
                                                     <Star
                                                         className={`w-6 h-6 ${formData.rating >= star
-                                                                ? "text-yellow-500 fill-yellow-500"
-                                                                : "text-muted"
+                                                            ? "text-yellow-500 fill-yellow-500"
+                                                            : "text-muted"
                                                             }`}
                                                     />
                                                 </button>
@@ -214,7 +214,7 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                                         <textarea
                                             required
                                             rows={4}
-                                            className="w-full p-2 rounded-md border border-muted bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                                            className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all"
                                             value={formData.content}
                                             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                         />
