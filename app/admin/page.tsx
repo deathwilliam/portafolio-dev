@@ -286,14 +286,14 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-muted/30 p-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-8">
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold">Admin Dashboard</h1>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-4 mb-4">
                             <div className="p-3 bg-primary/10 rounded-full text-primary">
                                 <MessageSquare className="w-6 h-6" />
@@ -305,7 +305,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-secondary/10 rounded-full text-secondary">
@@ -327,7 +327,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-yellow-500/10 rounded-full text-yellow-500">
@@ -349,7 +349,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-4 mb-4">
                             <div className="p-3 bg-purple-500/10 rounded-full text-purple-500">
                                 <FileText className="w-6 h-6" />
@@ -403,8 +403,8 @@ export default function AdminDashboard() {
                     {/* Left Column: Projects */}
                     <div className="space-y-8">
                         {/* Projects Section */}
-                        <div className="bg-background rounded-2xl shadow-sm border border-muted overflow-hidden h-fit">
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden h-fit">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">Recent Projects</h2>
                             </div>
                             <div className="divide-y divide-muted">
@@ -456,8 +456,8 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Testimonials Section */}
-                        <div className="bg-background rounded-2xl shadow-sm border border-muted overflow-hidden h-fit">
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden h-fit">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">Testimonials</h2>
                                 <Button size="sm" onClick={openCreateTestimonial} variant="outline">
                                     <Plus className="w-4 h-4 mr-2" />
@@ -535,8 +535,8 @@ export default function AdminDashboard() {
                     {/* Right Column: Blog & Messages */}
                     <div className="space-y-8">
                         {/* Blog Posts Section */}
-                        <div className="bg-background rounded-2xl shadow-sm border border-muted overflow-hidden">
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">Recent Blog Posts</h2>
                                 <div className="flex gap-2">
                                     <Button size="sm" onClick={() => setShowPostModal(true)}>
@@ -589,8 +589,8 @@ export default function AdminDashboard() {
                         </div>
 
                         {/* Recent Messages Section */}
-                        <div className="bg-background rounded-2xl shadow-sm border border-muted overflow-hidden">
-                            <div className="p-6 border-b border-muted">
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
                                 <h2 className="text-xl font-bold">Recent Messages</h2>
                             </div>
                             <div className="divide-y divide-muted">
@@ -638,11 +638,11 @@ export default function AdminDashboard() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-background rounded-2xl shadow-xl w-full max-w-md overflow-hidden"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-200 dark:border-gray-700"
                         >
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">{editingProject ? "Editar Proyecto" : "Crear Nuevo Proyecto"}</h2>
-                                <button onClick={() => setShowProjectModal(false)} className="text-foreground/60 hover:text-foreground">
+                                <button onClick={() => setShowProjectModal(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
                                     <span className="sr-only">Close</span>
                                     ✕
                                 </button>
@@ -654,7 +654,7 @@ export default function AdminDashboard() {
                                         name="title"
                                         required
                                         defaultValue={editingProject?.title}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -662,7 +662,7 @@ export default function AdminDashboard() {
                                     <select
                                         name="category"
                                         defaultValue={editingProject?.category}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     >
                                         <option value="Full Stack">Full Stack</option>
                                         <option value="Frontend">Frontend</option>
@@ -677,7 +677,7 @@ export default function AdminDashboard() {
                                         required
                                         rows={3}
                                         defaultValue={editingProject?.description}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -687,13 +687,13 @@ export default function AdminDashboard() {
                                             type="file"
                                             name="image"
                                             accept="image/*"
-                                            className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                         />
                                         <input
                                             name="image_url"
                                             placeholder="o pegar URL https://..."
                                             defaultValue={editingProject?.image_url}
-                                            className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20 text-sm"
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
                                         />
                                     </div>
                                 </div>
@@ -791,11 +791,11 @@ export default function AdminDashboard() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-background rounded-2xl shadow-xl w-full max-w-md overflow-hidden"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-200 dark:border-gray-700"
                         >
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">{editingTestimonial ? "Editar Testimonio" : "Crear Testimonio"}</h2>
-                                <button onClick={() => setShowTestimonialModal(false)} className="text-foreground/60 hover:text-foreground">
+                                <button onClick={() => setShowTestimonialModal(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
                                     <span className="sr-only">Close</span>
                                     ✕
                                 </button>
@@ -807,7 +807,7 @@ export default function AdminDashboard() {
                                         name="name"
                                         required
                                         defaultValue={editingTestimonial?.name}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -816,7 +816,7 @@ export default function AdminDashboard() {
                                         name="role"
                                         required
                                         defaultValue={editingTestimonial?.role}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -824,7 +824,7 @@ export default function AdminDashboard() {
                                     <input
                                         name="company"
                                         defaultValue={editingTestimonial?.company}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -834,7 +834,7 @@ export default function AdminDashboard() {
                                         required
                                         rows={3}
                                         defaultValue={editingTestimonial?.content}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -846,7 +846,7 @@ export default function AdminDashboard() {
                                         max="5"
                                         defaultValue={editingTestimonial?.rating || 5}
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                     />
                                 </div>
                                 <div>
@@ -856,7 +856,7 @@ export default function AdminDashboard() {
                                             type="file"
                                             name="image"
                                             accept="image/*"
-                                            className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                                         />
                                         <input
                                             name="image_url"
