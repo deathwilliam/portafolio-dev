@@ -10,11 +10,20 @@ import { getProjects, getTestimonials, getPosts } from "@/lib/supabase";
 export const revalidate = 60; // Revalidate every 60 seconds
 
 export default async function Home() {
-  const [projects, testimonials, blogPosts] = await Promise.all([
-    getProjects(),
-    getTestimonials(true),
-    getPosts(),
-  ]);
+  let projects = [];
+  let testimonials = [];
+  let blogPosts = [];
+
+  try {
+    [projects, testimonials, blogPosts] = await Promise.all([
+      getProjects(),
+      getTestimonials(true),
+      getPosts(),
+    ]);
+  } catch (error) {
+    console.error("Failed to fetch data for Home page:", error);
+    // Silent fail to allow page to render
+  }
 
   console.log("HomePage Testimonials:", JSON.stringify(testimonials, null, 2));
 
