@@ -37,6 +37,8 @@ export default function AdminDashboard() {
     // Blog Post Modal State
     const [showPostModal, setShowPostModal] = useState(false);
     const [postSaving, setPostSaving] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [editingPost, setEditingPost] = useState<any>(null);
 
     // Testimonial Modal State
     const [showTestimonialModal, setShowTestimonialModal] = useState(false);
@@ -102,6 +104,12 @@ export default function AdminDashboard() {
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleEditBlogPost = (post: any) => {
+        setEditingPost(post);
+        setShowPostModal(true);
+    };
+
     const handlePostSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setPostSaving(true);
@@ -113,16 +121,27 @@ export default function AdminDashboard() {
             excerpt: formData.get('excerpt') as string,
             content: formData.get('content') as string,
             image_url: formData.get('image_url') as string,
-            published_at: new Date().toISOString(),
+            published_at: editingPost ? editingPost.published_at : new Date().toISOString(),
+            tags: (formData.get('tags') as string)?.split(',').map(tag => tag.trim()).filter(Boolean) || [],
         };
 
         try {
-            const { error } = await supabase.from('posts').insert([newPost]);
-            if (error) throw error;
+            if (editingPost) {
+                const { error } = await supabase
+                    .from('posts')
+                    .update(newPost)
+                    .eq('id', editingPost.id);
+                if (error) throw error;
+                alert("¡Publicación actualizada!");
+            } else {
+                const { error } = await supabase.from('posts').insert([newPost]);
+                if (error) throw error;
+                alert("¡Publicación creada!");
+            }
 
             setShowPostModal(false);
+            setEditingPost(null);
             fetchData();
-            alert("¡Publicación creada!");
         } catch (e: any) {
             console.error(e);
             alert("Error al crear la publicación: " + e.message);
@@ -278,6 +297,11 @@ export default function AdminDashboard() {
     const openCreateModal = () => {
         setEditingProject(null);
         setShowProjectModal(true);
+    };
+
+    const openCreatePost = () => {
+        setEditingPost(null);
+        setShowPostModal(true);
     };
 
     const openCreateTestimonial = () => {
@@ -539,7 +563,7 @@ export default function AdminDashboard() {
                             <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                 <h2 className="text-xl font-bold">Recent Blog Posts</h2>
                                 <div className="flex gap-2">
-                                    <Button size="sm" onClick={() => setShowPostModal(true)}>
+                                    <Button size="sm" onClick={openCreatePost}>
                                         <Plus className="w-4 h-4 mr-2" />
                                         Create
                                     </Button>
@@ -572,6 +596,13 @@ export default function AdminDashboard() {
                                                 </div>
                                             </div>
                                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => handleEditBlogPost(post)}
+                                                >
+                                                    <Pencil className="w-4 h-4" />
+                                                </Button>
                                                 <Button
                                                     variant="ghost"
                                                     size="sm"
@@ -708,7 +739,7 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
-                {/* Blog Post Modal (Create) */}
+                {/* Blog Post Modal (Create/Edit) */}
                 {showPostModal && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                         <motion.div
@@ -717,7 +748,7 @@ export default function AdminDashboard() {
                             className="bg-background rounded-2xl shadow-xl w-full max-w-lg overflow-hidden max-h-[90vh] overflow-y-auto"
                         >
                             <div className="p-6 border-b border-muted flex justify-between items-center">
-                                <h2 className="text-xl font-bold">Crear Nueva Publicación de Blog</h2>
+                                <h2 className="text-xl font-bold">{editingPost ? "Editar Publicación" : "Crear Nueva Publicación"}</h2>
                                 <button onClick={() => setShowPostModal(false)} className="text-foreground/60 hover:text-foreground">
                                     <span className="sr-only">Close</span>
                                     ✕
@@ -729,12 +760,15 @@ export default function AdminDashboard() {
                                     <input
                                         name="title"
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        defaultValue={editingPost?.title}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
                                         onChange={(e) => {
-                                            // Auto-generate slug
-                                            const slugInput = document.querySelector('input[name="slug"]') as HTMLInputElement;
-                                            if (slugInput && !slugInput.value) {
-                                                slugInput.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                            // Auto-generate slug only if creating new post
+                                            if (!editingPost) {
+                                                const slugInput = document.querySelector('input[name="slug"]') as HTMLInputElement;
+                                                if (slugInput && !slugInput.value) {
+                                                    slugInput.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                                }
                                             }
                                         }}
                                     />
@@ -744,7 +778,8 @@ export default function AdminDashboard() {
                                     <input
                                         name="slug"
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        defaultValue={editingPost?.slug}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
                                     />
                                 </div>
                                 <div>
@@ -752,8 +787,9 @@ export default function AdminDashboard() {
                                     <textarea
                                         name="excerpt"
                                         required
+                                        defaultValue={editingPost?.excerpt}
                                         rows={2}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
                                     />
                                 </div>
                                 <div>
@@ -761,8 +797,9 @@ export default function AdminDashboard() {
                                     <input
                                         name="image_url"
                                         required
+                                        defaultValue={editingPost?.image_url}
                                         placeholder="https://..."
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
                                     />
                                 </div>
                                 <div>
@@ -770,14 +807,24 @@ export default function AdminDashboard() {
                                     <textarea
                                         name="content"
                                         required
+                                        defaultValue={editingPost?.content}
                                         rows={6}
-                                        className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">Tags (separados por coma)</label>
+                                    <input
+                                        name="tags"
+                                        defaultValue={editingPost?.tags?.join(', ')}
+                                        placeholder="React, Tutorial, Desarrollo Web"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
                                     />
                                 </div>
                                 <div className="pt-4 flex justify-end gap-3">
                                     <Button type="button" variant="ghost" onClick={() => setShowPostModal(false)}>Cancelar</Button>
                                     <Button type="submit" disabled={postSaving}>
-                                        {postSaving ? "Creando..." : "Crear Publicación"}
+                                        {postSaving ? "Guardando..." : (editingPost ? "Actualizar Publicación" : "Crear Publicación")}
                                     </Button>
                                 </div>
                             </form>
