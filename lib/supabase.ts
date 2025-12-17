@@ -7,16 +7,35 @@ if (!supabaseUrl || !supabaseAnonKey) {
     console.error('Missing Supabase Environment Variables! Check .env.local or Vercel Settings.')
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-    global: {
-        fetch: (url, options) => {
-            return fetch(url, {
-                ...options,
-                cache: 'no-store',
+const isSupabaseConfigured = supabaseUrl && supabaseAnonKey;
+
+// Create a client that won't crash if vars are missing, but will error on usage
+export const supabase = isSupabaseConfigured
+    ? createClient(supabaseUrl, supabaseAnonKey, {
+        global: {
+            fetch: (url, options) => {
+                return fetch(url, {
+                    ...options,
+                    cache: 'no-store',
+                })
+            }
+        }
+    })
+    : {
+        from: () => ({
+            select: () => ({ data: [], error: { message: "Supabase not configured (Missing Env Vars)" } }),
+            insert: () => ({ data: null, error: { message: "Supabase not configured" } }),
+            update: () => ({ data: null, error: { message: "Supabase not configured" } }),
+            delete: () => ({ data: null, error: { message: "Supabase not configured" } }),
+            upsert: () => ({ data: null, error: { message: "Supabase not configured" } }),
+        }),
+        storage: {
+            from: () => ({
+                upload: () => ({ data: null, error: { message: "Supabase not configured" } }),
+                getPublicUrl: () => ({ data: { publicUrl: "" } })
             })
         }
-    }
-})
+    } as any;
 
 // Contact form submission
 export async function submitContactForm(data: {
