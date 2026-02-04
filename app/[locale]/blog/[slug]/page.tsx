@@ -14,9 +14,9 @@ interface BlogPost {
     id: string;
     title: string;
     slug: string;
-    excerpt?: string;
-    image_url?: string;
-    published_at: string;
+    excerpt: string;
+    imageUrl: string | null;
+    publishedAt: Date;
     content: string; // Markdown content
 }
 
@@ -29,7 +29,7 @@ export default async function BlogPostPage({
     let post: BlogPost | null = null;
 
     try {
-        post = await getPost(slug) as BlogPost;
+        post = await getPost(slug) as BlogPost | null;
     } catch (e) {
         console.error("Error fetching post:", e);
     }
@@ -38,8 +38,8 @@ export default async function BlogPostPage({
         notFound();
     }
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+    const formatDate = (date: Date) => {
+        return new Date(date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -66,7 +66,7 @@ export default async function BlogPostPage({
                     <div className="flex flex-wrap gap-4 text-sm text-foreground/60 mb-6">
                         <span className="flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
-                            {formatDate(post.published_at)}
+                            {formatDate(post.publishedAt)}
                         </span>
                     </div>
 
@@ -76,10 +76,10 @@ export default async function BlogPostPage({
                 </header>
 
                 {/* Cover Image */}
-                {post.image_url && (
+                {post.imageUrl && (
                     <div className="relative aspect-video w-full overflow-hidden rounded-2xl mb-12 shadow-lg">
                         <Image
-                            src={post.image_url}
+                            src={post.imageUrl}
                             alt={post.title}
                             fill
                             className="object-cover"
