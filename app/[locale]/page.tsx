@@ -5,7 +5,7 @@ import Projects from "@/components/sections/Projects";
 import Testimonials from "@/components/sections/Testimonials";
 import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
-import { getProjects, getTestimonials, getPosts } from "@/lib/supabase";
+import { getProjects, getTestimonials, getPosts } from "@/lib/data";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  name      String
+  email     String
+  subject   String
+  message   String
+  // phone field was in code but not in SQL schema, adding it as optional based on code usage
+  phone     String?
+
+  @@map("contact_messages")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  postSlug  String   @map("post_slug")
+  name      String
+  email     String
+  content   String
+
+  @@map("comments")
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  imageUrl    String?  @map("image_url")
+  publishedAt DateTime @default(now()) @map("published_at")
+
+  @@map("posts")
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  name      String
+  role      String
+  company   String?
+  content   String
+  rating    Int      @default(5)
+  imageUrl  String?  @map("image_url")
+  approved  Boolean  @default(false) 
+
+  @@map("testimonials")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  title       String
+  slug        String   @unique
+  description String
+  category    String
+  imageUrl    String?  @map("image_url")
+  tech        String[] @default([])
+  link        String?
+  githubLink  String?  @map("github_link")
+
+  @@map("projects")
+}
+
+model SiteSettings {
+  id        Int      @id @default(1)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  cvUrl     String?  @map("cv_url")
+
+  @@map("site_settings")
+}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MessageSquare, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { submitContactForm } from "@/lib/supabase";
+import { submitContactForm } from "@/lib/data";
 import { useTranslations } from 'next-intl';
 
 export default function Contact() {

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import { createTestimonial } from "@/lib/supabase";
+import { createTestimonial } from "@/lib/data";
 
 interface Testimonial {
     id: string;

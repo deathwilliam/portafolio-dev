@@ -1,4 +1,4 @@
-import { getPost } from "@/lib/supabase";
+import { getPost } from "@/lib/data";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import Link from "next/link";

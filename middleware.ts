@@ -9,8 +9,11 @@ export default createMiddleware({
 });
 
 export const config = {
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next`, `/_vercel`, `/studio` or `/admin`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    matcher: ['/((?!api|_next|_vercel|studio|admin|.*\\..*).*)']
+    // Matcher ignores:
+    // - /api
+    // - /_next
+    // - /studio (Sanity)
+    // - /admin (Dashboard)
+    // - files with extensions (.*\\..*)
+    matcher: ['/((?!api|_next|studio|admin|.*\\..*).*)']
 };

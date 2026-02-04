@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
-import { getSiteSettings } from "@/lib/supabase";
+import { getSiteSettings } from "@/lib/data";
 import { useEffect, useState } from "react";
 
 export default function Hero() {

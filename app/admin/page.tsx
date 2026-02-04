@@ -8,11 +8,10 @@ import { Button } from "@/components/ui/Button";
 import {
     getContactMessages, deleteContactMessage,
     getProjects, deleteProject, createProject, updateProject,
-    getTestimonials, deleteTestimonial, createTestimonial, updateTestimonialStatus,
-    getPosts,
+    getTestimonials, deleteTestimonial, createTestimonial, updateTestimonialStatus, updateTestimonial,
+    getPosts, createPost, updatePost, deletePost,
     getSiteSettings,
-    supabase
-} from "@/lib/supabase";
+} from "@/lib/data";
 import { uploadCV, uploadImage } from "./actions";
 
 export default function AdminDashboard() {
@@ -93,8 +92,7 @@ export default function AdminDashboard() {
         if (!confirm("¿Estás seguro de que quieres eliminar esta publicación?")) return;
         setDeleting(id);
         try {
-            const { error } = await supabase.from('posts').delete().eq('id', id);
-            if (error) throw error;
+            await deletePost(id);
             setBlogPosts(blogPosts.filter(p => p.id !== id));
         } catch (e) {
             console.error(e);
@@ -132,21 +130,16 @@ export default function AdminDashboard() {
                 slug: formData.get('slug') as string,
                 excerpt: formData.get('excerpt') as string,
                 content: formData.get('content') as string,
-                image_url: imageUrl,
-                published_at: editingPost ? editingPost.published_at : new Date().toISOString(),
-                tags: (formData.get('tags') as string)?.split(',').map(tag => tag.trim()).filter(Boolean) || [],
+                imageUrl: imageUrl, // Prisma field name
+                publishedAt: editingPost ? editingPost.publishedAt : new Date(), // Prisma field names
+                // tags field removed/ignored as it wasn't in schema
             };
 
             if (editingPost) {
-                const { error } = await supabase
-                    .from('posts')
-                    .update(newPost)
-                    .eq('id', editingPost.id);
-                if (error) throw error;
+                await updatePost(editingPost.id, newPost);
                 alert("¡Publicación actualizada!");
             } else {
-                const { error } = await supabase.from('posts').insert([newPost]);
-                if (error) throw error;
+                await createPost(newPost);
                 alert("¡Publicación creada!");
             }
 
@@ -200,20 +193,16 @@ export default function AdminDashboard() {
             }
 
             const testimonialData = {
-                name: formData.get('name'),
-                role: formData.get('role'),
-                company: formData.get('company'),
-                content: formData.get('content'),
+                name: formData.get('name') as string,
+                role: formData.get('role') as string,
+                company: formData.get('company') as string,
+                content: formData.get('content') as string,
                 rating: parseInt(formData.get('rating') as string),
-                image_url: imageUrl,
+                imageUrl: imageUrl,
             };
 
             if (editingTestimonial) {
-                const { error } = await supabase
-                    .from('testimonials')
-                    .update(testimonialData)
-                    .eq('id', editingTestimonial.id);
-                if (error) throw error;
+                await updateTestimonial(editingTestimonial.id, testimonialData);
             } else {
                 await createTestimonial(testimonialData);
             }
@@ -223,7 +212,7 @@ export default function AdminDashboard() {
             alert("¡Testimonio guardado!");
         } catch (e: any) {
             console.error(e);
-            alert("Error al guardar el testimonio: " + e.message + "\n(Asegúrate de que el bucket 'resume' exista)");
+            alert("Error al guardar el testimonio: " + e.message);
         } finally {
             setTestimonialSaving(false);
         }

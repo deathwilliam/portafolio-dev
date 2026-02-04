@@ -1,4 +1,4 @@
-import { getPosts } from "@/lib/supabase";
+import { getPosts } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";

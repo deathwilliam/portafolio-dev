@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
-import { getComments, createComment } from "@/lib/supabase";
+import { getComments, createComment } from "@/lib/data";
 import { User, MessageSquare } from "lucide-react";
 
 interface Comment {
