@@ -158,6 +158,13 @@ export async function updateTestimonialStatus(id: string, approved: boolean) {
     return true;
 }
 
+export async function updateTestimonial(id: string, updates: any) {
+    return await prisma.testimonial.update({
+        where: { id },
+        data: updates
+    });
+}
+
 // -----------------------------------------------------------------------------
 // SITE SETTINGS
 // -----------------------------------------------------------------------------
