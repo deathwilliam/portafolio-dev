@@ -11,11 +11,11 @@ interface Project {
     id: string;
     title: string;
     description: string;
-    image_url?: string;
+    imageUrl?: string;
     category: string;
     tech: string[];
     link?: string;
-    github_link?: string;
+    githubLink?: string;
 }
 
 interface ProjectsProps {
@@ -86,9 +86,9 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
                                 <div className="relative h-64 overflow-hidden shrink-0">
-                                    {project.image_url && (
+                                    {project.imageUrl && (
                                         <Image
-                                            src={project.image_url}
+                                            src={project.imageUrl}
                                             alt={project.title}
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -100,8 +100,8 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                                 <ExternalLink className="w-4 h-4 mr-2" /> {t('viewDemo')}
                                             </Button>
                                         )}
-                                        {project.github_link && (
-                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.github_link, "_blank")}>
+                                        {project.githubLink && (
+                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.githubLink, "_blank")}>
                                                 <Github className="w-4 h-4 mr-2" /> {t('viewCode')}
                                             </Button>
                                         )}

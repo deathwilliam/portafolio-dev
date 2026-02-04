@@ -14,7 +14,7 @@ interface Testimonial {
     role: string;
     company?: string;
     content: string;
-    image_url?: string;
+    imageUrl?: string;
     rating: number;
 }
 
@@ -101,10 +101,10 @@ export default function Testimonials({ initialTestimonials = [] }: TestimonialsP
                             </p>
 
                             <div className="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                                {testimonial.image_url ? (
+                                {testimonial.imageUrl ? (
                                     <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
                                         <Image
-                                            src={testimonial.image_url}
+                                            src={testimonial.imageUrl}
                                             alt={testimonial.name}
                                             fill
                                             className="object-cover"

@@ -63,7 +63,7 @@ export default function AdminDashboard() {
             setProjects(projs || []);
             setTestimonials(tests || []);
             setBlogPosts(posts || []);
-            setCvUrl(settings?.cv_url || null);
+            setCvUrl(settings?.cvUrl || null);
         } catch (error) {
             console.error(error);
         } finally {
@@ -272,9 +272,9 @@ export default function AdminDashboard() {
                 slug: formData.get('title')?.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-'),
                 category: formData.get('category'),
                 description: formData.get('description'),
-                image_url: imageUrl,
+                imageUrl: imageUrl,
                 link: formData.get('link'),
-                github_link: formData.get('github_link'),
+                githubLink: formData.get('github_link'),
             };
 
             if (editingProject) {
@@ -440,10 +440,10 @@ export default function AdminDashboard() {
                                     projects.slice(0, 5).map((project) => (
                                         <div key={project.id} className="p-4 hover:bg-muted/30 transition-colors flex items-center justify-between group">
                                             <div className="flex items-center gap-3">
-                                                {project.image_url && (
+                                                {project.imageUrl && (
                                                     <div className="w-12 h-12 rounded-lg bg-muted overflow-hidden relative">
                                                         <Image
-                                                            src={project.image_url}
+                                                            src={project.imageUrl}
                                                             alt={project.title}
                                                             fill
                                                             className="object-cover"
@@ -497,10 +497,10 @@ export default function AdminDashboard() {
                                     testimonials.map((t) => (
                                         <div key={t.id} className="p-4 hover:bg-muted/30 transition-colors flex items-center justify-between group">
                                             <div className="flex items-center gap-3">
-                                                {t.image_url && (
+                                                {t.imageUrl && (
                                                     <div className="w-12 h-12 rounded-full bg-muted overflow-hidden relative">
                                                         <Image
-                                                            src={t.image_url}
+                                                            src={t.imageUrl}
                                                             alt={t.name}
                                                             fill
                                                             className="object-cover"
@@ -578,10 +578,10 @@ export default function AdminDashboard() {
                                     blogPosts.slice(0, 5).map((post) => (
                                         <div key={post.id} className="p-4 hover:bg-muted/30 transition-colors flex items-center justify-between group">
                                             <div className="flex items-center gap-3">
-                                                {post.image_url && (
+                                                {post.imageUrl && (
                                                     <div className="w-12 h-12 rounded-lg bg-muted overflow-hidden relative">
                                                         <Image
-                                                            src={post.image_url}
+                                                            src={post.imageUrl}
                                                             alt={post.title}
                                                             fill
                                                             className="object-cover"
@@ -591,7 +591,7 @@ export default function AdminDashboard() {
                                                 <div>
                                                     <h4 className="font-medium line-clamp-1">{post.title}</h4>
                                                     <p className="text-xs text-foreground/50">
-                                                        {new Date(post.published_at).toLocaleDateString()}
+                                                        {new Date(post.publishedAt).toLocaleDateString()}
                                                     </p>
                                                 </div>
                                             </div>
@@ -647,7 +647,7 @@ export default function AdminDashboard() {
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     <span className="text-xs text-foreground/40">
-                                                        {new Date(msg.created_at).toLocaleDateString()}
+                                                        {new Date(msg.createdAt).toLocaleDateString()}
                                                     </span>
                                                     <Button
                                                         onClick={() => handleDelete(msg.id)}
@@ -730,7 +730,7 @@ export default function AdminDashboard() {
                                         <input
                                             name="image_url"
                                             placeholder="o pegar URL https://..."
-                                            defaultValue={editingProject?.image_url}
+                                            defaultValue={editingProject?.imageUrl}
                                             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
                                         />
                                     </div>

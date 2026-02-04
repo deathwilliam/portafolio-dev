@@ -11,10 +11,10 @@ import Link from 'next/link';
 interface BlogPost {
     id: string;
     title: string;
-    slug: string; // Supabase stores slug as string, not object
+    slug: string;
     excerpt?: string;
-    image_url?: string; // Supabase stores image URL in image_url column
-    published_at: string; // Snake case in Supabase
+    imageUrl?: string;
+    publishedAt: Date | string;
     tags?: string[];
 }
 
@@ -33,8 +33,8 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
     // Show only the latest 3 posts
     const latestPosts = initialPosts.slice(0, 3);
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+    const formatDate = (date: any) => {
+        return new Date(date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -69,10 +69,10 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                             className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
                         >
                             {/* Cover Image */}
-                            {post.image_url && (
+                            {post.imageUrl && (
                                 <div className="relative h-48 overflow-hidden shrink-0">
                                     <Image
-                                        src={post.image_url}
+                                        src={post.imageUrl}
                                         alt={post.title}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -86,7 +86,7 @@ export default function Blog({ initialPosts = [] }: BlogProps) {
                                 <div className="flex items-center gap-4 text-xs text-foreground/60 mb-4">
                                     <span className="flex items-center gap-1">
                                         <Calendar className="w-4 h-4" />
-                                        {formatDate(post.published_at)}
+                                        {formatDate(post.publishedAt)}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Clock className="w-4 h-4" />

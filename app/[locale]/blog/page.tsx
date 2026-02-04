@@ -11,9 +11,9 @@ interface BlogPost {
     id: string;
     title: string;
     slug: string;
-    excerpt?: string;
-    image_url?: string;
-    published_at: string;
+    excerpt: string | null;
+    imageUrl: string | null;
+    publishedAt: Date;
 }
 
 export default async function BlogPage({
@@ -30,8 +30,8 @@ export default async function BlogPage({
         console.error("Error fetching posts:", e);
     }
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+    const formatDate = (date: Date) => {
+        return new Date(date).toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -58,10 +58,10 @@ export default async function BlogPage({
                             className="bg-background rounded-2xl overflow-hidden shadow-sm border border-muted hover:border-primary/50 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
                         >
                             {/* Cover Image */}
-                            {post.image_url && (
+                            {post.imageUrl && (
                                 <div className="relative h-48 overflow-hidden shrink-0">
                                     <Image
-                                        src={post.image_url}
+                                        src={post.imageUrl}
                                         alt={post.title}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -75,7 +75,7 @@ export default async function BlogPage({
                                 <div className="flex items-center gap-4 text-xs text-foreground/60 mb-4">
                                     <span className="flex items-center gap-1">
                                         <Calendar className="w-4 h-4" />
-                                        {formatDate(post.published_at)}
+                                        {formatDate(post.publishedAt)}
                                     </span>
                                 </div>
 
