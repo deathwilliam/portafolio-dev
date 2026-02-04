@@ -9,10 +9,40 @@ import { getProjects, getTestimonials, getPosts } from "@/lib/data";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  category: string;
+  tech: string[];
+  link?: string;
+  githubLink?: string;
+}
+
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company?: string;
+  content: string;
+  imageUrl?: string;
+  rating: number;
+}
+
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  imageUrl?: string;
+  publishedAt: Date | string;
+}
+
 export default async function Home() {
-  let projects = [];
-  let testimonials = [];
-  let blogPosts = [];
+  let projects: any[] = [];
+  let testimonials: any[] = [];
+  let blogPosts: any[] = [];
 
   try {
     [projects, testimonials, blogPosts] = await Promise.all([
