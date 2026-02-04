@@ -10,7 +10,7 @@ interface Comment {
     id: string;
     name: string;
     content: string;
-    created_at: string;
+    createdAt: string | Date;
 }
 
 interface CommentsProps {
@@ -154,7 +154,7 @@ export default function Comments({ slug }: CommentsProps) {
                                 <div className="flex items-center gap-2 mb-1">
                                     <h4 className="font-bold">{comment.name}</h4>
                                     <span className="text-xs text-foreground/60">
-                                        {new Date(comment.created_at).toLocaleDateString()}
+                                        {new Date(comment.createdAt).toLocaleDateString()}
                                     </span>
                                 </div>
                                 <p className="text-foreground/80 leading-relaxed">

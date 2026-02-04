@@ -810,7 +810,7 @@ export default function AdminDashboard() {
                                         />
                                         <input
                                             name="image_url"
-                                            defaultValue={editingPost?.image_url}
+                                            defaultValue={editingPost?.imageUrl}
                                             placeholder="o pegar URL https://..."
                                             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
                                         />
@@ -922,7 +922,7 @@ export default function AdminDashboard() {
                                         <input
                                             name="image_url"
                                             placeholder="o pegar URL https://..."
-                                            defaultValue={editingTestimonial?.image_url}
+                                            defaultValue={editingTestimonial?.imageUrl}
                                             className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20 text-sm"
                                         />
                                     </div>
