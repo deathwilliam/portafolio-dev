@@ -47,6 +47,7 @@ model Post {
   @@map("posts")
 }
 
+
 model Testimonial {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")

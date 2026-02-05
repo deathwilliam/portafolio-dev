@@ -89,6 +89,7 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [deleting, setDeleting] = useState<string | null>(null);
 
+
     // Project Modal State
     const [showProjectModal, setShowProjectModal] = useState(false);
     const [projectSaving, setProjectSaving] = useState(false);
@@ -101,11 +102,25 @@ export default function AdminDashboard() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [editingPost, setEditingPost] = useState<any>(null);
 
+
     // Testimonial Modal State
     const [showTestimonialModal, setShowTestimonialModal] = useState(false);
     const [testimonialSaving, setTestimonialSaving] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [editingTestimonial, setEditingTestimonial] = useState<any>(null);
+
+    // Lock scroll when modal is open
+    useEffect(() => {
+        const anyModalOpen = showProjectModal || showPostModal || showTestimonialModal;
+        if (anyModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [showProjectModal, showPostModal, showTestimonialModal]);
 
     useEffect(() => {
         fetch("/api/admin/verify")
@@ -772,7 +787,7 @@ export default function AdminDashboard() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col relative"
                         >
                             <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingProject ? "Editar Proyecto" : "Crear Nuevo Proyecto"}</h2>
@@ -781,8 +796,8 @@ export default function AdminDashboard() {
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handleProjectSubmit} className="flex-1 overflow-y-auto p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <form onSubmit={handleProjectSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                     {/* Left Column: Details */}
                                     <div className="space-y-4">
                                         <div>
@@ -903,7 +918,7 @@ export default function AdminDashboard() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col relative"
                         >
                             <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingPost ? "Editar Publicación" : "Crear Nueva Publicación"}</h2>
@@ -912,8 +927,8 @@ export default function AdminDashboard() {
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handlePostSubmit} className="flex-1 overflow-y-auto p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <form onSubmit={handlePostSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Título</label>
                                         <input
@@ -953,7 +968,7 @@ export default function AdminDashboard() {
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                                     <div className="bg-muted/30 p-5 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 hover:bg-muted/50 transition-colors">
                                         <label className="block text-sm font-medium mb-3">Imagen de Portada</label>
                                         <div className="space-y-3">
@@ -991,13 +1006,13 @@ export default function AdminDashboard() {
                                     </div>
                                 </div>
 
-                                <div className="h-full min-h-[300px] flex flex-col">
+                                <div className="flex-1 flex flex-col min-h-[300px]">
                                     <label className="block text-sm font-medium mb-1">Contenido (Markdown)</label>
                                     <textarea
                                         name="content"
                                         required
                                         defaultValue={editingPost?.content}
-                                        className="w-full flex-1 min-h-[300px] px-4 py-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none font-mono text-sm leading-relaxed"
+                                        className="w-full flex-1 min-h-[250px] px-4 py-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none font-mono text-sm leading-relaxed"
                                     />
                                 </div>
 
@@ -1018,7 +1033,7 @@ export default function AdminDashboard() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col relative"
                         >
                             <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingTestimonial ? "Editar Testimonio" : "Crear Testimonio"}</h2>
@@ -1027,8 +1042,8 @@ export default function AdminDashboard() {
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handleTestimonialSubmit} className="flex-1 overflow-y-auto p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <form onSubmit={handleTestimonialSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
                                     <div className="md:col-span-1">
                                         <label className="block text-sm font-medium mb-1">Nombre</label>
                                         <input
@@ -1057,7 +1072,7 @@ export default function AdminDashboard() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                                     <div>
                                         <div className="flex justify-between items-center mb-1">
                                             <label className="block text-sm font-medium">Calificación</label>
