@@ -9,16 +9,21 @@ export async function POST(request: Request) {
     const pass = process.env.GMAIL_APP_PASSWORD;
 
     if (!user || !pass) {
-      return NextResponse.json({ error: 'Missing Gmail credentials in environment variables.' }, { status: 500 });
+      return NextResponse.json({ error: 'Faltan credenciales de Gmail (GMAIL_USER, GMAIL_APP_PASSWORD) en las variables de entorno.' }, { status: 500 });
     }
 
-    // Configurar transporter de Gmail
+    // Configurar transporter de Gmail con puerto 587 y logs de depuración
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // Use STARTTLS
       auth: {
         user,
         pass,
       },
+      debug: true, // Show debug output in logs
+      logger: true, // Log to console
+      connectionTimeout: 10000,
     });
 
     // Configurar el email
@@ -28,16 +33,20 @@ export async function POST(request: Request) {
       replyTo: email,
       subject: `Nuevo mensaje de contacto: ${subject}`,
       html: `
-        <h2>Nuevo mensaje desde tu portafolio</h2>
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        <p><strong>Asunto:</strong> ${subject}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>${message}</p>
-        <hr />
-        <p style="color: #666; font-size: 12px;">
-          Para responder, haz clic en "Responder" y tu respuesta irá a ${email}
-        </p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #333;">Nuevo mensaje desde tu portafolio</h2>
+          <p><strong>Nombre:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Asunto:</strong> ${subject}</p>
+          <p><strong>Mensaje:</strong></p>
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #3b82f6;">
+            ${message}
+          </div>
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;" />
+          <p style="color: #666; font-size: 12px; text-align: center;">
+            Para responder, simplemente responde a este correo. Irá directamente a ${email}.
+          </p>
+        </div>
       `,
     };
 
