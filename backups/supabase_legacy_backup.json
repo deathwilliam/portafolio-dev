@@ -1,0 +1,61 @@
+{
+    "source": "Supabase Legacy (ohddwghzljvelfktkgdn)",
+    "retrievedAt": "2026-02-04T23:09:00Z",
+    "data": {
+        "projects": [
+            {
+                "title": "AI Task Manager",
+                "slug": "ai-task-manager",
+                "description": "Task management with AI priority suggestions",
+                "category": "Artificial Intelligence"
+            },
+            {
+                "title": "Finance Dashboard",
+                "slug": "finance-dashboard",
+                "description": "Real-time personal finance tracker",
+                "category": "Web Development"
+            }
+        ],
+        "posts": [
+            {
+                "title": "Introduction to AI",
+                "slug": "intro-to-ai",
+                "status": "published"
+            },
+            {
+                "title": "Modern Web Development",
+                "slug": "modern-web-dev",
+                "status": "published"
+            }
+        ],
+        "testimonials": [
+            {
+                "name": "William",
+                "role": "Desarrollador"
+            },
+            {
+                "name": "Emily Davis",
+                "role": "Founder"
+            },
+            {
+                "name": "Michael Chen",
+                "role": "CTO"
+            },
+            {
+                "name": "Sarah Johnson",
+                "role": "Product Manager"
+            }
+        ],
+        "contactMessages": [
+            {
+                "sender": "Wilfredo",
+                "email": "melgar.wilfredo@gmail.com",
+                "subject": "Proyecto desarrollo web",
+                "message": "queremos tu apoyo en un proyecto de desarrollo"
+            }
+        ],
+        "siteSettings": {
+            "cv_url": "https://ohddwghzljvelfktkgdn.supabase.co/storage/v1/object/public/cv/cv.pdf"
+        }
+    }
+}

@@ -24,6 +24,11 @@ export async function POST(request: Request) {
       debug: true, // Show debug output in logs
       logger: true, // Log to console
       connectionTimeout: 10000,
+      family: 4, // Force IPv4
+      requireTLS: true,
+      tls: {
+        ciphers: 'SSLv3'
+      }
     });
 
     // Configurar el email
