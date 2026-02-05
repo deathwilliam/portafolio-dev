@@ -830,10 +830,10 @@ export default function AdminDashboard() {
                                     {/* Right Column: Media & Links */}
                                     <div className="space-y-4">
                                         <div>
-                                            <h3 className="font-semibold text-sm text-primary mb-3 uppercase tracking-wider">Media & Links</h3>
-                                            <div className="space-y-4">
-                                                <div className="bg-muted/30 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
-                                                    <label className="block text-sm font-medium mb-2">Imagen de Portada</label>
+                                            <h3 className="font-semibold text-xs text-muted-foreground mb-4 uppercase tracking-wider">Media & Links</h3>
+                                            <div className="space-y-5">
+                                                <div className="bg-muted/30 p-5 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 hover:bg-muted/50 transition-colors">
+                                                    <label className="block text-sm font-medium mb-3">Imagen de Portada</label>
                                                     <div className="space-y-3">
                                                         <input
                                                             type="file"
@@ -843,21 +843,25 @@ export default function AdminDashboard() {
                                                                 file:mr-4 file:py-2 file:px-4
                                                                 file:rounded-full file:border-0
                                                                 file:text-sm file:font-semibold
-                                                                file:bg-primary/10 file:text-primary
-                                                                hover:file:bg-primary/20
+                                                                file:bg-primary file:text-primary-foreground
+                                                                hover:file:opacity-90 cursor-pointer
                                                             "
                                                         />
-                                                        <div className="text-center text-xs text-muted-foreground">- O -</div>
+                                                        <div className="relative flex items-center gap-2">
+                                                            <div className="h-px bg-border flex-1"></div>
+                                                            <span className="text-[10px] uppercase text-muted-foreground font-medium">O usar URL</span>
+                                                            <div className="h-px bg-border flex-1"></div>
+                                                        </div>
                                                         <input
                                                             name="image_url"
-                                                            placeholder="Pegar URL de imagen..."
+                                                            placeholder="https://..."
                                                             defaultValue={editingProject?.imageUrl}
                                                             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className="grid grid-cols-2 gap-4">
+                                                <div className="grid grid-cols-1 gap-4">
                                                     <div>
                                                         <label className="block text-sm font-medium mb-1">Demo Link</label>
                                                         <input
@@ -950,32 +954,40 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div className="bg-muted/30 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
-                                        <label className="block text-sm font-medium mb-2">Imagen de Portada</label>
+                                    <div className="bg-muted/30 p-5 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 hover:bg-muted/50 transition-colors">
+                                        <label className="block text-sm font-medium mb-3">Imagen de Portada</label>
                                         <div className="space-y-3">
                                             <input
                                                 type="file"
                                                 name="image"
                                                 accept="image/*"
-                                                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                                                className="block w-full text-sm text-gray-500
+                                                    file:mr-4 file:py-2 file:px-4
+                                                    file:rounded-full file:border-0
+                                                    file:text-sm file:font-semibold
+                                                    file:bg-primary file:text-primary-foreground
+                                                    hover:file:opacity-90 cursor-pointer
+                                                "
                                             />
                                             <input
                                                 name="image_url"
                                                 defaultValue={editingPost?.imageUrl}
-                                                placeholder="o pegar URL https://..."
-                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm"
+                                                placeholder="https://..."
+                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-primary/50 outline-none"
                                             />
                                         </div>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Tags</label>
-                                        <input
-                                            name="tags"
-                                            defaultValue={editingPost?.tags?.join(', ')}
-                                            placeholder="Ej: React, Tutorial, DevLog"
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none mb-2"
-                                        />
-                                        <p className="text-xs text-muted-foreground">Separados por coma</p>
+                                        <div className="bg-muted/30 p-4 rounded-xl border border-gray-300 dark:border-gray-700 h-full flex flex-col justify-center">
+                                            <input
+                                                name="tags"
+                                                defaultValue={editingPost?.tags?.join(', ')}
+                                                placeholder="Ej: React, Tutorial, DevLog"
+                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none mb-2"
+                                            />
+                                            <p className="text-xs text-muted-foreground ml-1">Separados por coma</p>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1045,9 +1057,12 @@ export default function AdminDashboard() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                     <div>
-                                        <label className="block text-sm font-medium mb-1">Calificación (1-5)</label>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <label className="block text-sm font-medium">Calificación</label>
+                                            <span className="text-xs text-muted-foreground">1 a 5 estrellas</span>
+                                        </div>
                                         <div className="relative">
                                             <input
                                                 name="rating"
@@ -1056,27 +1071,30 @@ export default function AdminDashboard() {
                                                 max="5"
                                                 defaultValue={editingTestimonial?.rating || 5}
                                                 required
-                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                className="w-full pl-4 pr-10 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-lg font-semibold"
                                             />
-                                            <div className="absolute right-3 top-2.5 text-yellow-500 pointer-events-none">★</div>
+                                            <div className="absolute right-3 top-3.5 text-yellow-400 text-xl pointer-events-none">★</div>
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium mb-1">Foto (URL o Archivo)</label>
+                                        <label className="block text-sm font-medium mb-1">Foto (Opcional)</label>
                                         <div className="flex gap-2">
-                                            <input
-                                                type="file"
-                                                name="image"
-                                                accept="image/*"
-                                                className="w-1/2 text-xs"
-                                            />
+                                            <div className="relative flex-1">
+                                                <input
+                                                    type="file"
+                                                    name="image"
+                                                    accept="image/*"
+                                                    className="w-full text-xs file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 text-muted-foreground"
+                                                />
+                                            </div>
                                             <input
                                                 name="image_url"
                                                 placeholder="https://..."
                                                 defaultValue={editingTestimonial?.imageUrl}
-                                                className="w-1/2 px-2 py-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-xs"
+                                                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-primary/50 outline-none"
                                             />
                                         </div>
+                                        <p className="text-[10px] text-muted-foreground mt-1">Sube un archivo o pega una URL de imagen</p>
                                     </div>
                                 </div>
 
@@ -1091,10 +1109,10 @@ export default function AdminDashboard() {
                                     />
                                 </div>
 
-                                <div className="pt-6 mt-4 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3">
+                                <div className="pt-6 mt-6 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3">
                                     <Button type="button" variant="ghost" onClick={() => setShowTestimonialModal(false)}>Cancelar</Button>
-                                    <Button type="submit" disabled={testimonialSaving}>
-                                        {testimonialSaving ? "Guardando..." : (editingTestimonial ? "Actualizar Testimonio" : "Crear Testimonio")}
+                                    <Button type="submit" disabled={testimonialSaving} className="min-w-[150px]">
+                                        {testimonialSaving ? "Guardando..." : (editingTestimonial ? "Actualizar" : "Crear")}
                                     </Button>
                                 </div>
                             </form>
