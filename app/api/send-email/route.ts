@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       tls: {
         ciphers: 'SSLv3'
       }
-    });
+    } as any);
 
     // Configurar el email
     const mailOptions = {
