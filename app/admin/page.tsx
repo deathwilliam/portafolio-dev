@@ -768,72 +768,123 @@ export default function AdminDashboard() {
 
                 {/* Project Modal (Create/Edit) */}
                 {showProjectModal && (
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-200 dark:border-gray-700"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
                         >
-                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingProject ? "Editar Proyecto" : "Crear Nuevo Proyecto"}</h2>
                                 <button onClick={() => setShowProjectModal(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
                                     <span className="sr-only">Close</span>
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handleProjectSubmit} className="p-6 space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Título</label>
-                                    <input
-                                        name="title"
-                                        required
-                                        defaultValue={editingProject?.title}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Categoría</label>
-                                    <select
-                                        name="category"
-                                        defaultValue={editingProject?.category}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    >
-                                        <option value="Full Stack">Full Stack</option>
-                                        <option value="Frontend">Frontend</option>
-                                        <option value="Backend">Backend</option>
-                                        <option value="Mobile">Mobile</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Descripción</label>
-                                    <textarea
-                                        name="description"
-                                        required
-                                        rows={3}
-                                        defaultValue={editingProject?.description}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Imagen (Subir archivo o URL)</label>
-                                    <div className="space-y-2">
-                                        <input
-                                            type="file"
-                                            name="image"
-                                            accept="image/*"
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                        />
-                                        <input
-                                            name="image_url"
-                                            placeholder="o pegar URL https://..."
-                                            defaultValue={editingProject?.imageUrl}
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
-                                        />
+                            <form onSubmit={handleProjectSubmit} className="flex-1 overflow-y-auto p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {/* Left Column: Details */}
+                                    <div className="space-y-4">
+                                        <div>
+                                            <h3 className="font-semibold text-sm text-primary mb-3 uppercase tracking-wider">Detalles del Proyecto</h3>
+                                            <div className="space-y-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1">Título</label>
+                                                    <input
+                                                        name="title"
+                                                        required
+                                                        defaultValue={editingProject?.title}
+                                                        placeholder="Ej: E-commerce Platform"
+                                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1">Categoría</label>
+                                                    <select
+                                                        name="category"
+                                                        defaultValue={editingProject?.category}
+                                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                    >
+                                                        <option value="Full Stack">Full Stack</option>
+                                                        <option value="Frontend">Frontend</option>
+                                                        <option value="Backend">Backend</option>
+                                                        <option value="Mobile">Mobile</option>
+                                                        <option value="Design">UI/UX Design</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1">Descripción</label>
+                                                    <textarea
+                                                        name="description"
+                                                        required
+                                                        rows={6}
+                                                        defaultValue={editingProject?.description}
+                                                        placeholder="Describe las tecnologías usadas y el propósito..."
+                                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all resize-none"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Right Column: Media & Links */}
+                                    <div className="space-y-4">
+                                        <div>
+                                            <h3 className="font-semibold text-sm text-primary mb-3 uppercase tracking-wider">Media & Links</h3>
+                                            <div className="space-y-4">
+                                                <div className="bg-muted/30 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+                                                    <label className="block text-sm font-medium mb-2">Imagen de Portada</label>
+                                                    <div className="space-y-3">
+                                                        <input
+                                                            type="file"
+                                                            name="image"
+                                                            accept="image/*"
+                                                            className="block w-full text-sm text-gray-500
+                                                                file:mr-4 file:py-2 file:px-4
+                                                                file:rounded-full file:border-0
+                                                                file:text-sm file:font-semibold
+                                                                file:bg-primary/10 file:text-primary
+                                                                hover:file:bg-primary/20
+                                                            "
+                                                        />
+                                                        <div className="text-center text-xs text-muted-foreground">- O -</div>
+                                                        <input
+                                                            name="image_url"
+                                                            placeholder="Pegar URL de imagen..."
+                                                            defaultValue={editingProject?.imageUrl}
+                                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1">Demo Link</label>
+                                                        <input
+                                                            name="link"
+                                                            defaultValue={editingProject?.link}
+                                                            placeholder="https://..."
+                                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-medium mb-1">GitHub Repo</label>
+                                                        <input
+                                                            name="github_link"
+                                                            defaultValue={editingProject?.githubLink}
+                                                            placeholder="https://github.com/..."
+                                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="pt-4 flex justify-end gap-3">
+
+                                <div className="pt-6 mt-6 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3">
                                     <Button type="button" variant="ghost" onClick={() => setShowProjectModal(false)}>Cancelar</Button>
-                                    <Button type="submit" disabled={projectSaving}>
+                                    <Button type="submit" disabled={projectSaving} className="min-w-[150px]">
                                         {projectSaving ? "Guardando..." : (editingProject ? "Actualizar Proyecto" : "Crear Proyecto")}
                                     </Button>
                                 </div>
@@ -844,97 +895,104 @@ export default function AdminDashboard() {
 
                 {/* Blog Post Modal (Create/Edit) */}
                 {showPostModal && (
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-background rounded-2xl shadow-xl w-full max-w-lg overflow-hidden max-h-[90vh] overflow-y-auto"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
                         >
-                            <div className="p-6 border-b border-muted flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingPost ? "Editar Publicación" : "Crear Nueva Publicación"}</h2>
-                                <button onClick={() => setShowPostModal(false)} className="text-foreground/60 hover:text-foreground">
+                                <button onClick={() => setShowPostModal(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
                                     <span className="sr-only">Close</span>
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handlePostSubmit} className="p-6 space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Título</label>
-                                    <input
-                                        name="title"
-                                        required
-                                        defaultValue={editingPost?.title}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
-                                        onChange={(e) => {
-                                            // Auto-generate slug only if creating new post
-                                            if (!editingPost) {
-                                                const slugInput = document.querySelector('input[name="slug"]') as HTMLInputElement;
-                                                if (slugInput && !slugInput.value) {
-                                                    slugInput.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                            <form onSubmit={handlePostSubmit} className="flex-1 overflow-y-auto p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Título</label>
+                                        <input
+                                            name="title"
+                                            required
+                                            defaultValue={editingPost?.title}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none"
+                                            onChange={(e) => {
+                                                if (!editingPost) {
+                                                    const slugInput = document.querySelector('input[name="slug"]') as HTMLInputElement;
+                                                    if (slugInput && !slugInput.value) {
+                                                        slugInput.value = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                                    }
                                                 }
-                                            }
-                                        }}
-                                    />
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Slug (URL)</label>
+                                        <input
+                                            name="slug"
+                                            required
+                                            defaultValue={editingPost?.slug}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 font-mono text-sm"
+                                        />
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Slug</label>
-                                    <input
-                                        name="slug"
-                                        required
-                                        defaultValue={editingPost?.slug}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Extracto</label>
+
+                                <div className="mb-6">
+                                    <label className="block text-sm font-medium mb-1">Extracto (Resumen corto)</label>
                                     <textarea
                                         name="excerpt"
                                         required
                                         defaultValue={editingPost?.excerpt}
                                         rows={2}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none resize-none"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Imagen (Subir archivo o URL)</label>
-                                    <div className="space-y-2">
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div className="bg-muted/30 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+                                        <label className="block text-sm font-medium mb-2">Imagen de Portada</label>
+                                        <div className="space-y-3">
+                                            <input
+                                                type="file"
+                                                name="image"
+                                                accept="image/*"
+                                                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                                            />
+                                            <input
+                                                name="image_url"
+                                                defaultValue={editingPost?.imageUrl}
+                                                placeholder="o pegar URL https://..."
+                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Tags</label>
                                         <input
-                                            type="file"
-                                            name="image"
-                                            accept="image/*"
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                            name="tags"
+                                            defaultValue={editingPost?.tags?.join(', ')}
+                                            placeholder="Ej: React, Tutorial, DevLog"
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none mb-2"
                                         />
-                                        <input
-                                            name="image_url"
-                                            defaultValue={editingPost?.imageUrl}
-                                            placeholder="o pegar URL https://..."
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-sm"
-                                        />
+                                        <p className="text-xs text-muted-foreground">Separados por coma</p>
                                     </div>
                                 </div>
-                                <div>
+
+                                <div className="h-full min-h-[300px] flex flex-col">
                                     <label className="block text-sm font-medium mb-1">Contenido (Markdown)</label>
                                     <textarea
                                         name="content"
                                         required
                                         defaultValue={editingPost?.content}
-                                        rows={6}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
+                                        className="w-full flex-1 min-h-[300px] px-4 py-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none font-mono text-sm leading-relaxed"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Tags (separados por coma)</label>
-                                    <input
-                                        name="tags"
-                                        defaultValue={editingPost?.tags?.join(', ')}
-                                        placeholder="React, Tutorial, Desarrollo Web"
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
-                                    />
-                                </div>
-                                <div className="pt-4 flex justify-end gap-3">
+
+                                <div className="pt-6 mt-6 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3">
                                     <Button type="button" variant="ghost" onClick={() => setShowPostModal(false)}>Cancelar</Button>
-                                    <Button type="submit" disabled={postSaving}>
-                                        {postSaving ? "Guardando..." : (editingPost ? "Actualizar Publicación" : "Crear Publicación")}
+                                    <Button type="submit" disabled={postSaving} className="min-w-[150px]">
+                                        {postSaving ? "Guardando..." : (editingPost ? "Actualizar Post" : "Publicar Post")}
                                     </Button>
                                 </div>
                             </form>
@@ -944,89 +1002,99 @@ export default function AdminDashboard() {
 
                 {/* Testimonial Modal */}
                 {showTestimonialModal && (
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-200 dark:border-gray-700"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-gray-200 dark:border-gray-700 max-h-[90vh] flex flex-col"
                         >
-                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
                                 <h2 className="text-xl font-bold">{editingTestimonial ? "Editar Testimonio" : "Crear Testimonio"}</h2>
                                 <button onClick={() => setShowTestimonialModal(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
                                     <span className="sr-only">Close</span>
                                     ✕
                                 </button>
                             </div>
-                            <form onSubmit={handleTestimonialSubmit} className="p-6 space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Nombre</label>
-                                    <input
-                                        name="name"
-                                        required
-                                        defaultValue={editingTestimonial?.name}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
+                            <form onSubmit={handleTestimonialSubmit} className="flex-1 overflow-y-auto p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                    <div className="md:col-span-1">
+                                        <label className="block text-sm font-medium mb-1">Nombre</label>
+                                        <input
+                                            name="name"
+                                            required
+                                            defaultValue={editingTestimonial?.name}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        />
+                                    </div>
+                                    <div className="md:col-span-1">
+                                        <label className="block text-sm font-medium mb-1">Cargo / Rol</label>
+                                        <input
+                                            name="role"
+                                            required
+                                            defaultValue={editingTestimonial?.role}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        />
+                                    </div>
+                                    <div className="md:col-span-1">
+                                        <label className="block text-sm font-medium mb-1">Empresa</label>
+                                        <input
+                                            name="company"
+                                            defaultValue={editingTestimonial?.company}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        />
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Cargo / Rol</label>
-                                    <input
-                                        name="role"
-                                        required
-                                        defaultValue={editingTestimonial?.role}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Calificación (1-5)</label>
+                                        <div className="relative">
+                                            <input
+                                                name="rating"
+                                                type="number"
+                                                min="1"
+                                                max="5"
+                                                defaultValue={editingTestimonial?.rating || 5}
+                                                required
+                                                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                            />
+                                            <div className="absolute right-3 top-2.5 text-yellow-500 pointer-events-none">★</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Foto (URL o Archivo)</label>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="file"
+                                                name="image"
+                                                accept="image/*"
+                                                className="w-1/2 text-xs"
+                                            />
+                                            <input
+                                                name="image_url"
+                                                placeholder="https://..."
+                                                defaultValue={editingTestimonial?.imageUrl}
+                                                className="w-1/2 px-2 py-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-xs"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Empresa</label>
-                                    <input
-                                        name="company"
-                                        defaultValue={editingTestimonial?.company}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
-                                </div>
+
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Reseña</label>
                                     <textarea
                                         name="content"
                                         required
-                                        rows={3}
+                                        rows={4}
                                         defaultValue={editingTestimonial?.content}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all resize-none"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Calificación (1-5)</label>
-                                    <input
-                                        name="rating"
-                                        type="number"
-                                        min="1"
-                                        max="5"
-                                        defaultValue={editingTestimonial?.rating || 5}
-                                        required
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Imagen (Subir archivo o URL)</label>
-                                    <div className="space-y-2">
-                                        <input
-                                            type="file"
-                                            name="image"
-                                            accept="image/*"
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                                        />
-                                        <input
-                                            name="image_url"
-                                            placeholder="o pegar URL https://..."
-                                            defaultValue={editingTestimonial?.imageUrl}
-                                            className="w-full px-4 py-2 rounded-lg border border-muted bg-muted/20 text-sm"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="pt-4 flex justify-end gap-3">
+
+                                <div className="pt-6 mt-4 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-3">
                                     <Button type="button" variant="ghost" onClick={() => setShowTestimonialModal(false)}>Cancelar</Button>
                                     <Button type="submit" disabled={testimonialSaving}>
-                                        {testimonialSaving ? "Guardando..." : (editingTestimonial ? "Actualizar" : "Crear")}
+                                        {testimonialSaving ? "Guardando..." : (editingTestimonial ? "Actualizar Testimonio" : "Crear Testimonio")}
                                     </Button>
                                 </div>
                             </form>
