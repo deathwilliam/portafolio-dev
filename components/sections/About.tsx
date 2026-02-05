@@ -8,7 +8,7 @@ export default function About() {
     const t = useTranslations('About');
 
     return (
-        <section id="about" className="py-20 bg-muted/30">
+        <section id="about" className="py-12 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
