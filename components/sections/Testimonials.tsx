@@ -12,9 +12,9 @@ interface Testimonial {
     id: string;
     name: string;
     role: string;
-    company?: string;
+    company?: string | null;
     content: string;
-    imageUrl?: string;
+    imageUrl?: string | null;
     rating: number;
 }
 

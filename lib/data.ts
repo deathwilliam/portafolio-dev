@@ -3,6 +3,9 @@
 import { prisma } from './db';
 import { uploadToCloudinary } from './cloudinary';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RecordInput = Record<string, any>;
+
 // -----------------------------------------------------------------------------
 // CONTACT
 // -----------------------------------------------------------------------------
@@ -75,17 +78,14 @@ export async function getPost(slug: string) {
     });
 }
 
-export async function createPost(post: any) {
-    return await prisma.post.create({
-        data: post
-    });
+export async function createPost(post: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.post.create({ data: post as any });
 }
 
-export async function updatePost(id: string, updates: any) {
-    return await prisma.post.update({
-        where: { id },
-        data: updates
-    });
+export async function updatePost(id: string, updates: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.post.update({ where: { id }, data: updates as any });
 }
 
 export async function deletePost(id: string) {
@@ -109,18 +109,14 @@ export async function getProject(slug: string) {
     });
 }
 
-export async function createProject(project: any) {
-    // Ensure arrays are handled correctly if passed from form
-    return await prisma.project.create({
-        data: project
-    });
+export async function createProject(project: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.project.create({ data: project as any });
 }
 
-export async function updateProject(id: string, updates: any) {
-    return await prisma.project.update({
-        where: { id },
-        data: updates
-    });
+export async function updateProject(id: string, updates: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.project.update({ where: { id }, data: updates as any });
 }
 
 export async function deleteProject(id: string) {
@@ -139,10 +135,9 @@ export async function getTestimonials(approvedOnly = false) {
     });
 }
 
-export async function createTestimonial(testimonial: any) {
-    return await prisma.testimonial.create({
-        data: testimonial
-    });
+export async function createTestimonial(testimonial: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.testimonial.create({ data: testimonial as any });
 }
 
 export async function deleteTestimonial(id: string) {
@@ -158,11 +153,9 @@ export async function updateTestimonialStatus(id: string, approved: boolean) {
     return true;
 }
 
-export async function updateTestimonial(id: string, updates: any) {
-    return await prisma.testimonial.update({
-        where: { id },
-        data: updates
-    });
+export async function updateTestimonial(id: string, updates: RecordInput) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await prisma.testimonial.update({ where: { id }, data: updates as any });
 }
 
 // -----------------------------------------------------------------------------
@@ -182,7 +175,7 @@ export async function getSiteSettings() {
     return settings;
 }
 
-export async function updateSiteSettings(settings: any) {
+export async function updateSiteSettings(settings: { cvUrl?: string | null }) {
     return await prisma.siteSettings.upsert({
         where: { id: 1 },
         update: { ...settings, updatedAt: new Date() },
@@ -194,7 +187,6 @@ export async function updateSiteSettings(settings: any) {
 // STORAGE (Adapter to Cloudinary)
 // -----------------------------------------------------------------------------
 
-export async function uploadFile(file: File, bucket: string = 'portfolio', path?: string) {
-    // We ignore 'bucket' and 'path' semantics slightly, mapped to folder
+export async function uploadFile(file: File, bucket: string = 'portfolio') {
     return await uploadToCloudinary(file, bucket);
 }

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 import { usePathname } from "next/navigation";
 
@@ -79,7 +80,7 @@ export default function Navigation() {
                         <div className="flex items-center space-x-4 ml-4 border-l pl-4 border-muted">
                             <LanguageSwitcher />
                             <a
-                                href="https://github.com"
+                                href={SOCIAL_LINKS.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="GitHub Profile"
@@ -88,7 +89,7 @@ export default function Navigation() {
                                 <Github size={20} />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href={SOCIAL_LINKS.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="LinkedIn Profile"
@@ -135,7 +136,7 @@ export default function Navigation() {
                             ))}
                             <div className="flex items-center space-x-6 px-3 py-4 mt-4 border-t border-muted">
                                 <a
-                                    href="https://github.com"
+                                    href={SOCIAL_LINKS.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-foreground/60 hover:text-foreground transition-colors"
@@ -143,7 +144,7 @@ export default function Navigation() {
                                     <Github size={24} />
                                 </a>
                                 <a
-                                    href="https://linkedin.com"
+                                    href={SOCIAL_LINKS.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-foreground/60 hover:text-foreground transition-colors"
@@ -151,7 +152,7 @@ export default function Navigation() {
                                     <Linkedin size={24} />
                                 </a>
                                 <a
-                                    href="mailto:contact@example.com"
+                                    href={SOCIAL_LINKS.email}
                                     className="text-foreground/60 hover:text-foreground transition-colors"
                                 >
                                     <Mail size={24} />

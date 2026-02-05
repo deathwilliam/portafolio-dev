@@ -5,19 +5,14 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
-import { getSiteSettings } from "@/lib/data";
-import { useEffect, useState } from "react";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
-export default function Hero() {
+interface HeroProps {
+    cvUrl?: string | null;
+}
+
+export default function Hero({ cvUrl = null }: HeroProps) {
     const t = useTranslations('Hero');
-    const [cvUrl, setCvUrl] = useState<string | null>(null);
-
-    useEffect(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        getSiteSettings().then((settings: any) => {
-            if (settings?.cv_url) setCvUrl(settings.cv_url);
-        });
-    }, []);
 
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -111,7 +106,7 @@ export default function Hero() {
                             className="flex gap-4 justify-center lg:justify-start"
                         >
                             <a
-                                href="https://github.com"
+                                href={SOCIAL_LINKS.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 flex items-center justify-center hover:scale-110 transition-transform shadow-md hover:shadow-lg"
@@ -119,7 +114,7 @@ export default function Hero() {
                                 <Github className="w-5 h-5" />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href={SOCIAL_LINKS.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 flex items-center justify-center hover:scale-110 transition-transform shadow-md hover:shadow-lg"
@@ -127,7 +122,7 @@ export default function Hero() {
                                 <Linkedin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                             </a>
                             <a
-                                href="mailto:contact@example.com"
+                                href={SOCIAL_LINKS.email}
                                 className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 flex items-center justify-center hover:scale-110 transition-transform shadow-md hover:shadow-lg"
                             >
                                 <Mail className="w-5 h-5 text-purple-600 dark:text-purple-400" />

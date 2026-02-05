@@ -10,10 +10,58 @@ import { notFound } from 'next/navigation';
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
-export const metadata: Metadata = {
-  title: "Wilfredo Melgar | Portfolio",
-  description: "Systems Engineer & Full Stack Developer",
+const BASE_URL = 'https://portafolio-production-c136.up.railway.app';
+
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+
+  const titles: Record<string, string> = {
+    es: 'Wilfredo Melgar | Desarrollador Full Stack',
+    en: 'Wilfredo Melgar | Full Stack Developer',
+  };
+
+  const descriptions: Record<string, string> = {
+    es: 'Ingeniero de Sistemas y Desarrollador Full Stack. Portfolio profesional con proyectos, blog y experiencia en desarrollo web.',
+    en: 'Systems Engineer & Full Stack Developer. Professional portfolio with projects, blog and web development experience.',
+  };
+
+  return {
+    title: {
+      default: titles[locale] || titles.es,
+      template: `%s | Wilfredo Melgar`,
+    },
+    description: descriptions[locale] || descriptions.es,
+    metadataBase: new URL(BASE_URL),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        'en': '/en',
+        'es': '/es',
+      },
+    },
+    openGraph: {
+      title: titles[locale] || titles.es,
+      description: descriptions[locale] || descriptions.es,
+      url: `${BASE_URL}/${locale}`,
+      siteName: 'Wilfredo Melgar Portfolio',
+      locale: locale === 'es' ? 'es_ES' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: titles[locale] || titles.es,
+      description: descriptions[locale] || descriptions.es,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

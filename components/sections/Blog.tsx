@@ -12,8 +12,8 @@ interface BlogPost {
     id: string;
     title: string;
     slug: string;
-    excerpt?: string;
-    imageUrl?: string;
+    excerpt?: string | null;
+    imageUrl?: string | null;
     publishedAt: Date | string;
     tags?: string[];
 }

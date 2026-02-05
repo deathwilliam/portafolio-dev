@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getPost } from "@/lib/data";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
@@ -17,7 +18,38 @@ interface BlogPost {
     excerpt: string;
     imageUrl: string | null;
     publishedAt: Date;
-    content: string; // Markdown content
+    content: string;
+}
+
+type Props = {
+    params: Promise<{ locale: string; slug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const post = await getPost(slug) as BlogPost | null;
+
+    if (!post) {
+        return { title: 'Post not found' };
+    }
+
+    return {
+        title: post.title,
+        description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            type: 'article',
+            publishedTime: new Date(post.publishedAt).toISOString(),
+            ...(post.imageUrl && { images: [{ url: post.imageUrl }] }),
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.excerpt,
+            ...(post.imageUrl && { images: [post.imageUrl] }),
+        },
+    };
 }
 
 export default async function BlogPostPage({

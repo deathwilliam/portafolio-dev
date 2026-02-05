@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, LayoutDashboard, FileText, Trash2, Pencil, Plus, Star, Eye } from "lucide-react";
+import { MessageSquare, LayoutDashboard, FileText, Trash2, Pencil, Plus, Star, Eye, LogOut } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import {
@@ -14,7 +14,69 @@ import {
 } from "@/lib/data";
 import { uploadCV, uploadImage } from "./actions";
 
+function LoginForm({ onLogin }: { onLogin: () => void }) {
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitting(true);
+        setError("");
+        try {
+            const res = await fetch("/api/admin/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password }),
+            });
+            if (res.ok) {
+                onLogin();
+            } else {
+                setError("Contraseña incorrecta.");
+            }
+        } catch {
+            setError("Error de conexión.");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-background">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-sm p-8 rounded-2xl border border-white/10 bg-muted/50"
+            >
+                <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Contraseña"
+                        className="w-full px-4 py-3 rounded-lg border border-white/10 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                        autoFocus
+                    />
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                    <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 disabled:opacity-50 transition-colors"
+                    >
+                        {submitting ? "Verificando..." : "Ingresar"}
+                    </button>
+                </form>
+            </motion.div>
+        </div>
+    );
+}
+
 export default function AdminDashboard() {
+    const [authenticated, setAuthenticated] = useState(false);
+    const [authChecking, setAuthChecking] = useState(true);
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [messages, setMessages] = useState<any[]>([]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,8 +108,35 @@ export default function AdminDashboard() {
     const [editingTestimonial, setEditingTestimonial] = useState<any>(null);
 
     useEffect(() => {
-        fetchData();
+        fetch("/api/admin/verify")
+            .then(res => {
+                setAuthenticated(res.ok);
+                setAuthChecking(false);
+                if (res.ok) fetchData();
+                else setLoading(false);
+            })
+            .catch(() => {
+                setAuthChecking(false);
+                setLoading(false);
+            });
     }, []);
+
+    const handleLogout = async () => {
+        await fetch("/api/admin/logout", { method: "POST" });
+        setAuthenticated(false);
+    };
+
+    if (authChecking) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-background">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+        );
+    }
+
+    if (!authenticated) {
+        return <LoginForm onLogin={() => { setAuthenticated(true); fetchData(); }} />;
+    }
 
     const fetchData = async () => {
         try {
@@ -314,6 +403,13 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500/20 transition-colors text-sm font-medium"
+                    >
+                        <LogOut className="w-4 h-4" />
+                        Cerrar sesión
+                    </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

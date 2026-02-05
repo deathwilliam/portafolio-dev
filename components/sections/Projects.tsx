@@ -11,11 +11,11 @@ interface Project {
     id: string;
     title: string;
     description: string;
-    imageUrl?: string;
+    imageUrl?: string | null;
     category: string;
     tech: string[];
-    link?: string;
-    githubLink?: string;
+    link?: string | null;
+    githubLink?: string | null;
 }
 
 interface ProjectsProps {
@@ -96,12 +96,12 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                     )}
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                                         {project.link && (
-                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.link, "_blank")}>
+                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.link ?? undefined, "_blank")}>
                                                 <ExternalLink className="w-4 h-4 mr-2" /> {t('viewDemo')}
                                             </Button>
                                         )}
                                         {project.githubLink && (
-                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.githubLink, "_blank")}>
+                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.githubLink ?? undefined, "_blank")}>
                                                 <Github className="w-4 h-4 mr-2" /> {t('viewCode')}
                                             </Button>
                                         )}

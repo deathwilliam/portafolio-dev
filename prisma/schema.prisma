@@ -30,6 +30,7 @@ model Comment {
   email     String
   content   String
 
+  @@index([postSlug])
   @@map("comments")
 }
 
@@ -55,8 +56,9 @@ model Testimonial {
   content   String
   rating    Int      @default(5)
   imageUrl  String?  @map("image_url")
-  approved  Boolean  @default(false) 
+  approved  Boolean  @default(false)
 
+  @@index([approved])
   @@map("testimonials")
 }
 
@@ -72,6 +74,7 @@ model Project {
   link        String?
   githubLink  String?  @map("github_link")
 
+  @@index([category])
   @@map("projects")
 }
 

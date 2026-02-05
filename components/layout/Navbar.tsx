@@ -28,9 +28,7 @@ export default function Navbar() {
 
     // Stable nav items
     const navItems = useMemo(() => {
-        console.log("Navbar Pathname:", pathname);
         const isBlogPage = pathname?.includes('/blog');
-        console.log("isBlogPage:", isBlogPage);
         return isBlogPage
             ? allNavItems.filter(item => ["Inicio", "Proyectos", "Contacto"].includes(item.name))
             : allNavItems;
