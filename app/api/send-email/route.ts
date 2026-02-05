@@ -1,40 +1,20 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    const user = process.env.GMAIL_USER;
-    const pass = process.env.GMAIL_APP_PASSWORD;
-
-    if (!user || !pass) {
-      return NextResponse.json({ error: 'Faltan credenciales de Gmail (GMAIL_USER, GMAIL_APP_PASSWORD) en las variables de entorno.' }, { status: 500 });
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json({ error: 'Missing RESEND_API_KEY in environment variables.' }, { status: 500 });
     }
 
-    // Configurar transporter de Gmail con puerto 587 y logs de depuración
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false, // Use STARTTLS
-      auth: {
-        user,
-        pass,
-      },
-      debug: true, // Show debug output in logs
-      logger: true, // Log to console
-      connectionTimeout: 10000,
-      family: 4, // Force IPv4
-      requireTLS: true,
-      tls: {
-        ciphers: 'SSLv3'
-      }
-    } as any);
-
-    // Configurar el email
-    const mailOptions = {
-      from: user,
-      to: 'melgar.wilfredo@gmail.com',
+    // Enviar el email con Resend
+    const { data, error } = await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>', // Verifying this works initially, user should ideally add custom domain later
+      to: ['melgar.wilfredo@gmail.com'],
       replyTo: email,
       subject: `Nuevo mensaje de contacto: ${subject}`,
       html: `
@@ -53,14 +33,16 @@ export async function POST(request: Request) {
           </p>
         </div>
       `,
-    };
+    });
 
-    // Enviar el email
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error('Resend Error:', error);
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, data });
   } catch (error: any) {
-    console.error('Error sending email:', error);
-    return NextResponse.json({ error: error.message || 'Failed to send email' }, { status: 500 });
+    console.error('Error processing contact form:', error);
+    return NextResponse.json({ error: error.message || 'Failed to process request' }, { status: 500 });
   }
 }
