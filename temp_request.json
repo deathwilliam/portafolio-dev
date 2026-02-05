@@ -1,6 +1,0 @@
-{
-    "name": "Antigravity Curl Test",
-    "email": "curl@test.com",
-    "subject": "Curl Test Port 587",
-    "message": "Testing SMTP via curl command."
-}
