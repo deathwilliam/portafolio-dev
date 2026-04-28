@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Briefcase, GraduationCap } from "lucide-react";
+import { Calendar, MapPin, Briefcase, GraduationCap, Users } from "lucide-react";
 import { useTranslations } from 'next-intl';
 
 export default function About() {
@@ -63,9 +63,9 @@ export default function About() {
                                     <Briefcase className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold">Senior Frontend Developer</h4>
-                                    <p className="text-primary text-sm mb-2">Tech Corp • 2021 - Present</p>
-                                    <p className="text-foreground/60 text-sm">Leading the frontend team in rebuilding the core product using Next.js and React.</p>
+                                    <h4 className="text-lg font-bold">Consultor TI</h4>
+                                    <p className="text-primary text-sm mb-2">Sector privado & ONG</p>
+                                    <p className="text-foreground/60 text-sm">Consultoría en seguridad de aplicaciones web, arquitectura de software, implementación de sistemas empresariales y transformación digital para organizaciones del sector privado y sin fines de lucro.</p>
                                 </div>
                             </div>
                         </div>
@@ -73,12 +73,12 @@ export default function About() {
                         <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted hover:border-primary/50 transition-colors">
                             <div className="flex items-start">
                                 <div className="bg-secondary/10 p-3 rounded-lg mr-4">
-                                    <Briefcase className="w-6 h-6 text-secondary" />
+                                    <Users className="w-6 h-6 text-secondary" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold">Full Stack Developer</h4>
-                                    <p className="text-secondary text-sm mb-2">StartUp Inc • 2019 - 2021</p>
-                                    <p className="text-foreground/60 text-sm">Developed and maintained multiple client projects using Laravel and Vue.js.</p>
+                                    <h4 className="text-lg font-bold">Capacitador Especializado</h4>
+                                    <p className="text-secondary text-sm mb-2">Múltiples áreas tecnológicas</p>
+                                    <p className="text-foreground/60 text-sm">Formación en desarrollo web, seguridad informática, bases de datos, inteligencia artificial, automatización y robótica educativa dirigida a equipos técnicos, docentes y usuarios finales.</p>
                                 </div>
                             </div>
                         </div>
