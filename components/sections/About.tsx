@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Briefcase, GraduationCap, Users } from "lucide-react";
+import { Calendar, MapPin, Briefcase, Users } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
 
@@ -93,18 +93,6 @@ export default function About() {
                             </div>
                         </div>
 
-                        <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted hover:border-primary/50 transition-colors">
-                            <div className="flex items-start">
-                                <div className="bg-accent/10 p-3 rounded-lg mr-4">
-                                    <GraduationCap className="w-6 h-6 text-accent" />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-bold">Seguridad Web & Bases de Datos</h4>
-                                    <p className="text-accent text-sm mb-2">Especialización técnica</p>
-                                    <p className="text-foreground/60 text-sm">Autenticación JWT, MFA/TOTP, OWASP ASVS, NIST SP 800-63B, SQL Server, Oracle Database, hashing seguro y gestión de credenciales empresariales.</p>
-                                </div>
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
             </div>
