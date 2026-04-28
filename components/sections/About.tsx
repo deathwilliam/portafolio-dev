@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Briefcase, GraduationCap, Users } from "lucide-react";
 import { useTranslations } from 'next-intl';
+import Image from "next/image";
 
 export default function About() {
     const t = useTranslations('About');
@@ -70,16 +71,25 @@ export default function About() {
                             </div>
                         </div>
 
-                        <div className="bg-background p-6 rounded-2xl shadow-sm border border-muted hover:border-primary/50 transition-colors">
-                            <div className="flex items-start">
-                                <div className="bg-secondary/10 p-3 rounded-lg mr-4">
-                                    <Users className="w-6 h-6 text-secondary" />
+                        <div className="bg-background rounded-2xl shadow-sm border border-muted hover:border-primary/50 transition-colors overflow-hidden">
+                            <div className="relative h-36 w-full">
+                                <Image
+                                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80"
+                                    alt="Capacitación"
+                                    fill
+                                    className="object-cover object-center"
+                                />
+                                <div className="absolute inset-0 bg-secondary/40" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full">
+                                        <Users className="w-7 h-7 text-white" />
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 className="text-lg font-bold">Capacitador Especializado</h4>
-                                    <p className="text-secondary text-sm mb-2">Múltiples áreas tecnológicas</p>
-                                    <p className="text-foreground/60 text-sm">Formación en desarrollo web, seguridad informática, bases de datos, inteligencia artificial, automatización y robótica educativa dirigida a equipos técnicos, docentes y usuarios finales.</p>
-                                </div>
+                            </div>
+                            <div className="p-6">
+                                <h4 className="text-lg font-bold">Capacitador Especializado</h4>
+                                <p className="text-secondary text-sm mb-2">Múltiples áreas tecnológicas</p>
+                                <p className="text-foreground/60 text-sm">Formación en desarrollo web, seguridad informática, bases de datos, inteligencia artificial, automatización y robótica educativa dirigida a equipos técnicos, docentes y usuarios finales.</p>
                             </div>
                         </div>
 
