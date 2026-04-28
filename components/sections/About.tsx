@@ -91,7 +91,7 @@ export default function About() {
                                 <div>
                                     <h4 className="text-lg font-bold">Seguridad Web & Bases de Datos</h4>
                                     <p className="text-accent text-sm mb-2">Especialización técnica</p>
-                                    <p className="text-foreground/60 text-sm">Autenticación JWT, MFA/TOTP, OWASP ASVS, NIST SP 800-63B, SQL Server avanzado, hashing seguro y gestión de credenciales empresariales.</p>
+                                    <p className="text-foreground/60 text-sm">Autenticación JWT, MFA/TOTP, OWASP ASVS, NIST SP 800-63B, SQL Server, Oracle Database, hashing seguro y gestión de credenciales empresariales.</p>
                                 </div>
                             </div>
                         </div>
