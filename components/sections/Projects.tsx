@@ -85,13 +85,13 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 key={project.id}
                                 className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
-                                <div className="relative h-64 overflow-hidden shrink-0">
+                                <div className="relative h-80 overflow-hidden shrink-0">
                                     {project.imageUrl && (
                                         <Image
                                             src={project.imageUrl}
                                             alt={project.title}
                                             fill
-                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                                         />
                                     )}
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
