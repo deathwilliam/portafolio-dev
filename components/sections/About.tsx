@@ -89,9 +89,9 @@ export default function About() {
                                     <GraduationCap className="w-6 h-6 text-accent" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold">BS Computer Science</h4>
-                                    <p className="text-accent text-sm mb-2">University of Tech • 2015 - 2019</p>
-                                    <p className="text-foreground/60 text-sm">Focus on Software Engineering and Human-Computer Interaction.</p>
+                                    <h4 className="text-lg font-bold">Seguridad Web & Bases de Datos</h4>
+                                    <p className="text-accent text-sm mb-2">Especialización técnica</p>
+                                    <p className="text-foreground/60 text-sm">Autenticación JWT, MFA/TOTP, OWASP ASVS, NIST SP 800-63B, SQL Server avanzado, hashing seguro y gestión de credenciales empresariales.</p>
                                 </div>
                             </div>
                         </div>

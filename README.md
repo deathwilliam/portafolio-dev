@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio - Wilfredo Melgar
 
-## Getting Started
+Este es un proyecto de portafolio personal moderno construido con **Next.js 15**, **Prisma**, **PostgreSQL** y **Tailwind CSS**.
 
-First, run the development server:
+## 🚀 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   **Dashboard de Administración**: Gestión completa de proyectos, posts de blog y testimonios.
+-   **Internacionalización (i18n)**: Soporte multi-idioma (Español/Inglés).
+-   **Diseño Premium**: Interfaz moderna, responsiva y con modo oscuro integrado.
+-   **Base de Datos**: Integración con PostgreSQL mediante Prisma ORM.
+-   **Cloudinary**: Gestión de imágenes en la nube.
+-   **Framer Motion**: Animaciones fluidas y transiciones interactivas.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologías
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Frontend**: Next.js (App Router), React, Tailwind CSS, Lucide React.
+-   **Backend**: Next.js Server Actions, Prisma.
+-   **Base de Datos**: PostgreSQL (Hospedado en Railway).
+-   **Almacenamiento**: Cloudinary.
+-   **Validación**: Zod.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Configuración Local
 
-## Learn More
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone https://github.com/deathwilliam/portafolio-dev.git
+    cd portafolio-dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Variables de Entorno**:
+    Crea un archivo `.env.local` en la raíz del proyecto y añade las siguientes claves:
+    ```env
+    DATABASE_URL="tu_url_de_postgresql"
+    ADMIN_PASSWORD="tu_password_de_admin"
+    CLOUDINARY_CLOUD_NAME="tu_cloud_name"
+    CLOUDINARY_API_KEY="tu_api_key"
+    CLOUDINARY_API_SECRET="tu_api_secret"
+    GMAIL_USER="tu_correo@gmail.com"
+    GMAIL_APP_PASSWORD="tu_password_de_aplicacion"
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4.  **Generar Cliente de Prisma**:
+    ```bash
+    npx prisma generate
+    ```
 
-## Deploy on Vercel
+5.  **Ejecutar el servidor de desarrollo**:
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6.  **Ver el resultado**:
+    Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Despliegue
+
+Este proyecto está configurado para desplegarse fácilmente en **Railway** o **Vercel**. Asegúrate de configurar todas las variables de entorno en la plataforma de despliegue.
+
+## 📝 Licencia
+
+Este proyecto es privado. Todos los derechos reservados.

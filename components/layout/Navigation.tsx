@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 import { usePathname } from "next/navigation";
@@ -33,8 +34,6 @@ export default function Navigation() {
         { name: t('about'), href: "#about" },
         { name: t('skills'), href: "#skills" },
         { name: t('projects'), href: "#projects" },
-        { name: t('testimonials'), href: "#testimonials" },
-        { name: t('blog'), href: "#blog" },
         { name: t('contact'), href: "#contact" },
     ];
 
@@ -78,6 +77,7 @@ export default function Navigation() {
                         ))}
 
                         <div className="flex items-center space-x-4 ml-4 border-l pl-4 border-muted">
+                            <ThemeToggle />
                             <LanguageSwitcher />
                             <a
                                 href={SOCIAL_LINKS.github}
@@ -102,6 +102,7 @@ export default function Navigation() {
 
                     {/* Mobile Menu Button */}
                     <div className="md:hidden flex items-center gap-4">
+                        <ThemeToggle />
                         <LanguageSwitcher />
                         <button
                             onClick={() => setIsOpen(!isOpen)}

@@ -371,6 +371,7 @@ export default function AdminDashboard() {
                 imageUrl = res.url || '';
             }
 
+            const techString = formData.get('tech') as string;
             const projectData = {
                 title: formData.get('title'),
                 slug: formData.get('title')?.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-'),
@@ -379,6 +380,7 @@ export default function AdminDashboard() {
                 imageUrl: imageUrl,
                 link: formData.get('link'),
                 githubLink: formData.get('github_link'),
+                tech: techString ? techString.split(',').map((t: string) => t.trim()).filter(Boolean) : [],
             };
 
             if (editingProject) {
@@ -837,6 +839,16 @@ export default function AdminDashboard() {
                                                         placeholder="Describe las tecnologías usadas y el propósito..."
                                                         className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all resize-none"
                                                     />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1">Tecnologías</label>
+                                                    <input
+                                                        name="tech"
+                                                        defaultValue={editingProject?.tech?.join(', ')}
+                                                        placeholder="Ej: ASP.NET Core, JWT, SQL Server"
+                                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                                                    />
+                                                    <p className="text-xs text-muted-foreground mt-1">Separadas por coma</p>
                                                 </div>
                                             </div>
                                         </div>

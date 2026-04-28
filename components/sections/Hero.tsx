@@ -57,7 +57,6 @@ export default function Hero({ cvUrl = null }: HeroProps) {
                             transition={{ duration: 0.5, delay: 0.3 }}
                             className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
                         >
-                            <span className="block text-foreground mb-2">Wilfredo Melgar</span>
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400">
                                 {t('role')}
                             </span>
@@ -85,7 +84,7 @@ export default function Hero({ cvUrl = null }: HeroProps) {
                             >
                                 {t('viewProjects')} <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
-                            {cvUrl && (
+                            {/* {cvUrl && (
                                 <a href={cvUrl} download="Wilfredo_Melgar_CV.pdf" target="_blank" rel="noopener noreferrer">
                                     <Button
                                         variant="outline"
@@ -95,7 +94,7 @@ export default function Hero({ cvUrl = null }: HeroProps) {
                                         {t('downloadCV')} <Download className="ml-2 h-5 w-5" />
                                     </Button>
                                 </a>
-                            )}
+                            )} */}
                         </motion.div>
 
                         {/* Social links */}

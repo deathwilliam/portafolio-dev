@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import {
     Database, Layout, Smartphone,
-    Terminal
+    Terminal, Shield
 } from "lucide-react";
 import { useTranslations } from 'next-intl';
 
@@ -27,6 +27,11 @@ const skills = [
         category: "Mobile & Others",
         icon: <Smartphone className="w-8 h-8 text-purple-500" />,
         items: ["React Native", "Expo", "Figma", "UI/UX Design", "SEO", "Performance"]
+    },
+    {
+        category: "Seguridad Web",
+        icon: <Shield className="w-8 h-8 text-red-500" />,
+        items: ["JWT", "MFA / TOTP (RFC 6238)", "OWASP ASVS", "NIST SP 800-63B", "PBKDF2 / Argon2", "ASP.NET Core Security"]
     }
 ];
 
@@ -50,7 +55,7 @@ export default function Skills() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
                     {skills.map((skill, index) => (
                         <motion.div
                             key={skill.category}
