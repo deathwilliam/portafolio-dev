@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Code2 } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { useTranslations } from 'next-intl';
@@ -85,50 +85,66 @@ export default function Projects({ initialProjects = [] }: ProjectsProps) {
                                 key={project.id}
                                 className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                             >
-                                <div className="relative h-80 overflow-hidden shrink-0">
+                                {/* Image area */}
+                                <div className="relative h-56 overflow-hidden shrink-0 bg-gradient-to-br from-blue-950 via-indigo-900 to-purple-950">
                                     {project.imageUrl && (
                                         <Image
                                             src={project.imageUrl}
                                             alt={project.title}
                                             fill
-                                            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                            className="object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                                         />
                                     )}
-                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                                        {project.link && (
-                                            <Button size="sm" variant="secondary" onClick={() => window.open(project.link ?? undefined, "_blank")}>
-                                                <ExternalLink className="w-4 h-4 mr-2" /> {t('viewDemo')}
-                                            </Button>
-                                        )}
-                                        {project.githubLink && (
-                                            <Button size="sm" variant="outline" className="bg-background/10 text-white border-white hover:bg-white/20" onClick={() => window.open(project.githubLink ?? undefined, "_blank")}>
-                                                <Github className="w-4 h-4 mr-2" /> {t('viewCode')}
-                                            </Button>
-                                        )}
-                                    </div>
-                                </div>
+                                    {/* Bottom gradient fade */}
+                                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/70 to-transparent" />
 
-                                <div className="p-6 flex flex-col flex-1">
-                                    <div className="mb-4">
-                                        <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full inline-block mb-2">
+                                    {/* Category badge top-left */}
+                                    <div className="absolute top-3 left-3">
+                                        <span className="text-xs font-semibold text-white bg-primary/80 backdrop-blur-sm px-3 py-1 rounded-full shadow">
                                             {project.category}
                                         </span>
-                                        <h3 className="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
+                                    </div>
+
+                                    {/* Action buttons top-right, appear on hover */}
+                                    <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                                        {project.link && (
+                                            <button
+                                                onClick={() => window.open(project.link ?? undefined, "_blank")}
+                                                className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                                            >
+                                                <ExternalLink className="w-4 h-4" />
+                                            </button>
+                                        )}
+                                        {project.githubLink && (
+                                            <button
+                                                onClick={() => window.open(project.githubLink ?? undefined, "_blank")}
+                                                className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                                            >
+                                                <Github className="w-4 h-4" />
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {/* Title overlay at bottom of image */}
+                                    <div className="absolute inset-x-0 bottom-0 p-4">
+                                        <h3 className="text-white font-bold text-lg leading-tight line-clamp-1 drop-shadow">
                                             {project.title}
                                         </h3>
                                     </div>
+                                </div>
 
-                                    <p className="text-foreground/70 mb-6 line-clamp-3 flex-1">
+                                <div className="p-5 flex flex-col flex-1">
+                                    <p className="text-foreground/70 text-sm mb-4 line-clamp-3 flex-1">
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-2 mt-auto">
+                                    <div className="flex flex-wrap gap-1.5 mt-auto">
                                         {project.tech && project.tech.map((tech) => (
                                             <span
                                                 key={tech}
-                                                className="text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md flex items-center"
+                                                className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-md"
                                             >
-                                                <Code2 className="w-3 h-3 mr-1" /> {tech}
+                                                {tech}
                                             </span>
                                         ))}
                                     </div>
