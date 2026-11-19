@@ -1,0 +1,265 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { Lang } from '../data/site';
+import {
+  aiWorkflow, certifications, education, experience, languages, profile, projects, skills, stats, terminal, t,
+} from '../data/site';
+import { useUi } from '../data/ui';
+import profileImg from '../assets/profile.png';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = useUi(lang);
+
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/*.{png,jpg,jpeg,webp}', { eager: true });
+const imageFor = (file?: string) => (file ? images[`../assets/projects/${file}`]?.default : undefined);
+
+const visibleProjects = projects.filter((p) => !p.draft);
+const visibleJobs = experience.filter((j) => !j.draft);
+const otherLang = lang === 'en' ? '/es/' : '/';
+const year = new Date().getFullYear();
+---
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href={lang === 'en' ? '/' : '/es/'}>
+      <img src="/favicon.svg" alt="" width="28" height="28" />
+      <span>{profile.name}</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#ai">{ui.nav.ai}</a>
+      <a href="#projects">{ui.nav.projects}</a>
+      <a href="#experience">{ui.nav.experience}</a>
+      <a href="#skills">{ui.nav.skills}</a>
+      <a href="#contact">{ui.nav.contact}</a>
+    </nav>
+    <a class="lang" href={otherLang} hreflang={lang === 'en' ? 'es' : 'en'} aria-label={ui.switchLangLabel}>{ui.switchLang}</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="status"><i class="pulse"></i>{ui.available}</span>
+          <h1>{profile.name}</h1>
+          <p class="role grad-text">{t(profile.role, lang)}</p>
+          <p class="headline">{t(profile.headline, lang)}</p>
+          <p class="loc">{t(profile.location, lang)}</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">{ui.ctaProjects} →</a>
+            <a class="btn" href="#contact">{ui.ctaContact}</a>
+          </div>
+          <div class="socials mono">
+            <a href={profile.links.github} rel="me noopener" target="_blank">GitHub ↗</a>
+            <a href={profile.links.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>
+            <a href={profile.links.company} rel="noopener" target="_blank">DevIA ↗</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <Image src={profileImg} alt={profile.name} width={320} height={320} loading="eager" fetchpriority="high" />
+        </div>
+      </div>
+
+      <div class="stats">
+        {stats.map((s) => (
+          <div class="stat"><b class="grad-text">{s.value}</b><span>{t(s.label, lang)}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How I use AI -->
+  <section id="ai">
+    <div class="wrap">
+      <span class="kicker">{ui.aiKicker}</span>
+      <h2 class="section-title">{ui.aiTitle}</h2>
+      <p class="lead">{ui.aiLead}</p>
+      <p class="lead" style="font-size:16px">{t(profile.summary, lang)}</p>
+
+      <div class="ai-grid">
+        <ol class="steps" style="list-style:none;margin:0;padding:0">
+          {aiWorkflow.map((s) => (
+            <li class="step">
+              <span class="chip">{s.tag}</span>
+              <h3>{t(s.title, lang)}</h3>
+              <p>{t(s.body, lang)}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="terminal" aria-label={ui.terminalTitle}>
+          <div class="terminal-bar"><i></i><i></i><i></i><span>~/devia · {ui.terminalTitle}</span></div>
+          <pre>{terminal.map((l) => <div class={`t-${l.kind}`}>{l.text}</div>)}<span class="caret" aria-hidden="true"></span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="wrap">
+      <span class="kicker">{ui.projectsKicker}</span>
+      <h2 class="section-title">{ui.projectsTitle}</h2>
+      <p class="lead">{ui.projectsLead}</p>
+
+      <div class="projects">
+        {visibleProjects.map((p) => {
+          const img = imageFor(p.image);
+          return (
+            <article class:list={['card', { featured: p.featured }]} id={p.slug}>
+              {img ? (
+                <div class="card-media">
+                  <Image src={img} alt={`${p.name} screenshot`} width={800} loading="lazy" />
+                </div>
+              ) : (
+                <div class="card-media card-term" aria-hidden="true">
+                  <pre>{(p.term ?? []).map((l) => <span class={`t-${l.kind}`}>{l.text}</span>)}</pre>
+                </div>
+              )}
+              <div class="card-body">
+                <div class="card-top">
+                  <span class="card-kind">{t(p.kind, lang)}</span>
+                  <span class="card-status">{t(p.status, lang)}</span>
+                </div>
+                <h3>{p.name}</h3>
+                <p class="summary">{t(p.summary, lang)}</p>
+                <ul>{p.highlights.map((h) => <li>{t(h, lang)}</li>)}</ul>
+                {p.ai && <p class="ai-note"><b>{ui.aiRole}</b>{t(p.ai, lang)}</p>}
+                <div class="stack">{p.stack.map((s) => <span class="chip">{s}</span>)}</div>
+                {p.url && (
+                  <a class="card-link" href={p.url} target="_blank" rel="noopener">
+                    {ui.visit} {new URL(p.url).hostname.replace(/^www\./, '')} ↗
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="wrap">
+      <span class="kicker">{ui.experienceKicker}</span>
+      <h2 class="section-title">{ui.experienceTitle}</h2>
+      <div class="timeline">
+        {visibleJobs.map((j) => (
+          <div class="job">
+            <div class="job-head">
+              <div>
+                <h3>{t(j.role, lang)}</h3>
+                <span class="company">{j.company}</span>
+              </div>
+              <span class="period">{t(j.period, lang)}</span>
+            </div>
+            <ul>{j.points.map((pt) => <li>{t(pt, lang)}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="wrap">
+      <span class="kicker">{ui.skillsKicker}</span>
+      <h2 class="section-title">{ui.skillsTitle}</h2>
+      <div class="skills">
+        {skills.map((g) => (
+          <div class:list={['skill', { ai: g.group.en === 'AI engineering' }]}>
+            <h3>{t(g.group, lang)}</h3>
+            <div class="chips">{g.items.map((s) => <span class="chip">{s}</span>)}</div>
+          </div>
+        ))}
+      </div>
+      <div class="extras">
+        <div class="skill">
+          <h3>{ui.education}</h3>
+          <ul>{education.map((e) => <li><b>{t(e.title, lang)}</b>{e.place} · {e.period}</li>)}</ul>
+        </div>
+        <div class="skill">
+          <h3>{ui.certifications}</h3>
+          <ul>{certifications.map((c) => <li><b>{t(c.title, lang)}</b>{c.issuer}</li>)}</ul>
+        </div>
+        <div class="skill">
+          <h3>{ui.languagesTitle}</h3>
+          <ul>{languages.map((l) => <li><b>{t(l.name, lang)}</b>{t(l.level, lang)}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <span class="kicker">{ui.contactKicker}</span>
+          <h2 class="section-title">{ui.contactTitle}</h2>
+          <p class="lead">{ui.contactLead}</p>
+          <div class="contact-links">
+            <a href={`mailto:${profile.email}`}><span>{profile.email}</span><small>email</small></a>
+            <a href={profile.links.linkedin} target="_blank" rel="noopener"><span>linkedin.com/in/wilfredo-melgar</span><small>linkedin</small></a>
+            <a href={profile.links.github} target="_blank" rel="noopener"><span>github.com/deathwilliam</span><small>github</small></a>
+          </div>
+        </div>
+        <form class="contact" method="post" action="/api/contact" data-contact>
+          <input type="hidden" name="lang" value={lang} />
+          <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+          <label>{ui.form.name}<input name="name" required maxlength="120" autocomplete="name" /></label>
+          <label>{ui.form.email}<input name="email" type="email" required maxlength="200" autocomplete="email" /></label>
+          <label>{ui.form.message}<textarea name="message" required maxlength="4000"></textarea></label>
+          <button class="btn btn-primary" type="submit" data-sending={ui.form.sending}>{ui.form.send}</button>
+          <p class="form-msg ok" data-ok hidden>{ui.form.sent}</p>
+          <p class="form-msg err" data-err hidden>{ui.form.error} <a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© {year} {profile.name} · DevIA</span>
+    <span>{ui.footer}</span>
+  </div>
+</footer>
+
+<script>
+  // Progressive enhancement: without JS the form posts and the Worker redirects
+  // back to /?contact=sent|error#contact.
+  const form = document.querySelector<HTMLFormElement>('form[data-contact]');
+  if (form) {
+    const ok = form.querySelector<HTMLElement>('[data-ok]')!;
+    const err = form.querySelector<HTMLElement>('[data-err]')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const label = btn.textContent;
+    const params = new URLSearchParams(location.search);
+    if (params.get('contact') === 'sent') ok.hidden = false;
+    if (params.get('contact') === 'error') err.hidden = false;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      ok.hidden = true;
+      err.hidden = true;
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending ?? '…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({ ok: false }));
+        if (res.ok && data.ok) { ok.hidden = false; form.reset(); } else { err.hidden = false; }
+      } catch {
+        err.hidden = false;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+  }
+</script>

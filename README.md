@@ -1,66 +1,65 @@
-# Portfolio - Wilfredo Melgar
+# Portfolio — Wilfredo Melgar
 
-Este es un proyecto de portafolio personal moderno construido con **Next.js 15**, **Prisma**, **PostgreSQL** y **Tailwind CSS**.
+Personal portfolio, bilingual (EN default, ES under `/es/`), aimed at remote
+software-engineering and AI-training contracts. Static **Astro 7** site served by
+a **Cloudflare Worker**; no database.
 
-## 🚀 Características
+- Production: https://wilfredo.deviasv.com
+- Staging: https://wilfredo-portfolio-staging.deviasv.workers.dev
 
--   **Dashboard de Administración**: Gestión completa de proyectos, posts de blog y testimonios.
--   **Internacionalización (i18n)**: Soporte multi-idioma (Español/Inglés).
--   **Diseño Premium**: Interfaz moderna, responsiva y con modo oscuro integrado.
--   **Base de Datos**: Integración con PostgreSQL mediante Prisma ORM.
--   **Cloudinary**: Gestión de imágenes en la nube.
--   **Framer Motion**: Animaciones fluidas y transiciones interactivas.
+Until November 2026 this was a Next.js + Prisma + Postgres app on Railway
+(blog, testimonials, admin panel). It was rebuilt from scratch; the old code
+lives in git history on `main` before the `astro-cloudflare` branch.
 
-## 🛠️ Tecnologías
+## Where things live
 
--   **Frontend**: Next.js (App Router), React, Tailwind CSS, Lucide React.
--   **Backend**: Next.js Server Actions, Prisma.
--   **Base de Datos**: PostgreSQL (Hospedado en Railway).
--   **Almacenamiento**: Cloudinary.
--   **Validación**: Zod.
+| What | File |
+|---|---|
+| All content (profile, projects, experience, skills) | `src/data/site.ts` |
+| Interface strings | `src/data/ui.ts` |
+| Page markup | `src/components/Home.astro` |
+| Styles / design tokens | `src/styles/global.css` |
+| Contact endpoint (`POST /api/contact`) | `cloudflare/worker.ts` |
+| Security + cache headers | `cloudflare/_headers` (copied into `dist/` on build) |
+| Worker config | `wrangler.jsonc` |
 
-## 🏁 Configuración Local
+`src/data/site.ts` is the single source of truth: the CV "CV AI Training -
+Software Engineer" in CV-SV is written from the same facts. Entries with
+`draft: true` are not rendered until confirmed.
 
-1.  **Clonar el repositorio**:
-    ```bash
-    git clone https://github.com/deathwilliam/portafolio-dev.git
-    cd portafolio-dev
-    ```
+Project screenshots are in `src/assets/projects/` (1440×630, taken from the
+live sites); Astro converts them to WebP at build time.
 
-2.  **Instalar dependencias**:
-    ```bash
-    npm install
-    ```
+## Commands
 
-3.  **Variables de Entorno**:
-    Crea un archivo `.env.local` en la raíz del proyecto y añade las siguientes claves:
-    ```env
-    DATABASE_URL="tu_url_de_postgresql"
-    ADMIN_PASSWORD="tu_password_de_admin"
-    CLOUDINARY_CLOUD_NAME="tu_cloud_name"
-    CLOUDINARY_API_KEY="tu_api_key"
-    CLOUDINARY_API_SECRET="tu_api_secret"
-    GMAIL_USER="tu_correo@gmail.com"
-    GMAIL_APP_PASSWORD="tu_password_de_aplicacion"
-    ```
+```bash
+npm install
+npm run dev          # http://localhost:4321
+npm run check        # astro check (types)
+npm run cf:staging   # build + deploy to the staging worker
+npm run cf:deploy    # build + deploy to wilfredo.deviasv.com
+```
 
-4.  **Generar Cliente de Prisma**:
-    ```bash
-    npx prisma generate
-    ```
+Deploys need `CLOUDFLARE_API_TOKEN` (Windows user variable
+`CLOUDFLARE_WORKERS_TOKEN`, account `deviasv`).
 
-5.  **Ejecutar el servidor de desarrollo**:
-    ```bash
-    npm run dev
-    ```
+## Contact form
 
-6.  **Ver el resultado**:
-    Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+The Worker sends mail through Resend. The key is a secret, never in the repo:
 
-## 📦 Despliegue
+```bash
+npx wrangler secret put RESEND_API_KEY              # production
+npx wrangler secret put RESEND_API_KEY --env staging
+```
 
-Este proyecto está configurado para desplegarse fácilmente en **Railway** o **Vercel**. Asegúrate de configurar todas las variables de entorno en la plataforma de despliegue.
+Without the key the endpoint answers 503 and the page shows the email address
+instead, so no message is lost silently. `CONTACT_TO` / `CONTACT_FROM` are vars
+in `wrangler.jsonc`. With the default `onboarding@resend.dev` sender Resend only
+delivers to the Resend account owner's address.
 
-## 📝 Licencia
+## Gotchas
 
-Este proyecto es privado. Todos los derechos reservados.
+- Astro 7.4+ requires Node ≥ 22.23.4; this repo pins **7.3.8** (same as Su Casa)
+  because the machine runs Node 22.22.
+- Vite inlines small font files as `data:` URIs, so the CSP needs
+  `font-src 'self' data:`.

@@ -1,0 +1,67 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import type { Lang } from '../data/site';
+import { profile } from '../data/site';
+import { useUi } from '../data/ui';
+import profileImg from '../assets/profile.png';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  noindex?: boolean;
+}
+
+const { lang, title, noindex = false } = Astro.props;
+const ui = useUi(lang);
+const site = Astro.site ?? new URL('https://wilfredo.deviasv.com');
+const path = Astro.url.pathname.replace(/^\/es(\/|$)/, '/');
+const enUrl = new URL(path, site).href;
+const esUrl = new URL(path === '/' ? '/es/' : `/es${path}`, site).href;
+const canonical = lang === 'es' ? esUrl : enUrl;
+const og = await getImage({ src: profileImg, width: 400, height: 400, format: 'jpeg' });
+const ogUrl = new URL(og.src, site).href;
+const pageTitle = title ?? ui.metaTitle;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role[lang],
+  url: site.href,
+  email: `mailto:${profile.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'San Salvador', addressCountry: 'SV' },
+  sameAs: [profile.links.linkedin, profile.links.github, profile.links.company],
+  knowsAbout: ['TypeScript', 'Java', 'SQL', 'PostgreSQL', 'Oracle Database', 'AI agents', 'Model Context Protocol'],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={ui.metaDescription} />
+    <meta name="theme-color" content="#07080c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={ui.metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_SV' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

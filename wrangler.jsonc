@@ -1,0 +1,39 @@
+// Wilfredo Melgar portfolio on Cloudflare Workers (since 2026-11-19; before that, Railway).
+// Production: npm run cf:deploy  →  https://wilfredo.deviasv.com
+// Rehearsal:  npm run cf:staging →  https://wilfredo-portfolio-staging.deviasv.workers.dev
+// The token goes in CLOUDFLARE_API_TOKEN (Windows user variable CLOUDFLARE_WORKERS_TOKEN).
+// The Resend key is a secret: npx wrangler secret put RESEND_API_KEY [--env staging]
+{
+  "name": "wilfredo-portfolio",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2026-11-01",
+  "account_id": "63c8d447ab0932f744029c59b8d625a6",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [{ "pattern": "wilfredo.deviasv.com", "custom_domain": true }],
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "SITE_URL": "https://wilfredo.deviasv.com",
+    "CONTACT_TO": "melgar.wilfredo@gmail.com",
+    "CONTACT_FROM": "Portfolio Wilfredo Melgar <onboarding@resend.dev>"
+  },
+  "observability": { "enabled": true },
+  "env": {
+    "staging": {
+      "name": "wilfredo-portfolio-staging",
+      "workers_dev": true,
+      "routes": [],
+      "vars": {
+        "SITE_URL": "https://wilfredo-portfolio-staging.deviasv.workers.dev",
+        "CONTACT_TO": "melgar.wilfredo@gmail.com",
+        "CONTACT_FROM": "Portfolio Wilfredo Melgar <onboarding@resend.dev>"
+      }
+    }
+  }
+}

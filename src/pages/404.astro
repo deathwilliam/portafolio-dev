@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { useUi } from '../data/ui';
+const en = useUi('en');
+const es = useUi('es');
+---
+
+<Base lang="en" title="404 — Wilfredo Melgar" noindex>
+  <main id="main" class="wrap" style="min-height:80vh;display:grid;place-content:center;text-align:center;gap:18px">
+    <p class="mono grad-text" style="font-size:64px;font-weight:800">404</p>
+    <p>{en.notFound} · {es.notFound}</p>
+    <p style="display:flex;gap:12px;justify-content:center">
+      <a class="btn" href="/">{en.backHome}</a>
+      <a class="btn" href="/es/">{es.backHome}</a>
+    </p>
+  </main>
+</Base>
