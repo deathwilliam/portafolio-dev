@@ -2,9 +2,16 @@
 
 Target: remote contracts on AI-training platforms (Mercor, Outlier) and remote
 software roles — *Software Engineer / Coding Expert*, *Database Expert*,
-*Bilingual Spanish STEM/Coding Expert*. Language: **English**, A4, template
-**LaTeX / Silicon Valley** (`meta.template = "latex"`; "ats" = ATS-Safe is the
-plain fallback).
+*Bilingual Spanish STEM/Coding Expert*. Language: **English**, A4, **max 2
+pages**, template **Modern** (`meta.template = "modern"`, chosen by Wilfredo in
+the editor; "latex" and "ats" are the single-column alternatives).
+
+**Length budget (v2, 2026-11-19):** v1 rendered 3 pages in Modern. v2 cut the
+main column from ~5,600 to ~2,600 characters: summary ~600 chars, DevIA 6
+bullets, Banco 3, CEREN 1, PC & Sistemas 2, USAID 1; projects are one line
+each (Modern ignores `keywords`, so the stack goes inside `description`);
+skills 6 groups. Adding content means cutting elsewhere.
+`node private/estimate-lines.cjs` gives a rough line count (calibrated for LaTeX).
 
 ## Where it lives
 
@@ -36,11 +43,14 @@ plain fallback).
    portfolio / LinkedIn / GitHub, San Salvador · Remote (UTC−6).
 2. Summary: 12+ years building, 5+ years training developers, production SaaS,
    daily AI agents (Claude Code, Codex, Gemini) inside DevTracker workflow.
-3. Work: DevIA (8 bullets incl. AI workflow, agent tooling, security) → Banco
+3. Work: DevIA (6 bullets incl. AI workflow and agent tooling) → Banco
    Cuscatlán → CEREN → PC & Sistemas → USAID/FUSALMO.
-4. Projects (7, with URLs): Factura Premium, ContaPremium, PublicaYA, DevTracker,
-   Banking REST API course, CV-SV, Portfolio.
-5. Skills (8 groups, "AI-Augmented Engineering" first), education, certifications, languages.
+4. Projects (5, one line + link): Factura Premium, ContaPremium, PublicaYA,
+   CV-SV, DevTracker. Portfolio URL is in the header; the banking API is in Banco.
+5. Skills (6 groups, "AI Engineering" first), education, certifications, languages.
+
+Known CV-SV issue: Modern prints the link label "Ver proyecto" in Spanish even
+for English CVs (task in DevTracker `cv-sv`).
 
 ## Professional AI use — the message to keep consistent
 
