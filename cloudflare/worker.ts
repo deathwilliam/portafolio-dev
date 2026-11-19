@@ -70,7 +70,7 @@ async function contact(request: Request, env: Env): Promise<Response> {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: env.CONTACT_FROM || 'Portfolio <onboarding@resend.dev>',
+      from: env.CONTACT_FROM || 'Portafolio Wilfredo Melgar <portafolio@deviasv.com>',
       to: [env.CONTACT_TO],
       reply_to: email,
       subject: `Portfolio contact — ${name}`,

@@ -21,7 +21,7 @@
   "vars": {
     "SITE_URL": "https://wilfredo.deviasv.com",
     "CONTACT_TO": "melgar.wilfredo@gmail.com",
-    "CONTACT_FROM": "Portfolio Wilfredo Melgar <onboarding@resend.dev>"
+    "CONTACT_FROM": "Portafolio Wilfredo Melgar <portafolio@deviasv.com>"
   },
   "observability": { "enabled": true },
   "env": {
@@ -32,7 +32,7 @@
       "vars": {
         "SITE_URL": "https://wilfredo-portfolio-staging.deviasv.workers.dev",
         "CONTACT_TO": "melgar.wilfredo@gmail.com",
-        "CONTACT_FROM": "Portfolio Wilfredo Melgar <onboarding@resend.dev>"
+        "CONTACT_FROM": "Portafolio Wilfredo Melgar <portafolio@deviasv.com>"
       }
     }
   }

@@ -54,8 +54,18 @@ npx wrangler secret put RESEND_API_KEY --env staging
 
 Without the key the endpoint answers 503 and the page shows the email address
 instead, so no message is lost silently. `CONTACT_TO` / `CONTACT_FROM` are vars
-in `wrangler.jsonc`. With the default `onboarding@resend.dev` sender Resend only
-delivers to the Resend account owner's address.
+in `wrangler.jsonc`.
+
+Production is live since 2026-11-19: sender `portafolio@deviasv.com` (domain
+verified in Resend), key `portafolio-wilfredo-envio-2026-11` with *sending
+access* restricted to `deviasv.com`. Staging has no key on purpose (answers 503).
+
+Test it (use a generic sender address, the destination is `CONTACT_TO`):
+
+```bash
+curl -H "Accept: application/json" -X POST -F name=Test -F email=test@example.com \
+  -F message=hello https://wilfredo.deviasv.com/api/contact   # → {"ok":true}
+```
 
 ## Gotchas
 
