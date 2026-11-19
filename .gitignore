@@ -21,3 +21,6 @@ npm-debug.log*
 
 # DevTracker local state (tracked by the DevTracker MCP, not by git)
 /.devtracker
+
+# Personal data (CV with phone, DB backups) — never commit: the repo is public
+/private

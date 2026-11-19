@@ -21,8 +21,8 @@ export const profile = {
     es: 'Construyo sistemas en producción —facturación electrónica, contabilidad, SaaS— y diseño el flujo de trabajo que permite que agentes de IA los construyan conmigo, de forma segura.',
   },
   summary: {
-    en: 'Systems engineer with 12+ years building business software in Java, TypeScript, PHP and SQL, plus 4+ years teaching programming and databases (Oracle Academy). Today I run DevIA, where I design, build and operate SaaS products end to end — from data model to deployment — using AI coding agents with a memory and verification layer I built myself.',
-    es: 'Ingeniero en sistemas con más de 12 años construyendo software empresarial en Java, TypeScript, PHP y SQL, y más de 4 años enseñando programación y bases de datos (Oracle Academy). Hoy dirijo DevIA, donde diseño, construyo y opero productos SaaS de principio a fin —del modelo de datos al despliegue— con agentes de IA y una capa de memoria y verificación que construí yo mismo.',
+    en: 'Systems engineer with 12+ years building business software in Java, TypeScript, PHP and SQL, plus 5+ years training developers in programming and databases (Oracle Academy, Banco Cuscatlán). Today I run DevIA, where I design, build and operate SaaS products end to end — from data model to deployment — using AI coding agents with a memory and verification layer I built myself.',
+    es: 'Ingeniero en sistemas con más de 12 años construyendo software empresarial en Java, TypeScript, PHP y SQL, y más de 5 años formando desarrolladores en programación y bases de datos (Oracle Academy, Banco Cuscatlán). Hoy dirijo DevIA, donde diseño, construyo y opero productos SaaS de principio a fin —del modelo de datos al despliegue— con agentes de IA y una capa de memoria y verificación que construí yo mismo.',
   },
   location: { en: 'San Salvador, El Salvador · Remote (UTC−6)', es: 'San Salvador, El Salvador · Remoto (UTC−6)' },
   email: 'melgar.wilfredo@gmail.com',
@@ -137,7 +137,7 @@ export const projects: Project[] = [
       es: 'Facturación electrónica (DTE) para El Salvador, integrada con el Ministerio de Hacienda en su ambiente de producción.',
     },
     highlights: [
-      { en: '11 official DTE types with JSON schema validation, digital signature and PDF.', es: '11 tipos de DTE oficiales con validación de esquema JSON, firma digital y PDF.' },
+      { en: '11 official DTE types with JSON schema validation, digital signature and PDF; hundreds of real documents issued and accepted by the Ministry of Finance.', es: '11 tipos de DTE oficiales con validación de esquema JSON, firma digital y PDF; cientos de documentos reales emitidos y aceptados por Hacienda.' },
       { en: 'Single, centralized rounding for every fiscal amount; tax books and returns (F-07, F-14).', es: 'Un solo redondeo centralizado para todo monto fiscal; libros de IVA y declaraciones (F-07, F-14).' },
       { en: 'Public REST API consumed by ContaPremium and third-party integrators; card payments (Wompi).', es: 'API REST pública que consumen ContaPremium e integradores externos; cobro con tarjeta (Wompi).' },
     ],
@@ -221,7 +221,7 @@ export const projects: Project[] = [
     slug: 'banking-api-course',
     name: 'Banking REST API · Digital Trainee Program',
     kind: { en: 'Training · Backend Java', es: 'Formación · Backend Java' },
-    status: { en: '3rd cohort · 2026', es: '3.ª cohorte · 2026' },
+    status: { en: 'Since 2022', es: 'Desde 2022' },
     featured: true,
     term: [
       { kind: 'cmd', text: 'POST /api/v1/transferencias' },
@@ -232,8 +232,8 @@ export const projects: Project[] = [
     ],
     stack: ['Java 21', 'Spring Boot 4', 'Spring Security + JWT', 'PostgreSQL 17', 'Flyway', 'OpenAPI', 'Testcontainers', 'Docker'],
     summary: {
-      en: '43-session backend course I designed and facilitate for Banco Cuscatlán’s Digital Trainee Program. Each trainee engineer builds a production-style banking REST API.',
-      es: 'Curso de backend de 43 sesiones que diseñé y facilito para el Programa Digital Trainee de Banco Cuscatlán. Cada ingeniero pasante construye una API REST bancaria con estándares de producción.',
+      en: 'Backend course I designed and have facilitated since 2022 for Banco Cuscatlán’s Digital Trainee Program, onboarding newly hired engineers into banking application development. Each trainee builds a production-style banking REST API.',
+      es: 'Curso de backend que diseñé y facilito desde 2022 para el Programa Digital Trainee de Banco Cuscatlán, para introducir a ingenieros recién contratados al desarrollo de aplicaciones bancarias. Cada pasante construye una API REST bancaria con estándares de producción.',
     },
     highlights: [
       { en: 'Reference API built live in class: customers, accounts, movements and transfers with transactional integrity.', es: 'API de referencia construida en vivo en clase: clientes, cuentas, movimientos y transferencias con integridad transaccional.' },
@@ -353,18 +353,11 @@ export const experience: Job[] = [
     ],
   },
   {
-    company: 'Outlier',
-    role: { en: 'AI Training Contributor (freelance)', es: 'Colaborador de entrenamiento de IA (freelance)' },
-    period: { en: '2026', es: '2026' },
-    points: [{ en: 'Pending: describe task types (coding, evaluation, writing).', es: 'Pendiente: describir tipo de tareas.' }],
-    draft: true,
-  },
-  {
     company: 'Banco Cuscatlán · Tribu Digital',
     role: { en: 'IT Training Facilitator — Backend Java (Digital Trainee Program)', es: 'Facilitador de Capacitación TI — Backend Java (Programa Digital Trainee)' },
-    period: { en: '2024 — 2026 · 3 cohorts', es: '2024 — 2026 · 3 cohortes' },
+    period: { en: '2022 — 2026', es: '2022 — 2026' },
     points: [
-      { en: 'Design and facilitate the 43-session Backend Java & Spring Boot course that trains the bank’s trainee engineers.', es: 'Diseño y facilito el curso de Backend Java y Spring Boot de 43 sesiones que forma a los ingenieros pasantes del banco.' },
+      { en: 'Train each new cohort of trainee engineers — already graduated engineers — to build banking and financial applications the way the bank does, through a 43-session Backend Java & Spring Boot course I designed.', es: 'Capacito a cada nueva cohorte de ingenieros pasantes —ya graduados— para desarrollar aplicaciones bancarias y financieras como lo hace el banco, con un curso de Backend Java y Spring Boot de 43 sesiones que diseñé.' },
       { en: 'Mentor each trainee through a banking REST API capstone: Java 21, Spring Boot 4, PostgreSQL, Spring Security + JWT, Flyway, OpenAPI and Testcontainers.', es: 'Acompaño a cada pasante en su proyecto final de API REST bancaria: Java 21, Spring Boot 4, PostgreSQL, Spring Security + JWT, Flyway, OpenAPI y Testcontainers.' },
       { en: 'Redesigned the contractual syllabus toward Java and Spring Boot, keeping traceability to the original annex for HR audits; course delivered on DevIA Academy.', es: 'Rediseñé el temario contractual hacia Java y Spring Boot, manteniendo trazabilidad con el anexo original para auditoría de Talento Humano; el curso se imparte en DevIA Academy.' },
       { en: 'Review every stage in each trainee’s repository with written feedback and prepare final evaluation reports for HR.', es: 'Reviso cada etapa en el repositorio de cada pasante con devolución escrita y preparo el informe final de evaluación para Talento Humano.' },
@@ -415,7 +408,7 @@ export const skills: { group: L; items: string[] }[] = [
 ];
 
 export const education: { title: L; place: string; period: string }[] = [
-  { title: { en: 'Systems Engineering', es: 'Ingeniería en Sistemas y Computación' }, place: 'Universidad Tecnológica de El Salvador', period: '2006 — 2011' },
+  { title: { en: 'Systems and Computer Engineer (Engineering degree)', es: 'Ingeniero en Sistemas y Computación' }, place: 'Universidad Tecnológica de El Salvador', period: '2006 — 2011' },
   { title: { en: 'Technician in Computer Systems Engineering', es: 'Técnico en Ingeniería de Sistemas Informáticos' }, place: 'ITCA-FEPADE', period: '2010 — 2011' },
 ];
 
@@ -427,5 +420,5 @@ export const certifications: { title: L; issuer: string }[] = [
 
 export const languages: { name: L; level: L }[] = [
   { name: { en: 'Spanish', es: 'Español' }, level: { en: 'Native', es: 'Nativo' } },
-  { name: { en: 'English', es: 'Inglés' }, level: { en: 'Professional working (technical)', es: 'Profesional (técnico)' } },
+  { name: { en: 'English', es: 'Inglés' }, level: { en: 'B2 — Upper intermediate (professional working)', es: 'B2 — Intermedio alto (uso profesional)' } },
 ];
