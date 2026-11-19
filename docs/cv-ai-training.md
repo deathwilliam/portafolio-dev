@@ -16,7 +16,7 @@ skills 6 groups. Adding content means cutting elsewhere.
 ## Where it lives
 
 - CV-SV record: `Resume.id = 0b05f539-2482-4652-8789-c3e7b823ec7a`
-  (owner: Wilfredo's account), edited at https://cv-sv-production.up.railway.app/editor
+  (owner: Wilfredo's account), edited at https://cv.deviasv.com/editor
 - Full JSON (JSON Resume schema, see `D:/Sistemas-Devia/cv-sv/src/types/resume.ts`):
   `private/cv-ai-training.json` — **gitignored** (contains phone; this repo is public).
   The email is a placeholder; the loader keeps the address already on the CV.
