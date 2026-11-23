@@ -17,15 +17,19 @@ export const profile = {
     es: 'Ingeniero de Software Sénior · Desarrollo potenciado con IA',
   },
   headline: {
-    en: 'I ship production systems — e-invoicing, accounting, SaaS — and engineer the workflow that lets AI agents build them with me, safely.',
-    es: 'Construyo sistemas en producción —facturación electrónica, contabilidad, SaaS— y diseño el flujo de trabajo que permite que agentes de IA los construyan conmigo, de forma segura.',
+    en: 'I architect and ship production software end to end — enterprise backends, databases, SaaS platforms, and regulated fintech & government systems — combining 12+ years of engineering with disciplined AI-assisted workflows built on verification and security.',
+    es: 'Diseño y llevo a producción software empresarial de principio a fin —backends, bases de datos, plataformas SaaS y sistemas fiscales y de gobierno— combinando más de 12 años de ingeniería con flujos de trabajo potenciados con IA bajo control, seguridad y verificación.',
   },
   summary: {
     en: 'Systems engineer with 12+ years building business software in Java, TypeScript, PHP and SQL, plus 5+ years training developers in programming and databases (Oracle Academy, Banco Cuscatlán). Today I run DevIA, where I design, build and operate SaaS products end to end — from data model to deployment — using AI coding agents with a memory and verification layer I built myself.',
     es: 'Ingeniero en sistemas con más de 12 años construyendo software empresarial en Java, TypeScript, PHP y SQL, y más de 5 años formando desarrolladores en programación y bases de datos (Oracle Academy, Banco Cuscatlán). Hoy dirijo DevIA, donde diseño, construyo y opero productos SaaS de principio a fin —del modelo de datos al despliegue— con agentes de IA y una capa de memoria y verificación que construí yo mismo.',
   },
   location: { en: 'San Salvador, El Salvador · Remote (UTC−6)', es: 'San Salvador, El Salvador · Remoto (UTC−6)' },
-  email: 'melgar.wilfredo@gmail.com',
+  email: 'soporte@deviasv.com',
+  whatsapp: {
+    display: '+503 7976-3213',
+    url: 'https://wa.me/50379763213',
+  },
   links: {
     linkedin: 'https://www.linkedin.com/in/wilfredo-melgar',
     github: 'https://github.com/deathwilliam',
@@ -407,9 +411,9 @@ export const skills: { group: L; items: string[] }[] = [
   { group: { en: 'Security', es: 'Seguridad' }, items: ['JWT', 'MFA / TOTP', 'OWASP ASVS', 'NIST SP 800-63B', 'Argon2 / PBKDF2'] },
 ];
 
-export const education: { title: L; place: string; period: string }[] = [
-  { title: { en: 'Systems and Computer Engineer (Engineering degree)', es: 'Ingeniero en Sistemas y Computación' }, place: 'Universidad Tecnológica de El Salvador', period: '2006 — 2011' },
-  { title: { en: 'Technician in Computer Systems Engineering', es: 'Técnico en Ingeniería de Sistemas Informáticos' }, place: 'ITCA-FEPADE', period: '2010 — 2011' },
+export const education: { title: L; place: string }[] = [
+  { title: { en: 'Systems and Computer Engineer (Engineering degree)', es: 'Ingeniero en Sistemas y Computación' }, place: 'Universidad Tecnológica de El Salvador' },
+  { title: { en: 'Technician in Computer Systems Engineering', es: 'Técnico en Ingeniería de Sistemas Informáticos' }, place: 'ITCA-FEPADE' },
 ];
 
 export const certifications: { title: L; issuer: string }[] = [
@@ -418,7 +422,7 @@ export const certifications: { title: L; issuer: string }[] = [
   { title: { en: 'Gemini Certified Educator', es: 'Educador Certificado en Gemini' }, issuer: 'Google' },
 ];
 
-export const languages: { name: L; level: L }[] = [
+export const languages: { name: L; level?: L }[] = [
   { name: { en: 'Spanish', es: 'Español' }, level: { en: 'Native', es: 'Nativo' } },
-  { name: { en: 'English', es: 'Inglés' }, level: { en: 'B2 — Upper intermediate (professional working)', es: 'B2 — Intermedio alto (uso profesional)' } },
+  { name: { en: 'English', es: 'Inglés' } },
 ];
