@@ -333,6 +333,54 @@ export const projects: Project[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Payment gateway integrations spotlight (businesses & SMEs)
+// ---------------------------------------------------------------------------
+
+export const paymentSpotlight = {
+  kicker: {
+    en: 'Services · Businesses & SMEs',
+    es: 'Servicios · Empresas, negocios y PYMEs',
+  },
+  title: {
+    en: 'Payment gateway integrations ready for production',
+    es: 'Implementación de pasarelas de pago para empresas y PYMEs',
+  },
+  body: {
+    en: 'I integrate online card and payment-link gateways into existing websites, stores and custom systems for businesses and SMEs — from secure checkout and signed webhooks to automatic reconciliation and electronic invoicing (DTE).',
+    es: 'Integro pasarelas de pago en línea y cobros con tarjeta en sitios web, tiendas y sistemas a la medida para empresas, negocios y PYMEs —desde el checkout seguro y webhooks firmados hasta la conciliación automática y facturación electrónica (DTE).',
+  },
+  highlights: [
+    {
+      en: 'Card checkout, payment links & recurring billing (Wompi and international gateways)',
+      es: 'Cobro con tarjeta, enlaces de pago y suscripciones (Wompi y pasarelas internacionales)',
+    },
+    {
+      en: 'Signed webhooks, idempotency and audit logs so no payment is duplicated or lost',
+      es: 'Webhooks firmados, idempotencia y bitácora para que ningún cobro se duplique ni se pierda',
+    },
+    {
+      en: 'Direct connection with electronic invoicing (DTE) and accounting ledgers',
+      es: 'Conexión directa con facturación electrónica (DTE) y registros contables',
+    },
+  ],
+  chips: ['Wompi', 'Checkout & Payment Links', 'Signed Webhooks', '3DS / Antifraud', 'DTE Sync'],
+  ctaPrimary: {
+    en: 'Request an integration',
+    es: 'Cotizar integración',
+  },
+  ctaWhatsapp: {
+    en: 'Ask on WhatsApp',
+    es: 'Consultar por WhatsApp',
+  },
+  flow: [
+    { label: '01 · checkout', value: 'Card / Payment Link · 3DS', tone: 'out' as const },
+    { label: '02 · gateway', value: 'Wompi / API · Authorized', tone: 'ok' as const },
+    { label: '03 · webhook', value: 'HMAC signature verified · idempotent', tone: 'ok' as const },
+    { label: '04 · backoffice', value: 'DTE issued · ledger reconciled', tone: 'ok' as const },
+  ],
+};
+
+// ---------------------------------------------------------------------------
 // Experience
 // ---------------------------------------------------------------------------
 

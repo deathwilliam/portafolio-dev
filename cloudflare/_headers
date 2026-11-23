@@ -19,3 +19,8 @@
 
 /sitemap.xml
   Cache-Control: public, max-age=86400
+
+/wilfredo-melgar.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: attachment; filename="Wilfredo-Melgar.vcf"
+  Cache-Control: public, max-age=86400

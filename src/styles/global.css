@@ -216,6 +216,88 @@ section { padding: 96px 0; }
 .card-link { margin-top: 4px; align-self: flex-start; font-size: 14px; color: var(--cyan); text-decoration: none; font-weight: 600; }
 .card-link:hover { text-decoration: underline; }
 
+/* ---------- Payment Gateways Spotlight ---------- */
+.payments-section { padding: 24px 0 72px; }
+.pay-banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 36px;
+  align-items: center;
+  padding: 36px;
+  border-radius: 22px;
+  border: 1px solid rgb(34 211 238 / 0.28);
+  background:
+    radial-gradient(520px 300px at 0% 0%, rgb(34 211 238 / 0.14), transparent 65%),
+    radial-gradient(480px 320px at 100% 100%, rgb(139 92 246 / 0.16), transparent 65%),
+    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--surface);
+  overflow: hidden;
+  box-shadow: 0 28px 70px -36px rgb(34 211 238 / 0.35);
+}
+@media (max-width: 920px) {
+  .pay-banner { grid-template-columns: 1fr; padding: 26px 22px; gap: 26px; }
+}
+.pay-content { display: grid; gap: 16px; }
+.pay-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pay-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  background: linear-gradient(135deg, rgb(34 211 238 / 0.16), rgb(139 92 246 / 0.18));
+  border: 1px solid rgb(34 211 238 / 0.4);
+  box-shadow: 0 0 24px -6px rgb(34 211 238 / 0.55);
+  flex-shrink: 0;
+}
+.pay-title { font-size: clamp(24px, 3vw, 34px); font-weight: 750; }
+.pay-body { color: #c8cdd8; font-size: 16px; max-width: 640px; }
+.pay-list { list-style: none; display: grid; gap: 8px; }
+.pay-list li { position: relative; padding-left: 18px; color: var(--muted); font-size: 14.5px; }
+.pay-list li::before { content: '›'; position: absolute; left: 2px; color: var(--cyan); font-weight: 700; }
+.pay-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
+.pay-visual {
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: rgb(5 6 10 / 0.88);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  box-shadow: 0 20px 50px -24px rgb(139 92 246 / 0.4);
+}
+.pay-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  font-size: 12px;
+  color: var(--faint);
+}
+.pay-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px rgb(52 211 153 / 0.8);
+}
+.pay-steps { display: grid; gap: 10px; padding: 16px; }
+.pay-step {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgb(255 255 255 / 0.02);
+}
+.pay-step-label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
+.pay-step-val { font-size: 13px; }
+
 /* ---------- Experience ---------- */
 .timeline { margin-top: 44px; border-left: 1px solid var(--border-strong); display: grid; gap: 34px; padding-left: 28px; }
 .job { position: relative; }

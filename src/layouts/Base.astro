@@ -11,19 +11,23 @@ import { getImage } from 'astro:assets';
 interface Props {
   lang: Lang;
   title?: string;
+  description?: string;
+  enPath?: string;
+  esPath?: string;
   noindex?: boolean;
 }
 
-const { lang, title, noindex = false } = Astro.props;
+const { lang, title, description, enPath, esPath, noindex = false } = Astro.props;
 const ui = useUi(lang);
 const site = Astro.site ?? new URL('https://wilfredo.deviasv.com');
 const path = Astro.url.pathname.replace(/^\/es(\/|$)/, '/');
-const enUrl = new URL(path, site).href;
-const esUrl = new URL(path === '/' ? '/es/' : `/es${path}`, site).href;
+const enUrl = new URL(enPath ?? path, site).href;
+const esUrl = new URL(esPath ?? (path === '/' ? '/es/' : `/es${path}`), site).href;
 const canonical = lang === 'es' ? esUrl : enUrl;
 const og = await getImage({ src: profileImg, width: 400, height: 400, format: 'jpeg' });
 const ogUrl = new URL(og.src, site).href;
 const pageTitle = title ?? ui.metaTitle;
+const pageDesc = description ?? ui.metaDescription;
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -44,7 +48,7 @@ const personLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={ui.metaDescription} />
+    <meta name="description" content={pageDesc} />
     <meta name="theme-color" content="#07080c" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
@@ -53,7 +57,7 @@ const personLd = {
     <link rel="alternate" hreflang="x-default" href={enUrl} />
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={ui.metaDescription} />
+    <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogUrl} />
     <meta property="og:locale" content={lang === 'es' ? 'es_SV' : 'en_US'} />

@@ -1,0 +1,348 @@
+---
+import { Image } from 'astro:assets';
+import type { Lang } from '../data/site';
+import { profile, t } from '../data/site';
+import profileImg from '../assets/profile.png';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const otherHref = isEs ? '/card' : '/tarjeta';
+const homeHref = isEs ? '/es/' : '/';
+const waText = encodeURIComponent(
+  isEs
+    ? 'Hola Wilfredo, vi tu tarjeta de presentación y me gustaría conversar contigo.'
+    : 'Hi Wilfredo, I saw your digital business card and would like to connect.',
+);
+const waUrl = `${profile.whatsapp.url}?text=${waText}`;
+
+const copy = {
+  badge: isEs ? 'Disponible para proyectos y asesoría' : 'Available for projects & consulting',
+  bio: isEs
+    ? 'Ingeniero en Sistemas con +12 años creando software empresarial: facturación electrónica (DTE), contabilidad, SaaS, pasarelas de pago para empresas/PYMEs y soluciones potenciadas con IA.'
+    : 'Systems Engineer with 12+ years building production software: e-invoicing (DTE), accounting, SaaS, payment gateways for businesses & SMEs, and AI-augmented engineering.',
+  waCta: isEs ? 'Escribir por WhatsApp' : 'Message on WhatsApp',
+  saveCta: isEs ? 'Guardar contacto' : 'Save contact',
+  emailCta: isEs ? 'Enviar correo' : 'Send email',
+  whatTitle: isEs ? 'En qué te puedo ayudar' : 'What I build & offer',
+  services: isEs
+    ? [
+        'Facturación electrónica (DTE) y sistemas fiscales',
+        'Pasarelas de pago en línea para empresas y PYMEs',
+        'Sistemas contables, SaaS y aplicaciones a la medida',
+        'Backends, bases de datos (PostgreSQL, Oracle) y APIs',
+        'Flujos de desarrollo con IA y capacitación técnica',
+      ]
+    : [
+        'Electronic invoicing (DTE) & regulated tax systems',
+        'Online payment gateways for businesses & SMEs',
+        'Multi-company accounting, SaaS & custom web apps',
+        'Enterprise backends, databases (PostgreSQL, Oracle) & APIs',
+        'AI-augmented engineering workflows & technical training',
+      ],
+  linksTitle: isEs ? 'Enlaces directos' : 'Direct links',
+  portfolioLabel: isEs ? 'Portafolio completo' : 'Full portfolio',
+  shareBtn: isEs ? 'Compartir tarjeta' : 'Share card',
+  copied: isEs ? 'Enlace copiado ✓' : 'Link copied ✓',
+  switchLabel: isEs ? 'EN' : 'ES',
+};
+---
+
+<main id="main" class="card-page">
+  <div class="vcard-shell">
+    <div class="vcard-topbar">
+      <a class="vcard-back mono" href={homeHref}>← {isEs ? 'Portafolio' : 'Portfolio'}</a>
+      <a class="lang" href={otherHref} hreflang={isEs ? 'en' : 'es'}>{copy.switchLabel}</a>
+    </div>
+
+    <article class="vcard">
+      <div class="vcard-banner" aria-hidden="true"></div>
+
+      <div class="vcard-hero">
+        <div class="vcard-avatar">
+          <Image src={profileImg} alt={profile.name} width={160} height={160} loading="eager" fetchpriority="high" />
+        </div>
+        <span class="status vcard-status"><i class="pulse"></i>{copy.badge}</span>
+        <h1>{profile.name}</h1>
+        <p class="vcard-role grad-text mono">{t(profile.role, lang)}</p>
+        <p class="vcard-company">DevIA · {t(profile.location, lang)}</p>
+        <p class="vcard-bio">{copy.bio}</p>
+      </div>
+
+      <div class="vcard-actions">
+        <a class="btn btn-primary vcard-btn-full" href={waUrl} target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          {copy.waCta}
+        </a>
+        <div class="vcard-btn-row">
+          <a class="btn" href="/wilfredo-melgar.vcf" download="Wilfredo-Melgar.vcf">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <line x1="19" y1="8" x2="19" y2="14"></line>
+              <line x1="22" y1="11" x2="16" y2="11"></line>
+            </svg>
+            {copy.saveCta}
+          </a>
+          <a class="btn" href={`mailto:${profile.email}`}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            {copy.emailCta}
+          </a>
+        </div>
+      </div>
+
+      <section class="vcard-block">
+        <h2 class="mono">{copy.whatTitle}</h2>
+        <ul class="vcard-services">
+          {copy.services.map((s) => <li>{s}</li>)}
+        </ul>
+      </section>
+
+      <section class="vcard-block">
+        <h2 class="mono">{copy.linksTitle}</h2>
+        <div class="vcard-links">
+          <a href={waUrl} target="_blank" rel="noopener">
+            <span>{profile.whatsapp.display}</span>
+            <small class="mono">whatsapp ↗</small>
+          </a>
+          <a href={`mailto:${profile.email}`}>
+            <span>{profile.email}</span>
+            <small class="mono">email ↗</small>
+          </a>
+          <a href={homeHref}>
+            <span>{copy.portfolioLabel}</span>
+            <small class="mono">wilfredo.deviasv.com</small>
+          </a>
+          <a href={profile.links.company} target="_blank" rel="noopener">
+            <span>DevIA</span>
+            <small class="mono">deviasv.com ↗</small>
+          </a>
+          <a href="https://facturapremium.com" target="_blank" rel="noopener">
+            <span>Factura Premium</span>
+            <small class="mono">facturapremium.com ↗</small>
+          </a>
+          <a href={profile.links.linkedin} target="_blank" rel="noopener">
+            <span>LinkedIn</span>
+            <small class="mono">in/wilfredo-melgar ↗</small>
+          </a>
+          <a href={profile.links.github} target="_blank" rel="noopener">
+            <span>GitHub</span>
+            <small class="mono">@deathwilliam ↗</small>
+          </a>
+        </div>
+      </section>
+
+      <div class="vcard-footer">
+        <button class="btn vcard-share" type="button" data-share data-copied={copy.copied}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>{copy.shareBtn}</span>
+        </button>
+      </div>
+    </article>
+  </div>
+</main>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-share]');
+  if (btn) {
+    const labelEl = btn.querySelector('span')!;
+    const original = labelEl.textContent ?? '';
+    const copied = btn.dataset.copied ?? 'Copied';
+    btn.addEventListener('click', async () => {
+      const url = location.href;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: document.title, url });
+          return;
+        }
+        await navigator.clipboard.writeText(url);
+        labelEl.textContent = copied;
+        setTimeout(() => { labelEl.textContent = original; }, 2000);
+      } catch {
+        // User cancelled share dialog
+      }
+    });
+  }
+</script>
+
+<style>
+  .card-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px 56px;
+  }
+  .vcard-shell {
+    width: 100%;
+    max-width: 460px;
+    display: grid;
+    gap: 14px;
+  }
+  .vcard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .vcard-back {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .vcard-back:hover { color: var(--cyan); }
+
+  .vcard {
+    position: relative;
+    border-radius: 24px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: 0 32px 80px -36px rgb(34 211 238 / 0.35), 0 24px 60px -30px rgb(139 92 246 / 0.35);
+  }
+  .vcard-banner {
+    height: 108px;
+    background:
+      radial-gradient(280px 140px at 15% 20%, rgb(34 211 238 / 0.35), transparent 70%),
+      radial-gradient(280px 140px at 88% 10%, rgb(139 92 246 / 0.38), transparent 70%),
+      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
+      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
+      var(--bg-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .vcard-hero {
+    padding: 0 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -54px;
+  }
+  .vcard-avatar {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    border-radius: 26px;
+    padding: 3px;
+    background: var(--grad);
+    box-shadow: 0 12px 32px -10px rgb(34 211 238 / 0.55);
+  }
+  .vcard-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 23px;
+    object-fit: cover;
+    background: var(--bg);
+  }
+  .vcard-status { margin-top: 14px; font-size: 12px; padding: 5px 12px; }
+  .vcard-hero h1 { font-size: 28px; font-weight: 800; margin-top: 12px; }
+  .vcard-role { font-size: 13px; margin-top: 6px; }
+  .vcard-company { font-size: 13px; color: var(--faint); margin-top: 4px; }
+  .vcard-bio {
+    margin-top: 14px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: #c8cdd8;
+  }
+
+  .vcard-actions {
+    padding: 0 24px 22px;
+    display: grid;
+    gap: 10px;
+  }
+  .vcard-btn-full { justify-content: center; width: 100%; }
+  .vcard-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .vcard-btn-row .btn {
+    justify-content: center;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+  @media (max-width: 380px) {
+    .vcard-btn-row { grid-template-columns: 1fr; }
+  }
+
+  .vcard-block {
+    padding: 18px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .vcard-block h2 {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+  .vcard-services {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .vcard-services li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .vcard-services li::before {
+    content: '›';
+    position: absolute;
+    left: 2px;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .vcard-links {
+    display: grid;
+    gap: 8px;
+  }
+  .vcard-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    font-size: 14px;
+    transition: border-color .2s, transform .15s;
+  }
+  .vcard-links a:hover {
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+  }
+  .vcard-links small {
+    color: var(--faint);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .vcard-footer {
+    padding: 16px 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .vcard-share {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+  }
+</style>

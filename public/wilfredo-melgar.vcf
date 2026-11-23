@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Melgar;Wilfredo;;;
+FN:Wilfredo Melgar
+ORG:DevIA (Sistemas Devia)
+TITLE:Founder & Senior Software Engineer
+TEL;TYPE=CELL,VOICE,WHATSAPP:+50379763213
+EMAIL;TYPE=INTERNET,WORK:soporte@deviasv.com
+URL:https://wilfredo.deviasv.com
+URL;TYPE=WORK:https://deviasv.com
+ADR;TYPE=WORK:;;San Salvador;;;El Salvador
+NOTE:Software empresarial, facturacion electronica (DTE), contabilidad, SaaS y pasarelas de pago para empresas y PYMEs.
+END:VCARD
