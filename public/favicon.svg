@@ -1,1 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#0b0d14"/><path d="M14 20l6 24 6-16 6 16 6-24" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="20" r="4" fill="#22d3ee"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="wm-grad" x1="10" y1="16" x2="54" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="52%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="wm-border" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="wm-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(18 14) rotate(45) scale(48)">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0b0d14" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0b0d14"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#wm-glow)"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" stroke="url(#wm-border)" stroke-width="2"/>
+  <path
+    d="M12 20L18 44L25 27L32 44L38 20L45 35L52 20V44"
+    stroke="url(#wm-grad)"
+    stroke-width="4.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

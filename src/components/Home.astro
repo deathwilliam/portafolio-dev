@@ -23,9 +23,12 @@ const year = new Date().getFullYear();
 
 <header class="header">
   <div class="wrap">
-    <a class="brand" href={lang === 'en' ? '/' : '/es/'}>
-      <img src="/favicon.svg" alt="" width="28" height="28" />
-      <span>{profile.name}</span>
+    <a class="brand" href={lang === 'en' ? '/' : '/es/'} aria-label={`WilDev — ${profile.name}`}>
+      <img src="/favicon.svg" alt="" width="34" height="34" />
+      <span class="brand-text">
+        <span class="brand-name">Wil<span class="grad-text">Dev</span></span>
+        <span class="brand-sub mono">{profile.name}</span>
+      </span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#ai">{ui.nav.ai}</a>

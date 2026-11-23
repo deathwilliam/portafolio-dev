@@ -54,7 +54,10 @@ const copy = {
 <main id="main" class="card-page">
   <div class="vcard-shell">
     <div class="vcard-topbar">
-      <a class="vcard-back mono" href={homeHref}>← {isEs ? 'Portafolio' : 'Portfolio'}</a>
+      <a class="vcard-back" href={homeHref}>
+        <img src="/favicon.svg" alt="" width="24" height="24" />
+        <span class="vcard-brand">Wil<span class="grad-text">Dev</span></span>
+      </a>
       <a class="lang" href={otherHref} hreflang={isEs ? 'en' : 'es'}>{copy.switchLabel}</a>
     </div>
 
@@ -199,11 +202,17 @@ const copy = {
     justify-content: space-between;
   }
   .vcard-back {
-    font-size: 13px;
-    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
     text-decoration: none;
   }
-  .vcard-back:hover { color: var(--cyan); }
+  .vcard-back img { width: 24px; height: 24px; }
+  .vcard-back:hover { opacity: 0.9; }
 
   .vcard {
     position: relative;
